@@ -1,4 +1,4 @@
-import { createClient, createWalletClient, http } from "viem";
+import { createWalletClient, http } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
 import { convertStringToLoanName } from "../src/common/utils/lending.js";
@@ -19,23 +19,13 @@ import {
 import type { FolksCoreConfig, MessageAdapters, Nonce, AccountId } from "../src/index.js";
 
 async function main() {
+  const network = NetworkType.TESTNET;
   const chain = FOLKS_CHAIN_ID.AVALANCHE_FUJI;
-  const jsonRpcAddress = "https://my-rpc.avax-testnet.network/<API_KEY>";
 
-  const folksConfig: FolksCoreConfig = {
-    network: NetworkType.TESTNET,
-    provider: {
-      evm: {
-        [chain]: createClient({
-          chain: CHAIN_VIEM[chain],
-          transport: http(jsonRpcAddress),
-        }),
-      },
-    },
-  };
+  const folksConfig: FolksCoreConfig = { network, provider: { evm: {} } };
 
   FolksCore.init(folksConfig);
-  FolksCore.setNetwork(NetworkType.TESTNET);
+  FolksCore.setNetwork(network);
 
   const nonce: Nonce = getRandomBytes(BYTES4_LENGTH) as Nonce;
 
@@ -45,13 +35,13 @@ async function main() {
   const signer = createWalletClient({
     account,
     chain: CHAIN_VIEM[chain],
-    transport: http(jsonRpcAddress),
+    transport: http(),
   });
 
   const { adapterIds, returnAdapterIds } = getSupportedMessageAdapters({
     action: Action.CreateLoan,
     messageAdapterParamType: MessageAdapterParamsType.Data,
-    network: NetworkType.TESTNET,
+    network,
     sourceFolksChainId: chain,
   });
 
@@ -62,20 +52,15 @@ async function main() {
 
   FolksCore.setFolksSigner({ signer, folksChainId: chain });
 
-  const accountId = "0x7d6...b66" as AccountId; //Your xChainApp account id
+  const accountId = "0x7d6...b66" as AccountId; // Your xChainApp account id
+  const loanType = LoanTypeId.GENERAL; // LoanTypeId.DEPOSIT for deposits
   const loanName = convertStringToLoanName("Test Loan");
 
-  const prepareCreateLoanCall = await FolksLoan.prepare.createLoan(
-    accountId,
-    nonce,
-    LoanTypeId.GENERAL, // LoanTypeId.DEPOSIT for deposits
-    loanName,
-    adapters,
-  );
+  const prepareCreateLoanCall = await FolksLoan.prepare.createLoan(accountId, nonce, loanType, loanName, adapters);
   const createLoanCallRes = await FolksLoan.write.createLoan(
     accountId,
     nonce,
-    LoanTypeId.GENERAL, // LoanTypeId.DEPOSIT for deposits
+    loanType,
     loanName,
     prepareCreateLoanCall,
   );

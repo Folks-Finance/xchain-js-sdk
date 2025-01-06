@@ -14,18 +14,19 @@ import {
   buildAccountId,
   convertToGenericAddress,
   ChainType,
+  CHAIN_VIEM,
 } from "../src/index.js";
 
 import type { EvmAddress, FolksCoreConfig, MessageAdapters, Nonce } from "../src/index.js";
 
 async function main() {
-  const folksConfig: FolksCoreConfig = {
-    network: NetworkType.TESTNET,
-    provider: { evm: {} },
-  };
+  const network = NetworkType.TESTNET;
+  const chain = FOLKS_CHAIN_ID.AVALANCHE_FUJI;
+
+  const folksConfig: FolksCoreConfig = { network, provider: { evm: {} } };
 
   FolksCore.init(folksConfig);
-  FolksCore.setNetwork(NetworkType.TESTNET);
+  FolksCore.setNetwork(network);
 
   const nonce: Nonce = getRandomBytes(BYTES4_LENGTH) as Nonce;
 
@@ -35,14 +36,15 @@ async function main() {
 
   const signer = createWalletClient({
     account,
+    chain: CHAIN_VIEM[chain],
     transport: http(),
   });
 
   const { adapterIds, returnAdapterIds } = getSupportedMessageAdapters({
     action: Action.CreateAccount,
     messageAdapterParamType: MessageAdapterParamsType.Data,
-    network: NetworkType.TESTNET,
-    sourceFolksChainId: FOLKS_CHAIN_ID.AVALANCHE_FUJI,
+    network,
+    sourceFolksChainId: chain,
   });
 
   const adapters: MessageAdapters = {
@@ -50,10 +52,7 @@ async function main() {
     returnAdapterId: returnAdapterIds[0],
   };
 
-  FolksCore.setFolksSigner({
-    signer,
-    folksChainId: FOLKS_CHAIN_ID.AVALANCHE_FUJI,
-  });
+  FolksCore.setFolksSigner({ signer, folksChainId: chain });
 
   // read
   const folksChain = FolksCore.getSelectedFolksChain();

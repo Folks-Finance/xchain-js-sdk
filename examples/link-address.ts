@@ -1,4 +1,4 @@
-import { createClient, createWalletClient, http } from "viem";
+import { createWalletClient, http } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
 import {
@@ -17,29 +17,14 @@ import {
 import type { AccountId, EvmAddress, FolksCoreConfig, MessageAdapters } from "../src/index.js";
 
 async function main() {
+  const network = NetworkType.TESTNET;
   const chain = FOLKS_CHAIN_ID.AVALANCHE_FUJI;
   const chainToLink = FOLKS_CHAIN_ID.BSC_TESTNET;
-  const jsonRpcAddress = "https://my-rpc.avax-testnet.network/<API_KEY>";
-  const jsonRpcAddressToLink = "https://my-rpc.bsc-testnet.network/<API_KEY>";
 
-  const folksConfig: FolksCoreConfig = {
-    network: NetworkType.TESTNET,
-    provider: {
-      evm: {
-        [chain]: createClient({
-          chain: CHAIN_VIEM[chain],
-          transport: http(jsonRpcAddress),
-        }),
-        [chainToLink]: createClient({
-          chain: CHAIN_VIEM[chainToLink],
-          transport: http(jsonRpcAddressToLink),
-        }),
-      },
-    },
-  };
+  const folksConfig: FolksCoreConfig = { network, provider: { evm: {} } };
 
   FolksCore.init(folksConfig);
-  FolksCore.setNetwork(NetworkType.TESTNET);
+  FolksCore.setNetwork(network);
 
   // invite
   const MNEMONIC = "your mnemonic here";
@@ -48,13 +33,13 @@ async function main() {
   const signer = createWalletClient({
     account,
     chain: CHAIN_VIEM[chain],
-    transport: http(jsonRpcAddress),
+    transport: http(),
   });
 
   const chainAdapters = getSupportedMessageAdapters({
     action: Action.InviteAddress,
     messageAdapterParamType: MessageAdapterParamsType.Data,
-    network: NetworkType.TESTNET,
+    network,
     sourceFolksChainId: chain,
   });
 
@@ -82,13 +67,13 @@ async function main() {
   const signerToLink = createWalletClient({
     account: accountToLink,
     chain: CHAIN_VIEM[chainToLink],
-    transport: http(jsonRpcAddressToLink),
+    transport: http(),
   });
 
   const chainAdaptersToLink = getSupportedMessageAdapters({
     action: Action.AcceptInviteAddress,
     messageAdapterParamType: MessageAdapterParamsType.Data,
-    network: NetworkType.TESTNET,
+    network,
     sourceFolksChainId: chainToLink,
   });
 
@@ -102,9 +87,9 @@ async function main() {
     folksChainId: chainToLink,
   });
 
-  const acceptInviteCall = await FolksAccount.prepare.acceptInvite(accountId, adaptersToLink);
+  const prepareAcceptInviteCall = await FolksAccount.prepare.acceptInvite(accountId, adaptersToLink);
 
-  const acceptInviteRes = await FolksAccount.write.acceptInvite(accountId, acceptInviteCall);
+  const acceptInviteRes = await FolksAccount.write.acceptInvite(accountId, prepareAcceptInviteCall);
   console.log(`Accept transaction ID: ${acceptInviteRes}`);
 }
 

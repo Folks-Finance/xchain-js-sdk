@@ -1,5 +1,5 @@
-import { multiply, divide } from "dnum";
-import { createClient, createWalletClient, http, parseUnits } from "viem";
+import * as dn from "dnum";
+import { createWalletClient, http, parseUnits } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
 import {
@@ -18,24 +18,14 @@ import {
 import type { FolksCoreConfig, MessageAdapters, AccountId, LoanId } from "../src/index.js";
 
 async function main() {
+  const network = NetworkType.TESTNET;
   const chain = FOLKS_CHAIN_ID.BSC_TESTNET;
   const tokenId = TESTNET_FOLKS_TOKEN_ID.BNB;
-  const jsonRpcAddress = "https://my-rpc.avax-testnet.network/<API_KEY>";
 
-  const folksConfig: FolksCoreConfig = {
-    network: NetworkType.TESTNET,
-    provider: {
-      evm: {
-        [chain]: createClient({
-          chain: CHAIN_VIEM[chain],
-          transport: http(jsonRpcAddress),
-        }),
-      },
-    },
-  };
+  const folksConfig: FolksCoreConfig = { network, provider: { evm: {} } };
 
   FolksCore.init(folksConfig);
-  FolksCore.setNetwork(NetworkType.TESTNET);
+  FolksCore.setNetwork(network);
 
   const MNEMONIC = "your mnemonic here";
   const account = mnemonicToAccount(MNEMONIC);
@@ -43,13 +33,13 @@ async function main() {
   const signer = createWalletClient({
     account,
     chain: CHAIN_VIEM[chain],
-    transport: http(jsonRpcAddress),
+    transport: http(),
   });
 
   const { adapterIds, returnAdapterIds } = getSupportedMessageAdapters({
     action: Action.Borrow,
     messageAdapterParamType: MessageAdapterParamsType.ReceiveToken,
-    network: NetworkType.TESTNET,
+    network,
     sourceFolksChainId: chain,
     destFolksChainId: chain,
     folksTokenId: tokenId,
@@ -67,15 +57,14 @@ async function main() {
   const amountToBorrow = parseUnits("0.0005", 18); // 0.0005 BNB (BNB has 18 decimals)
   const poolInfo = await FolksPool.read.poolInfo(tokenId);
   const interestRate = poolInfo.stableBorrowData.interestRate[0];
-  const stableRateSlippagePercent = 5; // 5% max deviation from current rate
-  const [maxStableRate] = divide(multiply(interestRate, 100 + stableRateSlippagePercent), 100);
+  const [maxStableRate] = dn.mul(interestRate, 1.05); // 5% max deviation from current rate
 
   const prepareBorrowCall = await FolksLoan.prepare.borrow(
     accountId,
     loanId,
     tokenId,
     amountToBorrow,
-    maxStableRate,
+    maxStableRate, // Use BigInt(0) for variable rate
     chain,
     adapters,
   );
@@ -84,7 +73,7 @@ async function main() {
     loanId,
     tokenId,
     amountToBorrow,
-    maxStableRate,
+    maxStableRate, // Use BigInt(0) for variable rate
     chain,
     prepareBorrowCall,
   );
