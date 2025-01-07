@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.50
+
+### Patch Changes
+
+- [#209](https://github.com/Folks-Finance/xchain-js-sdk/pull/209) [`4d125ba`](https://github.com/Folks-Finance/xchain-js-sdk/commit/4d125ba33a22bc628be2fc04cb2b5cdf185760a8) Thanks [@moshenskyDV](https://github.com/moshenskyDV)! - Added more examples
+
 ## 0.0.49
 
 ### Patch Changes
