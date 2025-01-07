@@ -1,36 +1,31 @@
-import { createWalletClient, http } from "viem";
+import { createWalletClient, http, parseUnits } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
 import {
   NetworkType,
   FolksCore,
-  getRandomBytes,
-  FolksAccount,
+  FolksLoan,
   FOLKS_CHAIN_ID,
-  BYTES4_LENGTH,
   getSupportedMessageAdapters,
   Action,
   MessageAdapterParamsType,
-  buildAccountId,
-  convertToGenericAddress,
-  ChainType,
+  LoanTypeId,
   CHAIN_VIEM,
+  TESTNET_FOLKS_TOKEN_ID,
 } from "../src/index.js";
 
-import type { EvmAddress, FolksCoreConfig, MessageAdapters, Nonce } from "../src/index.js";
+import type { FolksCoreConfig, MessageAdapters, AccountId, LoanId } from "../src/index.js";
 
 async function main() {
   const network = NetworkType.TESTNET;
   const chain = FOLKS_CHAIN_ID.AVALANCHE_FUJI;
+  const tokenId = TESTNET_FOLKS_TOKEN_ID.AVAX;
 
   const folksConfig: FolksCoreConfig = { network, provider: { evm: {} } };
 
   FolksCore.init(folksConfig);
   FolksCore.setNetwork(network);
 
-  const nonce: Nonce = getRandomBytes(BYTES4_LENGTH) as Nonce;
-
-  // write
   const MNEMONIC = "your mnemonic here";
   const account = mnemonicToAccount(MNEMONIC);
 
@@ -41,10 +36,11 @@ async function main() {
   });
 
   const { adapterIds, returnAdapterIds } = getSupportedMessageAdapters({
-    action: Action.CreateAccount,
-    messageAdapterParamType: MessageAdapterParamsType.Data,
+    action: Action.Deposit,
+    messageAdapterParamType: MessageAdapterParamsType.SendToken,
     network,
     sourceFolksChainId: chain,
+    folksTokenId: tokenId,
   });
 
   const adapters: MessageAdapters = {
@@ -54,18 +50,27 @@ async function main() {
 
   FolksCore.setFolksSigner({ signer, folksChainId: chain });
 
-  // read
-  const folksChain = FolksCore.getSelectedFolksChain();
-  const userAddress = convertToGenericAddress(account.address as EvmAddress, ChainType.EVM);
-  const accountId = buildAccountId(userAddress, folksChain.folksChainId, nonce);
-  const accountInfo = await FolksAccount.read.accountInfo(accountId);
-  console.log(accountInfo);
+  const accountId = "0x7d6...b66" as AccountId; // Your xChainApp account id
+  const loanId = "0x166...c12" as LoanId; // Your loan id
+  const loanType = LoanTypeId.GENERAL; // LoanTypeId.DEPOSIT for deposits
+  const amountToDeposit = parseUnits("0.1", 18); // 0.1 AVAX (AVAX has 18 decimals)
 
-  // write
-  const prepareCreateAccountCall = await FolksAccount.prepare.createAccount(nonce, adapters);
-  const createAccountCallRes = await FolksAccount.write.createAccount(nonce, prepareCreateAccountCall);
-
-  console.log(createAccountCallRes);
+  const prepareDepositCall = await FolksLoan.prepare.deposit(
+    accountId,
+    loanId,
+    loanType,
+    tokenId,
+    amountToDeposit,
+    adapters,
+  );
+  const createDepositCallRes = await FolksLoan.write.deposit(
+    accountId,
+    loanId,
+    amountToDeposit,
+    true,
+    prepareDepositCall,
+  );
+  console.log(`Transaction ID: ${createDepositCallRes}`);
 }
 
 main()

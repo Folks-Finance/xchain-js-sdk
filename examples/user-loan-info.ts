@@ -15,8 +15,10 @@ import {
 import type { AccountId, FolksCoreConfig, PoolInfo, FolksTokenId } from "../src/index.js";
 
 async function main() {
+  const network = NetworkType.TESTNET;
+
   const folksConfig: FolksCoreConfig = {
-    network: NetworkType.TESTNET,
+    network,
     provider: {
       evm: {
         [FOLKS_CHAIN_ID.AVALANCHE_FUJI]: createClient({
@@ -28,7 +30,7 @@ async function main() {
   };
 
   FolksCore.init(folksConfig);
-  FolksCore.setNetwork(NetworkType.TESTNET);
+  FolksCore.setNetwork(network);
 
   const poolsInfo: Partial<Record<FolksTokenId, PoolInfo>> = {};
   await Promise.all(
@@ -42,7 +44,7 @@ async function main() {
   };
   const oraclePrices = await FolksOracle.read.oraclePrices();
 
-  const accountId: AccountId = "my account id" as AccountId;
+  const accountId: AccountId = "0x7d6...b66" as AccountId;
 
   const loanIds = await FolksLoan.read.userLoansIds(accountId, [LoanTypeId.GENERAL]);
   const generalLoansIds = loanIds.get(LoanTypeId.GENERAL);
