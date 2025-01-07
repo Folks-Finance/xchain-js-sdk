@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.51
+
+### Patch Changes
+
+- [#211](https://github.com/Folks-Finance/xchain-js-sdk/pull/211) [`9857f09`](https://github.com/Folks-Finance/xchain-js-sdk/commit/9857f096642bfa88a02a6b05fdb7ca00acaa429e) Thanks [@palace22](https://github.com/palace22)! - Fixed SendToken action message direction
+
 ## 0.0.50
 
 ### Patch Changes
