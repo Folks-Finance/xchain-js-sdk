@@ -11,6 +11,7 @@ import { FolksEvmGmp } from "../../chains/evm/spoke/modules/index.js";
 import { getBridgeRouterSpokeContract } from "../../chains/evm/spoke/utils/contract.js";
 import { ChainType } from "../../common/types/chain.js";
 import { MessageDirection } from "../../common/types/gmp.js";
+import { Action } from "../../common/types/message.js";
 import {
   assertAdapterSupportsCrossChainToken,
   assertAdapterSupportsDataMessage,
@@ -57,6 +58,8 @@ export const prepare = {
   ) {
     const folksChain = FolksCore.getSelectedFolksChain();
     const payload = decodeMessagePayload(message.payload);
+    const messageDirection =
+      isHub || payload.action === Action.SendToken ? MessageDirection.HubToSpoke : MessageDirection.SpokeToHub;
 
     const userAddress = getSignerGenericAddress({
       signer: FolksCore.getFolksSigner().signer,
@@ -65,7 +68,7 @@ export const prepare = {
 
     if (isHub) {
       assertHubChainSelected(folksChain.folksChainId, folksChain.network);
-      assertRetryableAction(payload.action, MessageDirection.HubToSpoke);
+      assertRetryableAction(payload.action, messageDirection);
 
       const hubChain = getHubChain(folksChain.network);
       const provider = FolksCore.getProvider<ChainType.EVM>(folksChain.folksChainId);
@@ -94,7 +97,7 @@ export const prepare = {
         getHubChain(folksChain.network),
       );
     } else {
-      assertRetryableAction(payload.action, MessageDirection.SpokeToHub);
+      assertRetryableAction(payload.action, messageDirection);
 
       switch (folksChain.chainType) {
         case ChainType.EVM: {
