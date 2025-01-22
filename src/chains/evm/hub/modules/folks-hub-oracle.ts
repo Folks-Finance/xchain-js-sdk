@@ -5,9 +5,18 @@ import { getOracleManagerContract } from "../utils/contract.js";
 
 import type { NetworkType } from "../../../../common/types/chain.js";
 import type { OracleManagerAbi } from "../constants/abi/oracle-manager-abi.js";
-import type { OraclePrices } from "../types/oracle.js";
+import type { OraclePrice, OraclePrices } from "../types/oracle.js";
 import type { HubTokenData } from "../types/token.js";
 import type { Client, ContractFunctionParameters, ReadContractReturnType } from "viem";
+
+export async function getOraclePrice(provider: Client, network: NetworkType, poolId: number): Promise<OraclePrice> {
+  const hubChain = getHubChain(network);
+
+  const oracleManager = getOracleManagerContract(provider, hubChain.oracleManagerAddress);
+
+  const { price, decimals } = await oracleManager.read.processPriceFeed([poolId]);
+  return { price: [price, 18], decimals };
+}
 
 export async function getOraclePrices(
   provider: Client,
