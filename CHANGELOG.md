@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.52
+
+### Patch Changes
+
+- [#214](https://github.com/Folks-Finance/xchain-js-sdk/pull/214) [`cd4eaff`](https://github.com/Folks-Finance/xchain-js-sdk/commit/cd4eaffb221b8c2eef5ef808937632d19044a8cf) Thanks [@palace22](https://github.com/palace22)! - Added get oracle price util
+
+- [#214](https://github.com/Folks-Finance/xchain-js-sdk/pull/214) [`cd4eaff`](https://github.com/Folks-Finance/xchain-js-sdk/commit/cd4eaffb221b8c2eef5ef808937632d19044a8cf) Thanks [@palace22](https://github.com/palace22)! - Refactored get oracle prices to accept an array
+
 ## 0.0.51
 
 ### Patch Changes
