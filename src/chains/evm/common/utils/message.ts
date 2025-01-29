@@ -1,6 +1,7 @@
-import { concat, isHex } from "viem";
+import { concat, encodeFunctionData, getContract, isHex } from "viem";
 
 import { BYTES32_LENGTH, UINT16_LENGTH, UINT256_LENGTH, UINT8_LENGTH } from "../../../../common/constants/bytes.js";
+import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { FINALITY } from "../../../../common/constants/message.js";
 import { ChainType } from "../../../../common/types/chain.js";
 import { Action } from "../../../../common/types/message.js";
@@ -9,6 +10,8 @@ import { convertFromGenericAddress, isGenericAddress } from "../../../../common/
 import { convertBooleanToByte, convertNumberToBytes, getRandomBytes } from "../../../../common/utils/bytes.js";
 import { isAccountId } from "../../../../common/utils/lending.js";
 import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
+import { ArbitrumNodeInterfaceAbi } from "../constants/abi/arbitrum-node-interface-abi.js";
+import { ARBITRUM_NODE_INTERFACE } from "../constants/address.js";
 
 import {
   getCCIPDataAdapterContract as getCcipDataAdapterContract,
@@ -416,31 +419,49 @@ export async function estimateEvmWormholeDataGasLimit(
 ) {
   const messageId = getRandomBytes(BYTES32_LENGTH);
   const wormholeDataAdapter = getWormholeDataAdapterContract(provider, wormholeDataAdapterAddress);
-  return await wormholeDataAdapter.estimateGas.receiveWormholeMessages(
-    [
-      encodeEvmPayloadWithMetadata(
-        messageBuilderParams.adapters.returnAdapterId,
-        returnGasLimit,
-        messageBuilderParams.sender,
-        messageBuilderParams.handler,
-        buildMessagePayload(
-          messageBuilderParams.action,
-          messageBuilderParams.accountId,
-          messageBuilderParams.userAddress,
-          buildEvmMessageData(messageBuilderParams),
-        ),
+
+  const args = [
+    encodeEvmPayloadWithMetadata(
+      messageBuilderParams.adapters.returnAdapterId,
+      returnGasLimit,
+      messageBuilderParams.sender,
+      messageBuilderParams.handler,
+      buildMessagePayload(
+        messageBuilderParams.action,
+        messageBuilderParams.accountId,
+        messageBuilderParams.userAddress,
+        buildEvmMessageData(messageBuilderParams),
       ),
-      [],
-      sourceWormholeDataAdapterAddress,
-      sourceWormholeChainId,
-      messageId,
-    ],
-    {
-      value: receiverValue,
-      account: wormholeRelayer,
-      stateOverride: [{ address: wormholeRelayer, balance: receiverValue }, ...stateOverride],
-    },
-  );
+    ),
+    [],
+    sourceWormholeDataAdapterAddress,
+    sourceWormholeChainId,
+    messageId,
+  ] as const;
+
+  const gasLimit = await wormholeDataAdapter.estimateGas.receiveWormholeMessages(args, {
+    value: receiverValue,
+    account: wormholeRelayer,
+    stateOverride: [{ address: wormholeRelayer, balance: receiverValue }, ...stateOverride],
+  });
+
+  let gasToSubtract = 0n;
+  if (
+    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM ||
+    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA
+  ) {
+    gasToSubtract = await getArbitrumL1Estimation(
+      provider,
+      convertFromGenericAddress(wormholeDataAdapterAddress, ChainType.EVM),
+      encodeFunctionData({
+        abi: wormholeDataAdapter.abi,
+        functionName: "receiveWormholeMessages",
+        args,
+      }),
+    );
+  }
+
+  return gasLimit - gasToSubtract;
 }
 
 export async function estimateEvmCcipDataGasLimit(
@@ -471,12 +492,30 @@ export async function estimateEvmCcipDataGasLimit(
       ),
     ),
     destTokenAmounts: [],
-  };
+  } as const;
 
   const ccipDataAdapter = getCcipDataAdapterContract(provider, ccipDataAdapterAddress);
-  return await ccipDataAdapter.estimateGas.ccipReceive([ccipMessage], {
+  const gasLimit = await ccipDataAdapter.estimateGas.ccipReceive([ccipMessage], {
     account: ccipRouter,
   });
+
+  let gasToSubtract = 0n;
+  if (
+    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM ||
+    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA
+  ) {
+    gasToSubtract = await getArbitrumL1Estimation(
+      provider,
+      convertFromGenericAddress(ccipDataAdapterAddress, ChainType.EVM),
+      encodeFunctionData({
+        abi: ccipDataAdapter.abi,
+        functionName: "ccipReceive",
+        args: [ccipMessage],
+      }),
+    );
+  }
+
+  return gasLimit - gasToSubtract;
 }
 
 export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs: OverrideTokenData) {
@@ -499,4 +538,15 @@ export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs:
     ]);
   }
   return [];
+}
+
+async function getArbitrumL1Estimation(provider: Client, to: EvmAddress, data: Hex) {
+  const nodeInterfaceContract = getContract({
+    abi: ArbitrumNodeInterfaceAbi,
+    address: ARBITRUM_NODE_INTERFACE,
+    client: provider,
+  });
+
+  const { result } = await nodeInterfaceContract.simulate.gasEstimateL1Component([to, false, data]);
+  return result[0];
 }
