@@ -34,7 +34,7 @@ import type {
 } from "../../../../common/types/message.js";
 import type { FolksHubTokenType, FolksSpokeTokenType } from "../../../../common/types/token.js";
 import type { CCIPAny2EvmMessage } from "../types/gmp.js";
-import type { Client, Hex, StateOverride } from "viem";
+import type { Client, Hex, ContractFunctionArgs, StateOverride } from "viem";
 
 export const buildMessageParams = ({
   adapters,
@@ -420,7 +420,7 @@ export async function estimateEvmWormholeDataGasLimit(
   const messageId = getRandomBytes(BYTES32_LENGTH);
   const wormholeDataAdapter = getWormholeDataAdapterContract(provider, wormholeDataAdapterAddress);
 
-  const args = [
+  const args: ContractFunctionArgs<typeof wormholeDataAdapter.abi, "payable", "receiveWormholeMessages"> = [
     encodeEvmPayloadWithMetadata(
       messageBuilderParams.adapters.returnAdapterId,
       returnGasLimit,
@@ -445,21 +445,16 @@ export async function estimateEvmWormholeDataGasLimit(
     stateOverride: [{ address: wormholeRelayer, balance: receiverValue }, ...stateOverride],
   });
 
-  let gasToSubtract = 0n;
-  if (
-    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM ||
-    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA
-  ) {
-    gasToSubtract = await getArbitrumL1Estimation(
-      provider,
-      convertFromGenericAddress(wormholeDataAdapterAddress, ChainType.EVM),
-      encodeFunctionData({
-        abi: wormholeDataAdapter.abi,
-        functionName: "receiveWormholeMessages",
-        args,
-      }),
-    );
-  }
+  const gasToSubtract = await getGasToSubtract(
+    provider,
+    messageBuilderParams.destinationChainId,
+    convertFromGenericAddress(wormholeDataAdapterAddress, ChainType.EVM),
+    encodeFunctionData({
+      abi: wormholeDataAdapter.abi,
+      functionName: "receiveWormholeMessages",
+      args,
+    }),
+  );
 
   return gasLimit - gasToSubtract;
 }
@@ -499,21 +494,16 @@ export async function estimateEvmCcipDataGasLimit(
     account: ccipRouter,
   });
 
-  let gasToSubtract = 0n;
-  if (
-    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM ||
-    messageBuilderParams.destinationChainId === FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA
-  ) {
-    gasToSubtract = await getArbitrumL1Estimation(
-      provider,
-      convertFromGenericAddress(ccipDataAdapterAddress, ChainType.EVM),
-      encodeFunctionData({
-        abi: ccipDataAdapter.abi,
-        functionName: "ccipReceive",
-        args: [ccipMessage],
-      }),
-    );
-  }
+  const gasToSubtract = await getGasToSubtract(
+    provider,
+    messageBuilderParams.destinationChainId,
+    convertFromGenericAddress(ccipDataAdapterAddress, ChainType.EVM),
+    encodeFunctionData({
+      abi: ccipDataAdapter.abi,
+      functionName: "ccipReceive",
+      args: [ccipMessage],
+    }),
+  );
 
   return gasLimit - gasToSubtract;
 }
@@ -540,7 +530,22 @@ export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs:
   return [];
 }
 
-async function getArbitrumL1Estimation(provider: Client, to: EvmAddress, data: Hex) {
+async function getGasToSubtract(
+  provider: Client,
+  destinationChainId: FolksChainId,
+  to: EvmAddress,
+  data: Hex,
+): Promise<bigint> {
+  switch (destinationChainId) {
+    case FOLKS_CHAIN_ID.ARBITRUM:
+    case FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA:
+      return getArbitrumL1Estimation(provider, to, data);
+    default:
+      return 0n;
+  }
+}
+
+async function getArbitrumL1Estimation(provider: Client, to: EvmAddress, data: Hex): Promise<bigint> {
   const nodeInterfaceContract = getContract({
     abi: ArbitrumNodeInterfaceAbi,
     address: ARBITRUM_NODE_INTERFACE,
