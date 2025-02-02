@@ -6,10 +6,12 @@ import { ChainType } from "../types/chain.js";
 
 import { convertToGenericAddress } from "./address.js";
 
+import type { RewardsTokenId } from "../constants/reward.js";
 import type { GenericAddress } from "../types/address.js";
 import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
 import type { FolksChainSigner } from "../types/core.js";
 import type { AdapterType } from "../types/message.js";
+import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
 import type { FolksTokenId, SpokeTokenData } from "../types/token.js";
 
 export function getFolksChain(folksChainId: FolksChainId, network: NetworkType): FolksChain {
@@ -52,6 +54,25 @@ export function getSpokeTokenData(spokeChain: SpokeChain, folksTokenId: FolksTok
   if (!tokenData) throw new Error(`Spoke Token not found for folksTokenId: ${folksTokenId}`);
 
   return tokenData;
+}
+
+export function getSpokeRewardsV2TokenData(
+  rewardTokenId: RewardsTokenId,
+  network: NetworkType,
+): {
+  folksChainId: FolksChainId;
+  spokeRewardTokenData: SpokeRewardTokenData;
+} {
+  const spokeChain = Object.values(SPOKE_CHAIN[network]).find(
+    (spokeChain) => spokeChain.rewardsV2.tokens[rewardTokenId] !== undefined,
+  );
+  if (!spokeChain) throw new Error(`Spoke Rewards Token not found for rewardTokenId: ${rewardTokenId}`);
+  const { folksChainId, rewardsV2 } = spokeChain;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const spokeRewardTokenData = rewardsV2.tokens[rewardTokenId]!;
+
+  return { folksChainId, spokeRewardTokenData };
 }
 
 export function isFolksTokenSupported(

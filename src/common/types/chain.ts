@@ -1,8 +1,10 @@
 import type { GenericAddress } from "./address.js";
 import type { AdapterType } from "./message.js";
+import type { SpokeRewardTokenData } from "./rewards-v2.js";
 import type { FolksTokenId, SpokeTokenData } from "./token.js";
 import type { EvmChainName } from "../../chains/evm/common/types/chain.js";
 import type { FOLKS_CHAIN_ID, MAINNET_FOLKS_CHAIN_ID, TESTNET_FOLKS_CHAIN_ID } from "../constants/chain.js";
+import type { RewardsTokenId } from "../constants/reward.js";
 
 export enum ChainType {
   EVM = "EVM",
@@ -34,4 +36,8 @@ export type SpokeChain = {
   bridgeRouterAddress: GenericAddress;
   adapters: Partial<Record<AdapterType, GenericAddress>>;
   tokens: Partial<Record<FolksTokenId, SpokeTokenData>>;
+  rewardsV2: {
+    spokeRewardsCommonAddress: GenericAddress;
+    tokens: Partial<Record<RewardsTokenId, SpokeRewardTokenData>>;
+  };
 } & IFolksChain;

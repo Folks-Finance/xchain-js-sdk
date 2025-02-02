@@ -231,6 +231,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
     [FOLKS_CHAIN_ID.ETHEREUM]: {
       folksChainId: FOLKS_CHAIN_ID.ETHEREUM,
@@ -314,6 +319,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+      },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
       },
     },
     [FOLKS_CHAIN_ID.BASE]: {
@@ -399,6 +409,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
     [FOLKS_CHAIN_ID.BSC]: {
       folksChainId: FOLKS_CHAIN_ID.BSC,
@@ -477,6 +492,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+      },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
       },
     },
     [FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -562,6 +582,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
   } satisfies Record<MainnetFolksChainId, SpokeChain>,
   [NetworkType.TESTNET]: {
@@ -622,6 +647,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+      },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
       },
     },
     [FOLKS_CHAIN_ID.ETHEREUM_SEPOLIA]: {
@@ -707,6 +737,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
     [FOLKS_CHAIN_ID.BASE_SEPOLIA]: {
       folksChainId: FOLKS_CHAIN_ID.BASE_SEPOLIA,
@@ -778,6 +813,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
     [FOLKS_CHAIN_ID.BSC_TESTNET]: {
       folksChainId: FOLKS_CHAIN_ID.BSC_TESTNET,
@@ -830,6 +870,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+      },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
       },
     },
     [FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: {
@@ -901,6 +946,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+      },
+      // TODO rewards: add deployed contracts
+      rewardsV2: {
+        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
       },
     },
   } satisfies Record<TestnetFolksChainId, SpokeChain>,

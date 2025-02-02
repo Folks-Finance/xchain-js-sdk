@@ -41,6 +41,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ChainType.EVM,
       ),
     },
+    nodeManagerAddress: convertToGenericAddress(
+      "0x802063A23E78D0f5D158feaAc605028Ee490b03b" as EvmAddress,
+      ChainType.EVM,
+    ),
     oracleManagerAddress: convertToGenericAddress(
       "0x7218Bd1050D41A9ECfc517abdd294FB8116aEe81" as EvmAddress,
       ChainType.EVM,
@@ -223,10 +227,15 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         supportedLoanTypes: new Set([LoanTypeId.DEPOSIT, LoanTypeId.GENERAL]),
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
-    rewardsV1Address: convertToGenericAddress(
-      "0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress,
-      ChainType.EVM,
-    ),
+    rewardsV1: {
+      hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
+    },
+    // TODO rewards: add deployed contracts
+    rewardsV2: {
+      hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+      spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+      tokens: {},
+    },
   },
   [NetworkType.TESTNET]: {
     folksChainId: FOLKS_CHAIN_ID.AVALANCHE_FUJI,
@@ -257,6 +266,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ChainType.EVM,
       ),
     },
+    nodeManagerAddress: convertToGenericAddress(
+      "0xbb492e822b8CC0c9032bCe642F29e0B3D55F0446" as EvmAddress,
+      ChainType.EVM,
+    ),
     oracleManagerAddress: convertToGenericAddress(
       "0xba18A8d45bF2f7032aB0758839eac914D345c99e" as EvmAddress,
       ChainType.EVM,
@@ -359,9 +372,14 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         supportedLoanTypes: new Set([LoanTypeId.DEPOSIT, LoanTypeId.GENERAL]),
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
-    rewardsV1Address: convertToGenericAddress(
-      "0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress,
-      ChainType.EVM,
-    ),
+    rewardsV1: {
+      hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
+    },
+    // TODO rewards: add deployed contracts
+    rewardsV2: {
+      hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+      spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+      tokens: {},
+    },
   },
 };
