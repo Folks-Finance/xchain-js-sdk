@@ -314,7 +314,7 @@ export async function getSendTokenAdapterFees(
   });
   const returnMessage: MessageToSend = {
     params: returnParams,
-    sender: hubChain.hubAddress,
+    sender: hubChain.rewardsV2.hubAddress,
     destinationChainId: receiverFolksChainId,
     handler: getRandomGenericAddress(),
     payload: buildMessagePayload(
