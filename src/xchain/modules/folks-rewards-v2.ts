@@ -80,7 +80,6 @@ export const prepare = {
     rewardTokensToClaim: Array<RewardsTokenId>,
     adapterId: AdapterType,
     returnAdapters: Partial<Record<RewardsTokenId, AdapterType>>,
-    // adapters: MessageAdapters,
   ): Promise<PrepareClaimRewardsV2Call> {
     const folksChain = FolksCore.getSelectedFolksChain();
     const network = folksChain.network;
