@@ -227,14 +227,16 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         supportedLoanTypes: new Set([LoanTypeId.DEPOSIT, LoanTypeId.GENERAL]),
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
-    rewardsV1: {
-      hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
-    },
-    // TODO rewards: add deployed contracts
-    rewardsV2: {
-      hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-      spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-      tokens: {},
+    rewards: {
+      V1: {
+        hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
+      },
+      // TODO rewards: add deployed contracts
+      V2: {
+        hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
   },
   [NetworkType.TESTNET]: {
@@ -372,14 +374,16 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         supportedLoanTypes: new Set([LoanTypeId.DEPOSIT, LoanTypeId.GENERAL]),
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
-    rewardsV1: {
-      hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
-    },
-    // TODO rewards: add deployed contracts
-    rewardsV2: {
-      hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-      spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-      tokens: {},
+    rewards: {
+      V1: {
+        hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
+      },
+      // TODO rewards: add deployed contracts
+      V2: {
+        hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+        tokens: {},
+      },
     },
   },
 };

@@ -2,16 +2,17 @@ import { getEvmSignerAddress } from "../../chains/evm/common/utils/chain.js";
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FOLKS_CHAIN, SPOKE_CHAIN } from "../constants/chain.js";
+import { REWARDS_TYPE } from "../constants/reward.js";
 import { ChainType } from "../types/chain.js";
 
 import { convertToGenericAddress } from "./address.js";
 
-import type { RewardsTokenId } from "../constants/reward.js";
 import type { GenericAddress } from "../types/address.js";
 import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
 import type { FolksChainSigner } from "../types/core.js";
 import type { AdapterType } from "../types/message.js";
 import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
+import type { RewardsTokenId, RewardsType } from "../types/rewards.js";
 import type { FolksTokenId, SpokeTokenData } from "../types/token.js";
 
 export function getFolksChain(folksChainId: FolksChainId, network: NetworkType): FolksChain {
@@ -56,23 +57,39 @@ export function getSpokeTokenData(spokeChain: SpokeChain, folksTokenId: FolksTok
   return tokenData;
 }
 
-export function getSpokeRewardsV2TokenData(
+export function getRewardTokenSpokeChain(
   rewardTokenId: RewardsTokenId,
   network: NetworkType,
-): {
-  folksChainId: FolksChainId;
-  spokeRewardTokenData: SpokeRewardTokenData;
-} {
+  rewardType: RewardsType = REWARDS_TYPE.V2,
+): SpokeChain {
   const spokeChain = Object.values(SPOKE_CHAIN[network]).find(
-    (spokeChain) => spokeChain.rewardsV2.tokens[rewardTokenId] !== undefined,
+    (spokeChain) => spokeChain.rewards[rewardType]?.tokens[rewardTokenId] !== undefined,
   );
-  if (!spokeChain) throw new Error(`Spoke Rewards Token not found for rewardTokenId: ${rewardTokenId}`);
-  const { folksChainId, rewardsV2 } = spokeChain;
+  if (!spokeChain) throw new Error(`Spoke chain not found for rewardTokenId: ${rewardTokenId} - ${rewardType}`);
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const spokeRewardTokenData = rewardsV2.tokens[rewardTokenId]!;
+  return spokeChain;
+}
 
-  return { folksChainId, spokeRewardTokenData };
+export function getSpokeRewardsCommonAddress(
+  spokeChain: SpokeChain,
+  rewardType: RewardsType = REWARDS_TYPE.V2,
+): GenericAddress {
+  const spokeRewardsCommonAddress = spokeChain.rewards[rewardType]?.spokeRewardsCommonAddress;
+  if (!spokeRewardsCommonAddress) throw new Error(`Rewards ${rewardType} Spoke Common Address not found`);
+
+  return spokeRewardsCommonAddress;
+}
+
+export function getSpokeRewardsTokenData(
+  spokeChain: SpokeChain,
+  rewardTokenId: RewardsTokenId,
+  rewardType: RewardsType = REWARDS_TYPE.V2,
+): SpokeRewardTokenData {
+  const spokeRewardTokenData = spokeChain.rewards[rewardType]?.tokens[rewardTokenId];
+  if (!spokeRewardTokenData)
+    throw new Error(`Rewards ${rewardType} Spoke Token not found for rewardTokenId: ${rewardTokenId}`);
+
+  return spokeRewardTokenData;
 }
 
 export function isFolksTokenSupported(

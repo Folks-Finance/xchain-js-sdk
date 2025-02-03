@@ -6,7 +6,14 @@ import {
   getUnclaimedRewards,
 } from "../../chains/evm/hub/modules/folks-hub-rewards-v2.js";
 import { FolksHubRewardsV2 } from "../../chains/evm/hub/modules/index.js";
-import { getHubChain, getHubRewardsV2TokensData, getHubTokensData } from "../../chains/evm/hub/utils/chain.js";
+import {
+  getHubChain,
+  getHubRewardAddress,
+  getHubRewardsV2TokenData,
+  getHubRewardsV2TokensData,
+  getHubTokenData,
+  getHubTokensData,
+} from "../../chains/evm/hub/utils/chain.js";
 import { FolksEvmRewardsV2 } from "../../chains/evm/spoke/modules/index.js";
 import { ChainType } from "../../common/types/chain.js";
 import { MessageDirection } from "../../common/types/gmp.js";
@@ -16,9 +23,11 @@ import { convertFromGenericAddress } from "../../common/utils/address.js";
 import {
   assertHubChainSelected,
   assertSpokeChainSupported,
+  getRewardTokenSpokeChain,
   getSignerGenericAddress,
   getSpokeChain,
-  getSpokeRewardsV2TokenData,
+  getSpokeRewardsCommonAddress,
+  getSpokeRewardsTokenData,
 } from "../../common/utils/chain.js";
 import { calcAssetDollarValue } from "../../common/utils/formulae.js";
 import { SECONDS_IN_YEAR, unixTime } from "../../common/utils/math-lib.js";
@@ -40,14 +49,21 @@ import type {
   ReceiveRewardToken,
   UnclaimedRewards,
 } from "../../chains/evm/hub/types/rewards-v2.js";
-import type { RewardsTokenId } from "../../common/constants/reward.js";
 import type { AccountId } from "../../common/types/lending.js";
-import type { ClaimRewardsV2MessageData, MessageBuilderParams, OptionalFeeParams } from "../../common/types/message.js";
+import type {
+  ClaimRewardsV2MessageData,
+  MessageBuilderParams,
+  OptionalFeeParams,
+  OverrideTokenData,
+  SendTokenExtraArgs,
+  SendTokenMessageData,
+} from "../../common/types/message.js";
 import type {
   LoanTypeId,
   PrepareClaimRewardsV2Call,
   PrepareUpdateAccountsPointsForRewardsV2Call,
 } from "../../common/types/module.js";
+import type { RewardsTokenId } from "../../common/types/rewards.js";
 import type { FolksTokenId } from "../../common/types/token.js";
 
 export const prepare = {
@@ -87,7 +103,11 @@ export const prepare = {
     assertAdapterSupportsDataMessage(folksChain.folksChainId, adapterId);
 
     const spokeChain = getSpokeChain(folksChain.folksChainId, folksChain.network);
+    const rewardSpokeCommonAddress = getSpokeRewardsCommonAddress(spokeChain);
+
     const hubChain = getHubChain(folksChain.network);
+    const rewardV2Address = getHubRewardAddress(network);
+
     const userAddress = getSignerGenericAddress({
       signer: FolksCore.getFolksSigner().signer,
       chainType: folksChain.chainType,
@@ -98,24 +118,63 @@ export const prepare = {
     let receiverValue = 0n;
 
     for (const rewardTokenId of rewardTokensToClaim) {
-      const { folksChainId: receiverFolksChainId } = getSpokeRewardsV2TokenData(rewardTokenId, network);
+      const receiverSpokeChain = getRewardTokenSpokeChain(rewardTokenId, network);
+      const receiverRewardSpokeTokenData = getSpokeRewardsTokenData(receiverSpokeChain, rewardTokenId);
 
+      const receiverFolksChainId = receiverSpokeChain.folksChainId;
       const returnAdapterId = returnAdapters[rewardTokenId];
       if (!returnAdapterId) throw Error(`Unspecified return adapter for rewardTokenId ${rewardTokenId}`);
       assertAdapterSupportsDataMessage(receiverFolksChainId, returnAdapterId);
 
-      // TODO rewards: estimate instead of hardcoding
+      const amount = unclaimedRewards[rewardTokenId];
+      if (amount === undefined) throw Error(`Unspecified reward amount for rewardTokenId ${rewardTokenId}`);
+
+      const hubRewardTokenData = getHubRewardsV2TokenData(rewardTokenId, network);
+
       const feeParams: OptionalFeeParams = {};
-      const returnGasLimit = BigInt(150_000);
+
+      const returnData: SendTokenMessageData = {
+        amount,
+      };
+      const returnExtraArgs: SendTokenExtraArgs = {
+        folksTokenId: rewardTokenId,
+        token: hubRewardTokenData.token,
+        recipient: receiverRewardSpokeTokenData.spokeAddress,
+        amount,
+      };
+      const overrideData: OverrideTokenData = {
+        folksTokenId: rewardTokenId,
+        token: receiverRewardSpokeTokenData.token,
+        address: receiverRewardSpokeTokenData.spokeAddress,
+        amount,
+      };
+      const returnMessageBuilderParams: MessageBuilderParams = {
+        userAddress,
+        accountId,
+        adapters: { adapterId, returnAdapterId },
+        action: Action.SendToken,
+        sender: rewardV2Address,
+        destinationChainId: receiverFolksChainId,
+        handler: receiverRewardSpokeTokenData.spokeAddress,
+        data: returnData,
+        extraArgs: returnExtraArgs,
+        overrideData,
+      };
+      const returnGasLimit = await estimateAdapterReceiveGasLimit(
+        hubChain.folksChainId,
+        receiverFolksChainId,
+        FolksCore.getEVMProvider(receiverFolksChainId),
+        folksChain.network,
+        MessageDirection.HubToSpoke,
+        returnMessageBuilderParams,
+      );
       feeParams.returnGasLimit = returnGasLimit;
+
       rewardTokensToReceive.push({
         rewardTokenId,
         returnAdapterId,
         returnGasLimit,
       });
-
-      const amount = unclaimedRewards[rewardTokenId];
-      if (amount === undefined) throw Error(`Unspecified reward amount for rewardTokenId ${rewardTokenId}`);
 
       receiverValue += await FolksHubRewardsV2.getSendTokenAdapterFees(
         FolksCore.getHubProvider(),
@@ -138,9 +197,9 @@ export const prepare = {
       accountId,
       adapters: { adapterId, returnAdapterId: AdapterType.HUB },
       action: Action.ClaimRewardsV2,
-      sender: spokeChain.rewardsV2.spokeRewardsCommonAddress,
+      sender: rewardSpokeCommonAddress,
       destinationChainId: hubChain.folksChainId,
-      handler: hubChain.rewardsV2.hubAddress,
+      handler: rewardV2Address,
       data,
       extraArgs: "0x",
     };
@@ -210,15 +269,19 @@ export const write = {
 };
 
 export const read = {
-  historicalEpochs(): Promise<Epochs> {
+  historicalEpochs(folksTokenIds?: Array<FolksTokenId>): Promise<Epochs> {
     const network = FolksCore.getSelectedNetwork();
-    const tokensData = Object.values(getHubTokensData(network));
+    const tokensData = folksTokenIds
+      ? folksTokenIds.map((folksTokenId) => getHubTokenData(folksTokenId, network))
+      : Object.values(getHubTokensData(network));
     return getHistoricalEpochs(FolksCore.getHubProvider(), FolksCore.getSelectedNetwork(), tokensData);
   },
 
-  activeEpochs(): Promise<ActiveEpochs> {
+  activeEpochs(folksTokenIds?: Array<FolksTokenId>): Promise<ActiveEpochs> {
     const network = FolksCore.getSelectedNetwork();
-    const tokensData = Object.values(getHubTokensData(network));
+    const tokensData = folksTokenIds
+      ? folksTokenIds.map((folksTokenId) => getHubTokenData(folksTokenId, network))
+      : Object.values(getHubTokensData(network));
     return getActiveEpochs(FolksCore.getHubProvider(), FolksCore.getSelectedNetwork(), tokensData);
   },
 

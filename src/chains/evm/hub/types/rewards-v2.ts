@@ -1,6 +1,6 @@
 import type { NodeId } from "./oracle.js";
-import type { RewardsTokenId } from "../../../../common/constants/reward.js";
 import type { AdapterType } from "../../../../common/types/message.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
 import type { Erc20HubTokenType, FolksTokenId, NativeTokenType } from "../../../../common/types/token.js";
 import type { Dnum } from "dnum";
 
