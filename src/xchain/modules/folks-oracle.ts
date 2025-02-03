@@ -33,7 +33,12 @@ export const read = {
 
   async oracleNodePrices(oracleNodes?: Array<OracleNode>): Promise<OracleNodePrices> {
     const network = FolksCore.getSelectedNetwork();
-    const nodes = oracleNodes ?? Object.values(getHubRewardsV2TokensData(network));
+    const nodes =
+      oracleNodes ??
+      Object.values(getHubRewardsV2TokensData(network)).map(({ nodeId, token }) => ({
+        nodeId,
+        decimals: token.decimals,
+      }));
     return await FolksHubOracle.getNodePrices(FolksCore.getHubProvider(), network, nodes);
   },
 };
