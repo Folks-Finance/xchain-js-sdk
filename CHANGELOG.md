@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.53
+
+### Patch Changes
+
+- [#216](https://github.com/Folks-Finance/xchain-js-sdk/pull/216) [`ea928d9`](https://github.com/Folks-Finance/xchain-js-sdk/commit/ea928d9590b39e77cdbbd28177e15652c702507e) Thanks [@moshenskyDV](https://github.com/moshenskyDV)! - Subtract arbitrum L1 fee from estimation
+
 ## 0.0.52
 
 ### Patch Changes
