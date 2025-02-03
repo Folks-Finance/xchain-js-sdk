@@ -51,7 +51,7 @@ export type Erc20SpokeTokenType = {
   decimals: number;
 };
 
-type Erc20HubTokenType = {
+export type Erc20HubTokenType = {
   type: TokenType.ERC20;
   decimals: number;
 };

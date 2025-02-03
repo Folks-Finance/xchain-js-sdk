@@ -1,13 +1,15 @@
 import type { NodeId } from "./oracle.js";
 import type { RewardsTokenId } from "../../../../common/constants/reward.js";
 import type { AdapterType } from "../../../../common/types/message.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type { Erc20HubTokenType, FolksTokenId, NativeTokenType } from "../../../../common/types/token.js";
 import type { Dnum } from "dnum";
+
+export type FolksHubRewardTokenType = Erc20HubTokenType | NativeTokenType;
 
 export type HubRewardTokenData = {
   rewardTokenId: RewardsTokenId;
   nodeId: NodeId;
-  decimals: number;
+  token: FolksHubRewardTokenType;
 };
 
 export type EpochReward = {

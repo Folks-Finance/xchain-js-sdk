@@ -1,16 +1,36 @@
 // New implementation for V2
 import { multicall } from "viem/actions";
 
+import { UINT256_LENGTH } from "../../../../common/constants/bytes.js";
+import { FINALITY } from "../../../../common/constants/message.js";
+import { Action } from "../../../../common/types/message.js";
+import { getRandomGenericAddress } from "../../../../common/utils/address.js";
+import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
+import { getSpokeChain } from "../../../../common/utils/chain.js";
 import { increaseByPercent, unixTime } from "../../../../common/utils/math-lib.js";
-import { UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE } from "../../common/constants/contract.js";
+import {
+  RECEIVER_VALUE_SLIPPAGE,
+  UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
+} from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getHubChain, getHubRewardsV2TokensData } from "../utils/chain.js";
-import { getHubRewardsV2Contract } from "../utils/contract.js";
+import {
+  buildMessageParams,
+  buildMessagePayload,
+  buildSendTokenExtraArgsWhenRemoving,
+} from "../../common/utils/message.js";
+import { getHubChain, getHubRewardsV2TokenData, getHubRewardsV2TokensData } from "../utils/chain.js";
+import { getBridgeRouterHubContract, getHubRewardsV2Contract } from "../utils/contract.js";
 
 import type { RewardsTokenId } from "../../../../common/constants/reward.js";
 import type { EvmAddress } from "../../../../common/types/address.js";
-import type { NetworkType } from "../../../../common/types/chain.js";
+import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
 import type { AccountId } from "../../../../common/types/lending.js";
+import type {
+  AdapterType,
+  MessageAdapters,
+  MessageToSend,
+  OptionalFeeParams,
+} from "../../../../common/types/message.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { PrepareUpdateAccountsPointsForRewardsV2Call } from "../../common/types/module.js";
 import type { HubRewardsV2Abi } from "../constants/abi/hub-rewards-v2-abi.js";
@@ -265,4 +285,48 @@ export async function lastUpdatedPointsForRewards(
   );
 
   return Object.fromEntries(entries);
+}
+
+export async function getSendTokenAdapterFees(
+  provider: Client,
+  network: NetworkType,
+  accountId: AccountId,
+  rewardTokenId: RewardsTokenId,
+  amount: bigint,
+  receiverFolksChainId: FolksChainId,
+  adapters: MessageAdapters,
+  feeParams: OptionalFeeParams = {},
+): Promise<bigint> {
+  const hubChain = getHubChain(network);
+  const hubTokenData = getHubRewardsV2TokenData(rewardTokenId, network);
+  const hubBridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
+
+  const spokeChain = getSpokeChain(receiverFolksChainId, network);
+  const { spokeRewardsCommonAddress: spokeAddress } = spokeChain.rewardsV2;
+
+  // construct return message
+  const returnParams = buildMessageParams({
+    adapters: {
+      adapterId: adapters.returnAdapterId,
+      returnAdapterId: 0 as AdapterType,
+    },
+    gasLimit: feeParams.returnGasLimit,
+  });
+  const returnMessage: MessageToSend = {
+    params: returnParams,
+    sender: hubChain.hubAddress,
+    destinationChainId: receiverFolksChainId,
+    handler: getRandomGenericAddress(),
+    payload: buildMessagePayload(
+      Action.SendToken,
+      accountId,
+      getRandomGenericAddress(),
+      convertNumberToBytes(amount, UINT256_LENGTH),
+    ),
+    finalityLevel: FINALITY.FINALISED,
+    extraArgs: buildSendTokenExtraArgsWhenRemoving(spokeAddress, hubTokenData.token, amount),
+  };
+
+  // get return adapter fee increased by 1%
+  return increaseByPercent(await hubBridgeRouter.read.getSendFee([returnMessage]), RECEIVER_VALUE_SLIPPAGE);
 }
