@@ -3,10 +3,11 @@ import { multicall } from "viem/actions";
 
 import { UINT256_LENGTH } from "../../../../common/constants/bytes.js";
 import { FINALITY } from "../../../../common/constants/message.js";
+import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { Action } from "../../../../common/types/message.js";
 import { getRandomGenericAddress } from "../../../../common/utils/address.js";
 import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
-import { getSpokeChain } from "../../../../common/utils/chain.js";
+import { getSpokeChain, getSpokeRewardsCommonAddress } from "../../../../common/utils/chain.js";
 import { increaseByPercent, unixTime } from "../../../../common/utils/math-lib.js";
 import {
   RECEIVER_VALUE_SLIPPAGE,
@@ -18,10 +19,14 @@ import {
   buildMessagePayload,
   buildSendTokenExtraArgsWhenRemoving,
 } from "../../common/utils/message.js";
-import { getHubChain, getHubRewardsV2TokenData, getHubRewardsV2TokensData } from "../utils/chain.js";
+import {
+  getHubChain,
+  getHubRewardAddress,
+  getHubRewardsV2TokenData,
+  getHubRewardsV2TokensData,
+} from "../utils/chain.js";
 import { getBridgeRouterHubContract, getHubRewardsV2Contract } from "../utils/contract.js";
 
-import type { RewardsTokenId } from "../../../../common/constants/reward.js";
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
 import type { AccountId } from "../../../../common/types/lending.js";
@@ -31,6 +36,7 @@ import type {
   MessageToSend,
   OptionalFeeParams,
 } from "../../../../common/types/message.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { PrepareUpdateAccountsPointsForRewardsV2Call } from "../../common/types/module.js";
 import type { HubRewardsV2Abi } from "../constants/abi/hub-rewards-v2-abi.js";
@@ -78,7 +84,7 @@ export const prepare = {
       account: sender,
     },
   ): Promise<PrepareUpdateAccountsPointsForRewardsV2Call> {
-    const { hubAddress: rewardsV2Address } = hubChain.rewardsV2;
+    const rewardsV2Address = hubChain.rewards[REWARDS_TYPE.V2].hubAddress;
     const poolEpochs = getActivePoolEpochs(activeEpochs);
     const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
@@ -119,8 +125,7 @@ export async function getHistoricalEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<Epochs> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV2Address } = hubChain.rewardsV2;
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   // get latest pool epoch indexes
@@ -192,8 +197,7 @@ export async function getActiveEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<ActiveEpochs> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV2Address } = hubChain.rewardsV2;
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const getActiveEpochs: Array<ContractFunctionParameters> = tokens.map(({ poolId }) => ({
@@ -235,8 +239,7 @@ export async function getUnclaimedRewards(
   accountId: AccountId,
   historicalEpochs: Epochs,
 ): Promise<UnclaimedRewards> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV2Address } = hubChain.rewardsV2;
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const rewardsV2TokensData = Object.values(getHubRewardsV2TokensData(network));
@@ -269,8 +272,7 @@ export async function lastUpdatedPointsForRewards(
   accountId: AccountId,
   activeEpochs: ActiveEpochs,
 ): Promise<LastUpdatedPointsForRewards> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV2Address } = hubChain.rewardsV2;
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const entries = await Promise.all(
@@ -299,10 +301,11 @@ export async function getSendTokenAdapterFees(
 ): Promise<bigint> {
   const hubChain = getHubChain(network);
   const hubTokenData = getHubRewardsV2TokenData(rewardTokenId, network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const hubBridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
 
   const spokeChain = getSpokeChain(receiverFolksChainId, network);
-  const { spokeRewardsCommonAddress: spokeAddress } = spokeChain.rewardsV2;
+  const spokeRewardsCommonAddress = getSpokeRewardsCommonAddress(spokeChain, REWARDS_TYPE.V2);
 
   // construct return message
   const returnParams = buildMessageParams({
@@ -314,7 +317,7 @@ export async function getSendTokenAdapterFees(
   });
   const returnMessage: MessageToSend = {
     params: returnParams,
-    sender: hubChain.rewardsV2.hubAddress,
+    sender: rewardsV2Address,
     destinationChainId: receiverFolksChainId,
     handler: getRandomGenericAddress(),
     payload: buildMessagePayload(
@@ -324,7 +327,7 @@ export async function getSendTokenAdapterFees(
       convertNumberToBytes(amount, UINT256_LENGTH),
     ),
     finalityLevel: FINALITY.FINALISED,
-    extraArgs: buildSendTokenExtraArgsWhenRemoving(spokeAddress, hubTokenData.token, amount),
+    extraArgs: buildSendTokenExtraArgsWhenRemoving(spokeRewardsCommonAddress, hubTokenData.token, amount),
   };
 
   // get return adapter fee increased by 1%

@@ -32,7 +32,6 @@ import { getCcipData, getWormholeData } from "./gmp.js";
 import { waitTransaction } from "./transaction.js";
 
 import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
-import type { RewardsTokenId } from "../constants/reward.js";
 import type { GenericAddress } from "../types/address.js";
 import type { FolksChainId, NetworkType } from "../types/chain.js";
 import type { FolksProvider } from "../types/core.js";
@@ -45,6 +44,7 @@ import type {
   OptionalFeeParams,
   Payload,
 } from "../types/message.js";
+import type { RewardsTokenId } from "../types/rewards.js";
 import type { Client as EVMProvider, Hex, StateOverride } from "viem";
 
 export function buildMessageToSend(

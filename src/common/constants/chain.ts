@@ -18,6 +18,7 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../ty
 import { convertToGenericAddress } from "../utils/address.js";
 
 import { MAINNET_POOLS, TESTNET_POOLS } from "./pool.js";
+import { REWARDS_TYPE } from "./reward.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type {
@@ -231,10 +232,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -320,10 +323,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BASE]: {
@@ -409,10 +414,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BSC]: {
@@ -493,10 +500,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -582,10 +591,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
   } satisfies Record<MainnetFolksChainId, SpokeChain>,
@@ -648,10 +659,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.ETHEREUM_SEPOLIA]: {
@@ -737,10 +750,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BASE_SEPOLIA]: {
@@ -813,10 +828,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BSC_TESTNET]: {
@@ -871,10 +888,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: {
@@ -947,10 +966,12 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
-      // TODO rewards: add deployed contracts
-      rewardsV2: {
-        spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          // TODO rewards: add deployed contracts
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {},
+        },
       },
     },
   } satisfies Record<TestnetFolksChainId, SpokeChain>,

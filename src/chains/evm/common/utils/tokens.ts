@@ -4,7 +4,8 @@ import { CONTRACT_SLOT } from "../constants/tokens.js";
 
 import { getAllowanceSlotHash, getBalanceOfSlotHash } from "./contract.js";
 
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
+import type { FolksTokenId as LendingTokenId } from "../../../../common/types/token.js";
 import type { EvmFolksChainId } from "../types/chain.js";
 import type { AllowanceStateOverride, BalanceOfStateOverride } from "../types/tokens.js";
 import type { StateOverride } from "viem";
@@ -17,7 +18,10 @@ export function getContractSlot(folksChainId: EvmFolksChainId) {
   return contractSlot;
 }
 
-export function getFolksTokenContractSlot(folksChainId: EvmFolksChainId, folksTokenId: FolksTokenId) {
+export function getFolksTokenContractSlot(
+  folksChainId: EvmFolksChainId,
+  folksTokenId: LendingTokenId | RewardsTokenId,
+) {
   const contractSlot = getContractSlot(folksChainId);
 
   const folksTokenContractSlot = contractSlot.erc20[folksTokenId];

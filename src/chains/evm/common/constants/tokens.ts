@@ -2,12 +2,13 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID } from "../../../../comm
 
 import { EVM_FOLKS_CHAIN_ID } from "./chain.js";
 
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
+import type { FolksTokenId as LendingTokenId } from "../../../../common/types/token.js";
 import type { EvmFolksChainId } from "../types/chain.js";
 import type { Erc20ContractSlot } from "../types/tokens.js";
 
 export const CONTRACT_SLOT: Partial<
-  Record<EvmFolksChainId, { erc20: Partial<Record<FolksTokenId, Erc20ContractSlot>> }>
+  Record<EvmFolksChainId, { erc20: Partial<Record<LendingTokenId | RewardsTokenId, Erc20ContractSlot>> }>
 > = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE]: {
     erc20: {

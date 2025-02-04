@@ -2,7 +2,8 @@ import type { GenericAddress } from "./address.js";
 import type { FolksChainId } from "./chain.js";
 import type { AccountId, LoanId, LoanName, Nonce } from "./lending.js";
 import type { LoanTypeId } from "./module.js";
-import type { FolksTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
+import type { RewardsTokenId } from "./rewards.js";
+import type { FolksTokenId as LendingTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
 import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
 import type {
   FINALITY,
@@ -221,14 +222,14 @@ export type RepayExtraArgs = {
 };
 
 export type SendTokenExtraArgs = {
-  folksTokenId: FolksTokenId;
+  folksTokenId: LendingTokenId | RewardsTokenId;
   token: FolksHubTokenType;
   recipient: GenericAddress;
   amount: bigint;
 };
 
 export type OverrideTokenData = {
-  folksTokenId: FolksTokenId;
+  folksTokenId: LendingTokenId | RewardsTokenId;
   token: FolksSpokeTokenType;
   address: GenericAddress;
   amount: bigint;

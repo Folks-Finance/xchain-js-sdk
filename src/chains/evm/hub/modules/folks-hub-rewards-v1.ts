@@ -1,12 +1,13 @@
 import { multicall } from "viem/actions";
 
+import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { increaseByPercent, unixTime } from "../../../../common/utils/math-lib.js";
 import {
   CLAIM_REWARDS_GAS_LIMIT_SLIPPAGE,
   UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getHubChain } from "../utils/chain.js";
+import { getHubRewardAddress } from "../utils/chain.js";
 import { getHubRewardsV1Contract } from "../utils/contract.js";
 
 import type { EvmAddress } from "../../../../common/types/address.js";
@@ -54,7 +55,7 @@ export const prepare = {
       account: sender,
     },
   ): Promise<PrepareUpdateAccountsPointsForRewardsV1Call> {
-    const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+    const rewardsV1Address = hubChain.rewards[REWARDS_TYPE.V1].hubAddress;
     const poolEpochs = getActivePoolEpochs(activeEpochs);
     const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
@@ -80,7 +81,7 @@ export const prepare = {
       account: sender,
     },
   ): Promise<PrepareClaimRewardsV1Call> {
-    const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+    const rewardsV1Address = hubChain.rewards[REWARDS_TYPE.V1].hubAddress;
     const poolEpochs = getHistoricalPoolEpochs(historicalEpochs);
     const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
@@ -139,8 +140,7 @@ export async function getHistoricalEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<Epochs> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+  const rewardsV1Address = getHubRewardAddress(network, REWARDS_TYPE.V1);
   const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
   // get latest pool epoch indexes
@@ -203,8 +203,7 @@ export async function getActiveEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<ActiveEpochs> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+  const rewardsV1Address = getHubRewardAddress(network, REWARDS_TYPE.V1);
   const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
   const getActiveEpochs: Array<ContractFunctionParameters> = tokens.map(({ poolId }) => ({
@@ -237,8 +236,7 @@ export async function getUnclaimedRewards(
   accountId: AccountId,
   historicalEpochs: Epochs,
 ): Promise<bigint> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+  const rewardsV1Address = getHubRewardAddress(network, REWARDS_TYPE.V1);
   const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
   const poolEpochs = getHistoricalPoolEpochs(historicalEpochs);
@@ -251,8 +249,7 @@ export async function lastUpdatedPointsForRewards(
   accountId: AccountId,
   activeEpochs: ActiveEpochs,
 ): Promise<LastUpdatedPointsForRewards> {
-  const hubChain = getHubChain(network);
-  const { hubAddress: rewardsV1Address } = hubChain.rewardsV1;
+  const rewardsV1Address = getHubRewardAddress(network, REWARDS_TYPE.V1);
   const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address);
 
   const entries = await Promise.all(
