@@ -3,8 +3,8 @@ export const MAINNET_REWARDS_TOKEN_ID = {
 } as const;
 
 export const TESTNET_REWARDS_TOKEN_ID = {
-  USDC: 1,
-  AVAX: 2,
+  AVAX: 1,
+  USDC_base_sep: 2,
 } as const;
 
 export const REWARDS_TYPE = {

@@ -1,7 +1,7 @@
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { MAINNET_POOLS, TESTNET_POOLS } from "../../../../common/constants/pool.js";
-import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
-import { NetworkType, ChainType } from "../../../../common/types/chain.js";
+import { REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
+import { ChainType, NetworkType } from "../../../../common/types/chain.js";
 import { AdapterType } from "../../../../common/types/message.js";
 import { LoanTypeId } from "../../../../common/types/module.js";
 import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../../../../common/types/token.js";
@@ -10,6 +10,7 @@ import { convertToGenericAddress } from "../../../../common/utils/address.js";
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { MainnetFolksTokenId, TestnetFolksTokenId } from "../../../../common/types/token.js";
 import type { HubChain } from "../types/chain.js";
+import type { NodeId } from "../types/oracle.js";
 import type { HubTokenData } from "../types/token.js";
 
 export const HUB_CHAIN: Record<NetworkType, HubChain> = {
@@ -379,11 +380,30 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
       },
-      // TODO rewards: add deployed contracts
       [REWARDS_TYPE.V2]: {
-        hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+        hubAddress: convertToGenericAddress("0x41e178f4d6561160f3E1376b6a8324EED293a1bb" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress(
+          "0x26D5dfb79E54aDF2e67Efe12CefB7835A6646894" as EvmAddress,
+          ChainType.EVM,
+        ),
+        tokens: {
+          [TESTNET_REWARDS_TOKEN_ID.AVAX]: {
+            rewardTokenId: TESTNET_REWARDS_TOKEN_ID.AVAX,
+            nodeId: "0x7c670cba5237644f0184621fd144be32dcb5a0de5f38117d2ed81109becf6261" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
+            },
+          },
+          [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
+            rewardTokenId: TESTNET_REWARDS_TOKEN_ID.USDC_base_sep,
+            nodeId: "0xd439d505b6141ad27963114eab223318945f1f6e79176d2fc129e811576e8a5a" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 6,
+            },
+          },
+        },
       },
     },
   },
