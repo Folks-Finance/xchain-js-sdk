@@ -319,7 +319,7 @@ export async function getSendTokenAdapterFees(
     params: returnParams,
     sender: rewardsV2Address,
     destinationChainId: receiverFolksChainId,
-    handler: getRandomGenericAddress(), //we can set the spoke token address
+    handler: getRandomGenericAddress(),
     payload: buildMessagePayload(
       Action.SendToken,
       accountId,
