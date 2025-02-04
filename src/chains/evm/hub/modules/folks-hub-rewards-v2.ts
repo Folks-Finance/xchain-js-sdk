@@ -125,7 +125,7 @@ export async function getHistoricalEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<Epochs> {
-  const rewardsV2Address = getHubRewardAddress(network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   // get latest pool epoch indexes
@@ -197,7 +197,7 @@ export async function getActiveEpochs(
   network: NetworkType,
   tokens: Array<HubTokenData>,
 ): Promise<ActiveEpochs> {
-  const rewardsV2Address = getHubRewardAddress(network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const getActiveEpochs: Array<ContractFunctionParameters> = tokens.map(({ poolId }) => ({
@@ -239,7 +239,7 @@ export async function getUnclaimedRewards(
   accountId: AccountId,
   historicalEpochs: Epochs,
 ): Promise<UnclaimedRewards> {
-  const rewardsV2Address = getHubRewardAddress(network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const rewardsV2TokensData = Object.values(getHubRewardsV2TokensData(network));
@@ -272,7 +272,7 @@ export async function lastUpdatedPointsForRewards(
   accountId: AccountId,
   activeEpochs: ActiveEpochs,
 ): Promise<LastUpdatedPointsForRewards> {
-  const rewardsV2Address = getHubRewardAddress(network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
 
   const entries = await Promise.all(
@@ -301,11 +301,11 @@ export async function getSendTokenAdapterFees(
 ): Promise<bigint> {
   const hubChain = getHubChain(network);
   const hubTokenData = getHubRewardsV2TokenData(rewardTokenId, network);
-  const rewardsV2Address = getHubRewardAddress(network);
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
   const hubBridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
 
   const spokeChain = getSpokeChain(receiverFolksChainId, network);
-  const spokeRewardsCommonAddress = getSpokeRewardsCommonAddress(spokeChain);
+  const spokeRewardsCommonAddress = getSpokeRewardsCommonAddress(spokeChain, REWARDS_TYPE.V2);
 
   // construct return message
   const returnParams = buildMessageParams({

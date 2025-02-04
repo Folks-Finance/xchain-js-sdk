@@ -2,7 +2,6 @@ import { getEvmSignerAddress } from "../../chains/evm/common/utils/chain.js";
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FOLKS_CHAIN, SPOKE_CHAIN } from "../constants/chain.js";
-import { REWARDS_TYPE } from "../constants/reward.js";
 import { ChainType } from "../types/chain.js";
 
 import { convertToGenericAddress } from "./address.js";
@@ -60,7 +59,7 @@ export function getSpokeTokenData(spokeChain: SpokeChain, folksTokenId: FolksTok
 export function getRewardTokenSpokeChain(
   rewardTokenId: RewardsTokenId,
   network: NetworkType,
-  rewardType: RewardsType = REWARDS_TYPE.V2,
+  rewardType: RewardsType,
 ): SpokeChain {
   const spokeChain = Object.values(SPOKE_CHAIN[network]).find(
     (spokeChain) => spokeChain.rewards[rewardType]?.tokens[rewardTokenId] !== undefined,
@@ -70,10 +69,7 @@ export function getRewardTokenSpokeChain(
   return spokeChain;
 }
 
-export function getSpokeRewardsCommonAddress(
-  spokeChain: SpokeChain,
-  rewardType: RewardsType = REWARDS_TYPE.V2,
-): GenericAddress {
+export function getSpokeRewardsCommonAddress(spokeChain: SpokeChain, rewardType: RewardsType): GenericAddress {
   const spokeRewardsCommonAddress = spokeChain.rewards[rewardType]?.spokeRewardsCommonAddress;
   if (!spokeRewardsCommonAddress) throw new Error(`Rewards ${rewardType} Spoke Common Address not found`);
 
@@ -83,7 +79,7 @@ export function getSpokeRewardsCommonAddress(
 export function getSpokeRewardsTokenData(
   spokeChain: SpokeChain,
   rewardTokenId: RewardsTokenId,
-  rewardType: RewardsType = REWARDS_TYPE.V2,
+  rewardType: RewardsType,
 ): SpokeRewardTokenData {
   const spokeRewardTokenData = spokeChain.rewards[rewardType]?.tokens[rewardTokenId];
   if (!spokeRewardTokenData)

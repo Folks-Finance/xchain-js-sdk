@@ -15,6 +15,7 @@ import {
   getHubTokensData,
 } from "../../chains/evm/hub/utils/chain.js";
 import { FolksEvmRewardsV2 } from "../../chains/evm/spoke/modules/index.js";
+import { REWARDS_TYPE } from "../../common/constants/reward.js";
 import { ChainType } from "../../common/types/chain.js";
 import { MessageDirection } from "../../common/types/gmp.js";
 import { Action, AdapterType } from "../../common/types/message.js";
@@ -103,10 +104,10 @@ export const prepare = {
     assertAdapterSupportsDataMessage(folksChain.folksChainId, adapterId);
 
     const spokeChain = getSpokeChain(folksChain.folksChainId, folksChain.network);
-    const rewardSpokeCommonAddress = getSpokeRewardsCommonAddress(spokeChain);
+    const rewardSpokeCommonAddress = getSpokeRewardsCommonAddress(spokeChain, REWARDS_TYPE.V2);
 
     const hubChain = getHubChain(folksChain.network);
-    const rewardV2Address = getHubRewardAddress(network);
+    const rewardV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
 
     const userAddress = getSignerGenericAddress({
       signer: FolksCore.getFolksSigner().signer,
@@ -118,8 +119,8 @@ export const prepare = {
     let receiverValue = 0n;
 
     for (const rewardTokenId of rewardTokensToClaim) {
-      const receiverSpokeChain = getRewardTokenSpokeChain(rewardTokenId, network);
-      const receiverRewardSpokeTokenData = getSpokeRewardsTokenData(receiverSpokeChain, rewardTokenId);
+      const receiverSpokeChain = getRewardTokenSpokeChain(rewardTokenId, network, REWARDS_TYPE.V2);
+      const receiverRewardSpokeTokenData = getSpokeRewardsTokenData(receiverSpokeChain, rewardTokenId, REWARDS_TYPE.V2);
 
       const receiverFolksChainId = receiverSpokeChain.folksChainId;
       const returnAdapterId = returnAdapters[rewardTokenId];

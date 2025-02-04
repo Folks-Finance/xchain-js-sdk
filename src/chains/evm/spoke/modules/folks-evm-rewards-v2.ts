@@ -1,3 +1,4 @@
+import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { getSpokeRewardsCommonAddress } from "../../../../common/utils/chain.js";
 import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
@@ -22,7 +23,7 @@ export const prepare = {
     spokeChain: SpokeChain,
     transactionOptions: EstimateGasParameters = { account: sender },
   ): Promise<PrepareClaimRewardsV2Call> {
-    const spokeRewardsV2CommonAddress = getSpokeRewardsCommonAddress(spokeChain);
+    const spokeRewardsV2CommonAddress = getSpokeRewardsCommonAddress(spokeChain, REWARDS_TYPE.V2);
     const spokeRewardsCommon = getSpokeRewardsV2CommonContract(provider, spokeRewardsV2CommonAddress);
     const bridgeRouter = getBridgeRouterSpokeContract(provider, spokeChain.bridgeRouterAddress);
 

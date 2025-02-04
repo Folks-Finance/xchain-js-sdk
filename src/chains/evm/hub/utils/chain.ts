@@ -29,7 +29,7 @@ export function getHubTokenData(folksTokenId: FolksTokenId, network: NetworkType
   return token;
 }
 
-export function getHubRewardAddress(network: NetworkType, rewardsType: RewardsType = REWARDS_TYPE.V2): GenericAddress {
+export function getHubRewardAddress(network: NetworkType, rewardsType: RewardsType): GenericAddress {
   return HUB_CHAIN[network].rewards[rewardsType].hubAddress;
 }
 
