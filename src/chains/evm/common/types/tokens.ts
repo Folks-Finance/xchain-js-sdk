@@ -1,6 +1,7 @@
 import type { EvmFolksChainId } from "./chain.js";
 import type { EvmAddress } from "../../../../common/types/address.js";
-import type { FolksTokenId, TokenType } from "../../../../common/types/token.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
+import type { FolksTokenId as LendingTokenId, TokenType } from "../../../../common/types/token.js";
 
 export type Erc20ContractSlot = {
   balanceOf: bigint;
@@ -13,7 +14,7 @@ export type AllowanceStateOverride = {
     owner: EvmAddress;
     spender: EvmAddress;
     folksChainId: EvmFolksChainId;
-    folksTokenId: FolksTokenId;
+    folksTokenId: LendingTokenId;
     tokenType: TokenType;
     amount: bigint;
   }>;
@@ -24,7 +25,7 @@ export type BalanceOfStateOverride = {
   stateDiff: Array<{
     owner: EvmAddress;
     folksChainId: EvmFolksChainId;
-    folksTokenId: FolksTokenId;
+    folksTokenId: LendingTokenId | RewardsTokenId;
     tokenType: TokenType;
     amount: bigint;
   }>;

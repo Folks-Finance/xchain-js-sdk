@@ -18,6 +18,7 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../ty
 import { convertToGenericAddress } from "../utils/address.js";
 
 import { MAINNET_POOLS, TESTNET_POOLS } from "./pool.js";
+import { REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "./reward.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type {
@@ -231,6 +232,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {},
     },
     [FOLKS_CHAIN_ID.ETHEREUM]: {
       folksChainId: FOLKS_CHAIN_ID.ETHEREUM,
@@ -315,6 +317,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {},
     },
     [FOLKS_CHAIN_ID.BASE]: {
       folksChainId: FOLKS_CHAIN_ID.BASE,
@@ -399,6 +402,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {},
     },
     [FOLKS_CHAIN_ID.BSC]: {
       folksChainId: FOLKS_CHAIN_ID.BSC,
@@ -478,6 +482,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {},
     },
     [FOLKS_CHAIN_ID.ARBITRUM]: {
       folksChainId: FOLKS_CHAIN_ID.ARBITRUM,
@@ -562,6 +567,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {},
     },
   } satisfies Record<MainnetFolksChainId, SpokeChain>,
   [NetworkType.TESTNET]: {
@@ -621,6 +627,27 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0xd22f35b7c441F09649D54d8fD53dc92DD3831f5E" as EvmAddress,
             ChainType.EVM,
           ),
+        },
+      },
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x5b3c96DE3D22dAd94fffCfb22FE9625A3C2146d3" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {
+            [TESTNET_REWARDS_TOKEN_ID.AVAX]: {
+              rewardTokenId: TESTNET_REWARDS_TOKEN_ID.AVAX,
+              spokeAddress: convertToGenericAddress(
+                "0x6aeB4b6f3d16E9bcDdC20c371458E0561F0638dB" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.NATIVE,
+                decimals: 18,
+              },
+            },
+          },
         },
       },
     },
@@ -707,6 +734,15 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0xA1FeE444c6a77C2D5d81dE09631e1D26c70ee465" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
+      },
     },
     [FOLKS_CHAIN_ID.BASE_SEPOLIA]: {
       folksChainId: FOLKS_CHAIN_ID.BASE_SEPOLIA,
@@ -778,6 +814,28 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
+          tokens: {
+            [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
+              rewardTokenId: TESTNET_REWARDS_TOKEN_ID.USDC_base_sep,
+              spokeAddress: convertToGenericAddress(
+                "0x7eF21BaBB8e0b30B89e3159955c7136549B2813B" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.ERC20,
+                address: convertToGenericAddress(
+                  "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as EvmAddress,
+                  ChainType.EVM,
+                ),
+                decimals: 6,
+              },
+            },
+          },
+        },
+      },
     },
     [FOLKS_CHAIN_ID.BSC_TESTNET]: {
       folksChainId: FOLKS_CHAIN_ID.BSC_TESTNET,
@@ -829,6 +887,15 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x2fD94F6B9A56879f31c14Ef1723F1315eff81d42" as EvmAddress,
             ChainType.EVM,
           ),
+        },
+      },
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0xE2306f63993B71Fb670a3796e31c164d6Ced1695" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
         },
       },
     },
@@ -900,6 +967,15 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x5699D9efdF6F618e838E62db2C4A8d341C329EC8" as EvmAddress,
             ChainType.EVM,
           ),
+        },
+      },
+      rewards: {
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x4B17D9f2365DC22a1809132b155f9Ff90C93dA5d" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
         },
       },
     },

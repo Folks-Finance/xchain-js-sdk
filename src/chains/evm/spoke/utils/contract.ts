@@ -4,6 +4,7 @@ import { ChainType } from "../../../../common/types/chain.js";
 import { convertFromGenericAddress } from "../../../../common/utils/address.js";
 import { BridgeRouterSpokeAbi } from "../constants/abi/bridge-router-spoke-abi.js";
 import { SpokeCommonAbi } from "../constants/abi/spoke-common-abi.js";
+import { SpokeRewardsV2CommonAbi } from "../constants/abi/spoke-rewards-v2-common-abi.js";
 import { SpokeTokenAbi } from "../constants/abi/spoke-token-abi.js";
 
 import type { GenericAddress } from "../../../../common/types/address.js";
@@ -68,6 +69,29 @@ export function getSpokeTokenContract(
 ): GetReadContractReturnType<typeof SpokeTokenAbi> | GetContractReturnType<typeof SpokeTokenAbi, Client> {
   return getContract({
     abi: SpokeTokenAbi,
+    address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
+    client: { wallet: signer, public: provider },
+  });
+}
+
+export function getSpokeRewardsV2CommonContract(
+  provider: Client,
+  address: GenericAddress,
+): GetReadContractReturnType<typeof SpokeRewardsV2CommonAbi>;
+export function getSpokeRewardsV2CommonContract(
+  provider: Client,
+  address: GenericAddress,
+  signer: WalletClient,
+): GetContractReturnType<typeof SpokeRewardsV2CommonAbi, Client>;
+export function getSpokeRewardsV2CommonContract(
+  provider: Client,
+  address: GenericAddress,
+  signer?: WalletClient,
+):
+  | GetReadContractReturnType<typeof SpokeRewardsV2CommonAbi>
+  | GetContractReturnType<typeof SpokeRewardsV2CommonAbi, Client> {
+  return getContract({
+    abi: SpokeRewardsV2CommonAbi,
     address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
     client: { wallet: signer, public: provider },
   });

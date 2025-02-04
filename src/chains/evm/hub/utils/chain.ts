@@ -1,10 +1,14 @@
+import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { HUB_CHAIN } from "../constants/chain.js";
 
+import type { GenericAddress } from "../../../../common/types/address.js";
 import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
 import type { AdapterType } from "../../../../common/types/message.js";
 import type { LoanTypeId } from "../../../../common/types/module.js";
+import type { RewardsTokenId, RewardsType } from "../../../../common/types/rewards.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { HubChain } from "../types/chain.js";
+import type { HubRewardTokenData } from "../types/rewards-v2.js";
 import type { HubTokenData } from "../types/token.js";
 
 export function isHubChain(folksChainId: FolksChainId, network: NetworkType): boolean {
@@ -22,6 +26,20 @@ export function getHubTokensData(network: NetworkType): Partial<Record<FolksToke
 export function getHubTokenData(folksTokenId: FolksTokenId, network: NetworkType): HubTokenData {
   const token = HUB_CHAIN[network].tokens[folksTokenId];
   if (!token) throw new Error(`Hub token not found for folksTokenId: ${folksTokenId}`);
+  return token;
+}
+
+export function getHubRewardAddress(network: NetworkType, rewardsType: RewardsType): GenericAddress {
+  return HUB_CHAIN[network].rewards[rewardsType].hubAddress;
+}
+
+export function getHubRewardsV2TokensData(network: NetworkType): Partial<Record<RewardsTokenId, HubRewardTokenData>> {
+  return HUB_CHAIN[network].rewards[REWARDS_TYPE.V2].tokens;
+}
+
+export function getHubRewardsV2TokenData(rewardTokenId: RewardsTokenId, network: NetworkType): HubRewardTokenData {
+  const token = HUB_CHAIN[network].rewards[REWARDS_TYPE.V2].tokens[rewardTokenId];
+  if (!token) throw new Error(`RewardsV2 token not found for rewardTokenId: ${rewardTokenId}`);
   return token;
 }
 

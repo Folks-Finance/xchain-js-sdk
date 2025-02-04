@@ -1,4 +1,4 @@
-export const RewardsV1Abi = [
+export const HubRewardsV1Abi = [
   {
     inputs: [
       { internalType: "address", name: "admin", type: "address" },

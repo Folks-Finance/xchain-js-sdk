@@ -10,6 +10,8 @@ import type { GenericAddress } from "../types/address.js";
 import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
 import type { FolksChainSigner } from "../types/core.js";
 import type { AdapterType } from "../types/message.js";
+import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
+import type { RewardsTokenId, RewardsType } from "../types/rewards.js";
 import type { FolksTokenId, SpokeTokenData } from "../types/token.js";
 
 export function getFolksChain(folksChainId: FolksChainId, network: NetworkType): FolksChain {
@@ -52,6 +54,38 @@ export function getSpokeTokenData(spokeChain: SpokeChain, folksTokenId: FolksTok
   if (!tokenData) throw new Error(`Spoke Token not found for folksTokenId: ${folksTokenId}`);
 
   return tokenData;
+}
+
+export function getRewardTokenSpokeChain(
+  rewardTokenId: RewardsTokenId,
+  network: NetworkType,
+  rewardType: RewardsType,
+): SpokeChain {
+  const spokeChain = Object.values(SPOKE_CHAIN[network]).find(
+    (spokeChain) => spokeChain.rewards[rewardType]?.tokens[rewardTokenId] !== undefined,
+  );
+  if (!spokeChain) throw new Error(`Spoke chain not found for rewardTokenId: ${rewardTokenId} - ${rewardType}`);
+
+  return spokeChain;
+}
+
+export function getSpokeRewardsCommonAddress(spokeChain: SpokeChain, rewardType: RewardsType): GenericAddress {
+  const spokeRewardsCommonAddress = spokeChain.rewards[rewardType]?.spokeRewardsCommonAddress;
+  if (!spokeRewardsCommonAddress) throw new Error(`Rewards ${rewardType} Spoke Common Address not found`);
+
+  return spokeRewardsCommonAddress;
+}
+
+export function getSpokeRewardsTokenData(
+  spokeChain: SpokeChain,
+  rewardTokenId: RewardsTokenId,
+  rewardType: RewardsType,
+): SpokeRewardTokenData {
+  const spokeRewardTokenData = spokeChain.rewards[rewardType]?.tokens[rewardTokenId];
+  if (!spokeRewardTokenData)
+    throw new Error(`Rewards ${rewardType} Spoke Token not found for rewardTokenId: ${rewardTokenId}`);
+
+  return spokeRewardTokenData;
 }
 
 export function isFolksTokenSupported(
