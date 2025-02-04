@@ -1,5 +1,6 @@
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { MAINNET_POOLS, TESTNET_POOLS } from "../../../../common/constants/pool.js";
+import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { NetworkType, ChainType } from "../../../../common/types/chain.js";
 import { AdapterType } from "../../../../common/types/message.js";
 import { LoanTypeId } from "../../../../common/types/module.js";
@@ -228,11 +229,11 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
-      V1: {
+      [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
       },
       // TODO rewards: add deployed contracts
-      V2: {
+      [REWARDS_TYPE.V2]: {
         hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
         spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
         tokens: {},
@@ -375,11 +376,11 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewards: {
-      V1: {
+      [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
       },
       // TODO rewards: add deployed contracts
-      V2: {
+      [REWARDS_TYPE.V2]: {
         hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
         spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
         tokens: {},

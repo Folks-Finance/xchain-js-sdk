@@ -18,6 +18,7 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../ty
 import { convertToGenericAddress } from "../utils/address.js";
 
 import { MAINNET_POOLS, TESTNET_POOLS } from "./pool.js";
+import { REWARDS_TYPE } from "./reward.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type {
@@ -232,7 +233,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -323,7 +324,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -414,7 +415,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -500,7 +501,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -591,7 +592,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -659,7 +660,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -750,7 +751,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -828,7 +829,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -888,7 +889,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
@@ -966,7 +967,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        V2: {
+        [REWARDS_TYPE.V2]: {
           // TODO rewards: add deployed contracts
           spokeRewardsCommonAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
           tokens: {},
