@@ -1,14 +1,22 @@
 import { getHubTokenData, isHubChain } from "../../chains/evm/hub/utils/chain.js";
+import { intersect } from "../../utils/array.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../../xchain/core/folks-core.js";
-import { DATA_ADAPTERS, HUB_ADAPTERS } from "../constants/adapter.js";
+import { DATA_ADAPTERS } from "../constants/adapter.js";
 import { MessageAdapterParamsType } from "../types/adapter.js";
 import { AdapterType } from "../types/message.js";
 import { TokenType } from "../types/token.js";
 
+import { getSpokeChain } from "./chain.js";
+
 import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
 import type { FolksChainId, NetworkType } from "../types/chain.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
+
+export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType) {
+  const spokeChain = getSpokeChain(folksChainId, network);
+  return Object.keys(spokeChain.adapters).map<AdapterType>(parseInt);
+}
 
 export function doesAdapterSupportDataMessage(folksChainId: FolksChainId, adapterId: AdapterType): boolean {
   const isHub = isHubChain(folksChainId, FolksCore.getSelectedNetwork());
@@ -82,36 +90,40 @@ function getSendTokenAdapterIds(folksTokenId: FolksTokenId, network: NetworkType
   return DATA_ADAPTERS;
 }
 
-function getAdapterIds(messageAdapterParams: MessageAdapterParams) {
-  const { sourceFolksChainId, network, messageAdapterParamType } = messageAdapterParams;
-  if (isHubChain(sourceFolksChainId, network)) return HUB_ADAPTERS;
-  if (messageAdapterParamType == MessageAdapterParamsType.SendToken)
+function getMessageAdapterIds(messageAdapterParams: MessageAdapterParams) {
+  const { network, messageAdapterParamType } = messageAdapterParams;
+  if (messageAdapterParamType === MessageAdapterParamsType.SendToken)
     return getSendTokenAdapterIds(messageAdapterParams.folksTokenId, network);
   return DATA_ADAPTERS;
 }
 
-function getReturnAdapterIds({ folksTokenId, destFolksChainId, network }: ReceiveTokenMessageAdapterParams) {
-  if (isHubChain(destFolksChainId, network)) return HUB_ADAPTERS;
+function getReturnMessageAdapterIds({ folksTokenId, network }: ReceiveTokenMessageAdapterParams) {
   return getSendTokenAdapterIds(folksTokenId, network);
 }
 
 export function getSupportedMessageAdapters(params: MessageAdapterParams) {
-  const { messageAdapterParamType } = params;
+  const { messageAdapterParamType, sourceFolksChainId, network } = params;
+  const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network);
+  const supportedAdapterIds = getMessageAdapterIds(params).filter(intersect(spokeAdapterIds));
 
   switch (messageAdapterParamType) {
-    case MessageAdapterParamsType.SendToken:
+    case MessageAdapterParamsType.SendToken: {
       return {
-        adapterIds: getAdapterIds(params),
-        returnAdapterIds: getAdapterIds(params),
+        adapterIds: supportedAdapterIds,
+        returnAdapterIds: supportedAdapterIds,
       };
-    case MessageAdapterParamsType.ReceiveToken:
+    }
+    case MessageAdapterParamsType.ReceiveToken: {
+      const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network);
+      const supportedReturnAdapterIds = getReturnMessageAdapterIds(params).filter(intersect(destSpokeAdapterIds));
       return {
-        adapterIds: getAdapterIds(params),
-        returnAdapterIds: getReturnAdapterIds(params),
+        adapterIds: supportedAdapterIds,
+        returnAdapterIds: supportedReturnAdapterIds,
       };
+    }
     case MessageAdapterParamsType.Data:
       return {
-        adapterIds: getAdapterIds(params),
+        adapterIds: supportedAdapterIds,
         returnAdapterIds: [AdapterType.HUB],
       };
     default:
