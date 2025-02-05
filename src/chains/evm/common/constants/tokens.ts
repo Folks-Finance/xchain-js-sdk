@@ -1,3 +1,4 @@
+import { TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
 import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
 
 import { EVM_FOLKS_CHAIN_ID } from "./chain.js";
@@ -123,6 +124,10 @@ export const CONTRACT_SLOT: Partial<
       [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: {
         balanceOf: 0n,
         allowance: 1n,
+      },
+      [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
+        balanceOf: 9n,
+        allowance: 10n,
       },
     },
   },
