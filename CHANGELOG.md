@@ -1,5 +1,15 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.54
+
+### Patch Changes
+
+- [#221](https://github.com/Folks-Finance/xchain-js-sdk/pull/221) [`a10e450`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a10e4509a4f34a5240b92476a3c557890e0c8d0a) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can get historical pool info
+
+- [#213](https://github.com/Folks-Finance/xchain-js-sdk/pull/213) [`81ffba7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/81ffba72ff845fc4cf697ccade085949d4a5c72d) Thanks [@palace22](https://github.com/palace22)! - Refactored get supported adapter ids
+
+- [#221](https://github.com/Folks-Finance/xchain-js-sdk/pull/221) [`a10e450`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a10e4509a4f34a5240b92476a3c557890e0c8d0a) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can get historical oracle prices
+
 ## 0.0.53
 
 ### Patch Changes
