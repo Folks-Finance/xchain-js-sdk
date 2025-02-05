@@ -9,12 +9,17 @@ import type { OraclePrice, OraclePrices } from "../types/oracle.js";
 import type { HubTokenData } from "../types/token.js";
 import type { Client, ContractFunctionParameters, ReadContractReturnType } from "viem";
 
-export async function getOraclePrice(provider: Client, network: NetworkType, poolId: number): Promise<OraclePrice> {
+export async function getOraclePrice(
+  provider: Client,
+  network: NetworkType,
+  poolId: number,
+  blockNumber?: bigint,
+): Promise<OraclePrice> {
   const hubChain = getHubChain(network);
 
   const oracleManager = getOracleManagerContract(provider, hubChain.oracleManagerAddress);
 
-  const { price, decimals } = await oracleManager.read.processPriceFeed([poolId]);
+  const { price, decimals } = await oracleManager.read.processPriceFeed([poolId], { blockNumber });
   return { price: [price, 18], decimals };
 }
 
@@ -22,6 +27,7 @@ export async function getOraclePrices(
   provider: Client,
   network: NetworkType,
   tokens: Array<HubTokenData>,
+  blockNumber?: bigint,
 ): Promise<OraclePrices> {
   const hubChain = getHubChain(network);
   const oracleManager = getOracleManagerContract(provider, hubChain.oracleManagerAddress);
@@ -36,6 +42,7 @@ export async function getOraclePrices(
   const priceFeeds = (await multicall(provider, {
     contracts: processPriceFeeds,
     allowFailure: false,
+    blockNumber,
   })) as Array<ReadContractReturnType<typeof OracleManagerAbi, "processPriceFeed">>;
 
   const oraclePrices: OraclePrices = {};
