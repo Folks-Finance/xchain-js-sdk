@@ -230,6 +230,19 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.ggAVAX,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.ggAVAX],
+          spokeAddress: convertToGenericAddress(
+            "0xe53189D00D1b4F231A2a208a7967E0dCaE8Db073" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
     },
     [FOLKS_CHAIN_ID.ETHEREUM]: {

@@ -18,6 +18,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   ARB: "ARB",
   SolvBTC: "SolvBTC",
   JOE: "JOE",
+  ggAVAX: "ggAVAX",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 

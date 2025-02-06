@@ -35,6 +35,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 0n,
         allowance: 1n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: {
+        balanceOf: 5n,
+        allowance: 6n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
