@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.56
+
+### Patch Changes
+
+- [#224](https://github.com/Folks-Finance/xchain-js-sdk/pull/224) [`c7a44ac`](https://github.com/Folks-Finance/xchain-js-sdk/commit/c7a44ac09525bcf43f64bc933e2efc1393628ccf) Thanks [@palace22](https://github.com/palace22)! - Refactored supported adapters util to return non empty arrays
+
 ## 0.0.55
 
 ### Patch Changes
