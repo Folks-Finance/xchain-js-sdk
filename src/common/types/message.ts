@@ -3,6 +3,7 @@ import type { FolksChainId } from "./chain.js";
 import type { AccountId, LoanId, LoanName, Nonce } from "./lending.js";
 import type { LoanTypeId } from "./module.js";
 import type { FolksTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
+import type { NonEmptyArray } from "../../types/generics.js";
 import type {
   FINALITY,
   HUB_ACTIONS,
@@ -72,8 +73,8 @@ export type MessageAdapters = {
 };
 
 export type SupportedMessageAdapters = {
-  adapterId: Array<AdapterType>;
-  returnAdapterId: Array<AdapterType>;
+  adapterIds: NonEmptyArray<AdapterType>;
+  returnAdapterIds: NonEmptyArray<AdapterType>;
 };
 
 export type FeeParams = {

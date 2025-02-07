@@ -1,5 +1,5 @@
 import { getHubTokenData, isHubChain } from "../../chains/evm/hub/utils/chain.js";
-import { intersect } from "../../utils/array.js";
+import { ensureNonEmpty, intersect } from "../../utils/array.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../../xchain/core/folks-core.js";
 import { DATA_ADAPTERS } from "../constants/adapter.js";
@@ -9,13 +9,16 @@ import { TokenType } from "../types/token.js";
 
 import { getSpokeChain } from "./chain.js";
 
+import type { NonEmptyArray } from "../../types/generics.js";
 import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
 import type { FolksChainId, NetworkType } from "../types/chain.js";
+import type { SupportedMessageAdapters } from "../types/message.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
-export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType) {
+export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType): NonEmptyArray<AdapterType> {
   const spokeChain = getSpokeChain(folksChainId, network);
-  return Object.keys(spokeChain.adapters).map<AdapterType>(parseInt);
+  const adapterIds = Object.keys(spokeChain.adapters).map<AdapterType>(parseInt);
+  return ensureNonEmpty(adapterIds, `No adapters found for chain ${folksChainId}`);
 }
 
 export function doesAdapterSupportDataMessage(folksChainId: FolksChainId, adapterId: AdapterType): boolean {
@@ -101,10 +104,13 @@ function getReturnMessageAdapterIds({ folksTokenId, network }: ReceiveTokenMessa
   return getSendTokenAdapterIds(folksTokenId, network);
 }
 
-export function getSupportedMessageAdapters(params: MessageAdapterParams) {
+export function getSupportedMessageAdapters(params: MessageAdapterParams): SupportedMessageAdapters {
   const { messageAdapterParamType, sourceFolksChainId, network } = params;
   const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network);
-  const supportedAdapterIds = getMessageAdapterIds(params).filter(intersect(spokeAdapterIds));
+  const supportedAdapterIds = ensureNonEmpty(
+    getMessageAdapterIds(params).filter(intersect(spokeAdapterIds)),
+    `No supported adapters found for chain ${sourceFolksChainId}`,
+  );
 
   switch (messageAdapterParamType) {
     case MessageAdapterParamsType.SendToken: {
@@ -115,7 +121,10 @@ export function getSupportedMessageAdapters(params: MessageAdapterParams) {
     }
     case MessageAdapterParamsType.ReceiveToken: {
       const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network);
-      const supportedReturnAdapterIds = getReturnMessageAdapterIds(params).filter(intersect(destSpokeAdapterIds));
+      const supportedReturnAdapterIds = ensureNonEmpty(
+        getReturnMessageAdapterIds(params).filter(intersect(destSpokeAdapterIds)),
+        `No supported return adapters found for chain ${params.destFolksChainId}`,
+      );
       return {
         adapterIds: supportedAdapterIds,
         returnAdapterIds: supportedReturnAdapterIds,
