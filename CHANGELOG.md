@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.55
+
+### Patch Changes
+
+- [#222](https://github.com/Folks-Finance/xchain-js-sdk/pull/222) [`3782888`](https://github.com/Folks-Finance/xchain-js-sdk/commit/37828887aea0e52ce45baddf26c62d0a0e0547a9) Thanks [@palace22](https://github.com/palace22)! - Added ggAVAX
+
 ## 0.0.54
 
 ### Patch Changes
