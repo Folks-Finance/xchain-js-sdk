@@ -168,6 +168,9 @@ export const prepare = {
         folksChain.network,
         MessageDirection.HubToSpoke,
         returnMessageBuilderParams,
+        0n,
+        0n,
+        true,
       );
       feeParams.returnGasLimit = returnGasLimit;
 
@@ -214,6 +217,8 @@ export const prepare = {
       MessageDirection.SpokeToHub,
       messageBuilderParams,
       feeParams.receiverValue,
+      0n,
+      true,
     );
     const messageToSend = buildMessageToSend(folksChain.chainType, messageBuilderParams, feeParams);
 
