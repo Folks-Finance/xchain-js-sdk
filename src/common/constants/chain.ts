@@ -664,7 +664,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             [TESTNET_REWARDS_TOKEN_ID.AVAX]: {
               rewardTokenId: TESTNET_REWARDS_TOKEN_ID.AVAX,
               spokeAddress: convertToGenericAddress(
-                "0x6F7Dc9b7259141b9678b2c884E5AF15629BeD919" as EvmAddress,
+                "0xb51f6521BB1D6448d0673Bbc0BD886C6b730DF52" as EvmAddress,
                 ChainType.EVM,
               ),
               token: {
@@ -877,7 +877,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
               rewardTokenId: TESTNET_REWARDS_TOKEN_ID.USDC_base_sep,
               spokeAddress: convertToGenericAddress(
-                "0x477AB93408e0DBDC7287Da03f87F68641469c2A0" as EvmAddress,
+                "0x4422437064Dd66Db1B8D163134980A86178239e5" as EvmAddress,
                 ChainType.EVM,
               ),
               token: {
