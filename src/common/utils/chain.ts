@@ -110,16 +110,28 @@ export function getSpokeChainAdapterAddress(
   folksChainId: FolksChainId,
   network: NetworkType,
   adapterType: AdapterType,
+  isRewards = false,
 ): GenericAddress {
   const spokeChain = getSpokeChain(folksChainId, network);
-  const adapterAddress = spokeChain.adapters[adapterType];
+  const { adapters } = isRewards ? spokeChain.rewards : spokeChain;
+  const adapterAddress = adapters[adapterType];
   if (adapterAddress) return adapterAddress;
   throw new Error(`Adapter ${adapterType} not found for spoke chain ${folksChainId}`);
 }
 
-export function getAdapterAddress(folksChainId: FolksChainId, network: NetworkType, adapterType: AdapterType) {
-  if (isHubChain(folksChainId, network)) return getHubChainAdapterAddress(network, adapterType);
-  return getSpokeChainAdapterAddress(folksChainId, network, adapterType);
+export function getAdapterAddress(
+  folksChainId: FolksChainId,
+  network: NetworkType,
+  adapterType: AdapterType,
+  isRewards = false,
+) {
+  if (isHubChain(folksChainId, network)) return getHubChainAdapterAddress(network, adapterType, isRewards);
+  return getSpokeChainAdapterAddress(folksChainId, network, adapterType, isRewards);
+}
+
+export function getSpokeChainBridgeRouterAddress(spokeChain: SpokeChain, isRewards = false) {
+  const { bridgeRouterAddress } = isRewards ? spokeChain.rewards : spokeChain;
+  return bridgeRouterAddress;
 }
 
 export function getSignerGenericAddress(folksChainSigner: FolksChainSigner): GenericAddress {

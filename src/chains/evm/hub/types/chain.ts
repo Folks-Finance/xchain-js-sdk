@@ -18,6 +18,8 @@ type HubRewardsV2 = {
 };
 
 export type HubRewardsMap = {
+  bridgeRouterAddress: GenericAddress;
+  adapters: Partial<Record<AdapterType, GenericAddress>>;
   [REWARDS_TYPE.V1]: HubRewardsV1;
   [REWARDS_TYPE.V2]: HubRewardsV2;
 };

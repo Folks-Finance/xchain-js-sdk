@@ -22,6 +22,8 @@ export type SpokeRewardsV2 = {
 };
 
 export type SpokeRewardsMap = {
+  bridgeRouterAddress: GenericAddress;
+  adapters: Partial<Record<AdapterType, GenericAddress>>;
   [REWARDS_TYPE.V1]?: undefined;
   [REWARDS_TYPE.V2]?: SpokeRewardsV2;
 };

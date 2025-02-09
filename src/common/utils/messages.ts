@@ -72,15 +72,16 @@ function getAdaptersAddresses(
   destFolksChainId: FolksChainId,
   network: NetworkType,
   adapterId: AdapterType,
+  isRewards = false,
 ) {
   if (messageDirection === MessageDirection.SpokeToHub)
     return {
-      sourceAdapterAddress: getSpokeChainAdapterAddress(sourceFolksChainId, network, adapterId),
-      destAdapterAddress: getHubChainAdapterAddress(network, adapterId),
+      sourceAdapterAddress: getSpokeChainAdapterAddress(sourceFolksChainId, network, adapterId, isRewards),
+      destAdapterAddress: getHubChainAdapterAddress(network, adapterId, isRewards),
     };
   return {
-    sourceAdapterAddress: getHubChainAdapterAddress(network, adapterId),
-    destAdapterAddress: getSpokeChainAdapterAddress(destFolksChainId, network, adapterId),
+    sourceAdapterAddress: getHubChainAdapterAddress(network, adapterId, isRewards),
+    destAdapterAddress: getSpokeChainAdapterAddress(destFolksChainId, network, adapterId, isRewards),
   };
 }
 
@@ -93,6 +94,7 @@ export async function estimateAdapterReceiveGasLimit(
   messageBuilderParams: MessageBuilderParams,
   receiverValue = BigInt(0),
   returnGasLimit = BigInt(0),
+  isRewards = false,
 ) {
   const destFolksChain = getFolksChain(destFolksChainId, network);
 
@@ -103,6 +105,7 @@ export async function estimateAdapterReceiveGasLimit(
     destFolksChainId,
     network,
     adapterId,
+    isRewards,
   );
 
   switch (destFolksChain.chainType) {
@@ -145,6 +148,7 @@ export async function estimateAdapterReceiveGasLimit(
             destFolksChainId,
             network,
             AdapterType.WORMHOLE_DATA,
+            isRewards,
           );
           const sourceWormholeChainId = getWormholeData(sourceFolksChainId).wormholeChainId;
           const wormholeRelayer = convertFromGenericAddress(
@@ -192,6 +196,7 @@ export async function estimateAdapterReceiveGasLimit(
             destFolksChainId,
             network,
             AdapterType.CCIP_DATA,
+            isRewards,
           );
           const sourceCcipChainId = getCcipData(sourceFolksChainId).ccipChainId;
           const ccipRouter = convertFromGenericAddress(getCcipData(destFolksChainId).ccipRouter, ChainType.EVM);
