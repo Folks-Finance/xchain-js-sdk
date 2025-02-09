@@ -397,7 +397,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
       },
       [REWARDS_TYPE.V2]: {
-        hubAddress: convertToGenericAddress("0x8A46207Af43b4A8f4c3489B1b19AC01503d02e0d" as EvmAddress, ChainType.EVM),
+        hubAddress: convertToGenericAddress("0xD962d5198A170bAf75da57C7C408e6EE7d912086" as EvmAddress, ChainType.EVM),
         spokeManagerAddress: convertToGenericAddress(
           "0x9c78F1c73B3C21917624e0e6e78bB37bf0b8Ce91" as EvmAddress,
           ChainType.EVM,
