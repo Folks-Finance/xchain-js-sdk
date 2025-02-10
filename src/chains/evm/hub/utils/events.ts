@@ -1,6 +1,5 @@
 import type { FolksChainId } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId } from "../../../../common/types/lending.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
+import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
 import type { AcceptInviteAddressEventParams, InviteAddressEventParams } from "../types/account.js";
 import type { CreateUserLoanEventParams, DeleteUserLoanEventParams } from "../types/loan.js";
 
@@ -8,7 +7,10 @@ export async function fetchCreateUserLoanEvents(params: CreateUserLoanEventParam
   const { loanManager, accountId, loanTypeIds, eventParams } = params;
   const logs = await loanManager.getEvents.CreateUserLoan({ accountId }, eventParams);
   return logs
-    .filter((log) => loanTypeIds === undefined || (log.args.loanTypeId && loanTypeIds.includes(log.args.loanTypeId)))
+    .filter(
+      (log) =>
+        loanTypeIds === undefined || (log.args.loanTypeId && loanTypeIds.includes(log.args.loanTypeId as LoanTypeId)),
+    )
     .map((log) => ({
       blockNumber: log.blockNumber,
       loanId: log.args.loanId as LoanId,

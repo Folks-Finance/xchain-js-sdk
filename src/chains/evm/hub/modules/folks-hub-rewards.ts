@@ -15,8 +15,7 @@ import { getUserLoans } from "./folks-hub-loan.js";
 
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId } from "../../../../common/types/lending.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
+import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type {
   PrepareClaimRewardsCall,

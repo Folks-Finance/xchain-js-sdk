@@ -7,9 +7,9 @@ import {
   FolksLoan,
   FolksOracle,
   FolksPool,
-  LoanTypeId,
   NetworkType,
   TESTNET_FOLKS_TOKEN_ID,
+  TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
 
 import type { AccountId, FolksCoreConfig, PoolInfo, FolksTokenId } from "../src/index.js";
@@ -40,14 +40,14 @@ async function main() {
     }),
   );
   const loanTypeInfo = {
-    [LoanTypeId.GENERAL]: await FolksLoan.read.loanTypeInfo(LoanTypeId.GENERAL),
+    [TESTNET_LOAN_TYPE_ID.GENERAL]: await FolksLoan.read.loanTypeInfo(TESTNET_LOAN_TYPE_ID.GENERAL),
   };
   const oraclePrices = await FolksOracle.read.oraclePrices();
 
   const accountId: AccountId = "0x7d6...b66" as AccountId;
 
-  const loanIds = await FolksLoan.read.userLoansIds(accountId, [LoanTypeId.GENERAL]);
-  const generalLoansIds = loanIds.get(LoanTypeId.GENERAL);
+  const loanIds = await FolksLoan.read.userLoansIds(accountId, [TESTNET_LOAN_TYPE_ID.GENERAL]);
+  const generalLoansIds = loanIds.get(TESTNET_LOAN_TYPE_ID.GENERAL);
 
   if (!generalLoansIds) {
     console.log("No general loans found");

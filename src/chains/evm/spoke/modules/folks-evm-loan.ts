@@ -13,9 +13,8 @@ import { getBridgeRouterSpokeContract, getSpokeCommonContract, getSpokeTokenCont
 
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { FolksChainId, NetworkType, SpokeChain } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId, LoanName, Nonce } from "../../../../common/types/lending.js";
+import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../../../common/types/lending.js";
 import type { MessageToSend } from "../../../../common/types/message.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
 import type { FolksTokenId, SpokeTokenData } from "../../../../common/types/token.js";
 import type {
   PrepareBorrowCall,
