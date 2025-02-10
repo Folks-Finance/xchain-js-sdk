@@ -26,12 +26,8 @@ import type {
   UserPoints,
 } from "../../chains/evm/hub/types/rewards.js";
 import type { ChainType } from "../../common/types/chain.js";
-import type { AccountId, LoanId } from "../../common/types/lending.js";
-import type {
-  LoanTypeId,
-  PrepareClaimRewardsCall,
-  PrepareUpdateAccountsPointsForRewardsCall,
-} from "../../common/types/module.js";
+import type { AccountId, LoanId, LoanTypeId } from "../../common/types/lending.js";
+import type { PrepareClaimRewardsCall, PrepareUpdateAccountsPointsForRewardsCall } from "../../common/types/module.js";
 import type { FolksTokenId } from "../../common/types/token.js";
 
 export const prepare = {

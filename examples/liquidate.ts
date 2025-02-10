@@ -10,8 +10,8 @@ import {
   CHAIN_VIEM,
   TESTNET_FOLKS_TOKEN_ID,
   FolksPool,
-  LoanTypeId,
   FolksOracle,
+  TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
 
 import type { FolksCoreConfig, AccountId, LoanId, FolksTokenId, PoolInfo } from "../src/index.js";
@@ -49,7 +49,7 @@ async function main() {
     }),
   );
   const loanTypeInfo = {
-    [LoanTypeId.GENERAL]: await FolksLoan.read.loanTypeInfo(LoanTypeId.GENERAL),
+    [TESTNET_LOAN_TYPE_ID.GENERAL]: await FolksLoan.read.loanTypeInfo(TESTNET_LOAN_TYPE_ID.GENERAL),
   };
   const oraclePrices = await FolksOracle.read.oraclePrices();
 
