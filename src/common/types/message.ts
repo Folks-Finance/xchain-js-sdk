@@ -1,7 +1,6 @@
 import type { GenericAddress } from "./address.js";
 import type { FolksChainId } from "./chain.js";
-import type { AccountId, LoanId, LoanName, Nonce } from "./lending.js";
-import type { LoanTypeId } from "./module.js";
+import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "./lending.js";
 import type { FolksTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
 import type { NonEmptyArray } from "../../types/generics.js";
 import type {

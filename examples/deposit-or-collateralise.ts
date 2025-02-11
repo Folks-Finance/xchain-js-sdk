@@ -9,9 +9,9 @@ import {
   getSupportedMessageAdapters,
   Action,
   MessageAdapterParamsType,
-  LoanTypeId,
   CHAIN_VIEM,
   TESTNET_FOLKS_TOKEN_ID,
+  TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
 
 import type { FolksCoreConfig, MessageAdapters, AccountId, LoanId } from "../src/index.js";
@@ -52,7 +52,7 @@ async function main() {
 
   const accountId = "0x7d6...b66" as AccountId; // Your xChainApp account id
   const loanId = "0x166...c12" as LoanId; // Your loan id
-  const loanType = LoanTypeId.GENERAL; // LoanTypeId.DEPOSIT for deposits
+  const loanType = TESTNET_LOAN_TYPE_ID.GENERAL; // TESTNET_LOAN_TYPE_ID.DEPOSIT for deposits
   const amountToDeposit = parseUnits("0.1", 18); // 0.1 AVAX (AVAX has 18 decimals)
 
   const prepareDepositCall = await FolksLoan.prepare.deposit(

@@ -22,11 +22,6 @@ import type {
   PrepareClaimRewardsCall as PrepareClaimRewardsEVMCall,
 } from "../../chains/evm/common/types/module.js";
 
-export enum LoanTypeId {
-  DEPOSIT = 1, // no support for borrows
-  GENERAL = 2,
-}
-
 export type PrepareCall = PrepareEVMCall;
 
 export type PrepareCreateAccountCall = PrepareCreateAccountEVMCall;

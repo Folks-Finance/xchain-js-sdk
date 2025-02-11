@@ -41,7 +41,7 @@ import { initLoanBorrowInterests, updateLoanBorrowInterests } from "../utils/loa
 
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId } from "../../../../common/types/lending.js";
+import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
 import type {
   MessageAdapters,
   MessageToSend,
@@ -50,7 +50,6 @@ import type {
   LiquidateMessageData,
   LiquidateMessageDataParams,
 } from "../../../../common/types/message.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { PrepareLiquidateCall } from "../../common/types/module.js";
 import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";

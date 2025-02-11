@@ -1,7 +1,6 @@
 import type { OraclePrice } from "./oracle.js";
 import type { PoolInfo } from "./pool.js";
-import type { AccountId, LoanId } from "../../../../common/types/lending.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
+import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { GetEventParams, GetReadContractReturnType } from "../../common/types/contract.js";
 import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
