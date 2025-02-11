@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.58
+
+### Patch Changes
+
+- [#229](https://github.com/Folks-Finance/xchain-js-sdk/pull/229) [`27b74ea`](https://github.com/Folks-Finance/xchain-js-sdk/commit/27b74eac9615f0c13a7829cf146f23ccc43ac42e) Thanks [@palace22](https://github.com/palace22)! - Fixed adapter conv to number
+
 ## 0.0.57
 
 ### Patch Changes
