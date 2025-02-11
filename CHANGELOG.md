@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.57
+
+### Patch Changes
+
+- [#227](https://github.com/Folks-Finance/xchain-js-sdk/pull/227) [`78f4497`](https://github.com/Folks-Finance/xchain-js-sdk/commit/78f449780044a123b3a5342d666322e3396df443) Thanks [@gidonkatten](https://github.com/gidonkatten)! - new avax efficiency loan type
+
 ## 0.0.56
 
 ### Patch Changes
