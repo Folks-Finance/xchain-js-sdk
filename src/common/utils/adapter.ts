@@ -17,7 +17,7 @@ import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
 export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType): NonEmptyArray<AdapterType> {
   const spokeChain = getSpokeChain(folksChainId, network);
-  const adapterIds = Object.keys(spokeChain.adapters).map<AdapterType>(parseInt);
+  const adapterIds = Object.keys(spokeChain.adapters).map<AdapterType>(Number);
   return ensureNonEmpty(adapterIds, `No adapters found for chain ${folksChainId}`);
 }
 
