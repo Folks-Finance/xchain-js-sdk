@@ -50,7 +50,7 @@ import type {
   ReceiveRewardToken,
   UnclaimedRewards,
 } from "../../chains/evm/hub/types/rewards-v2.js";
-import type { AccountId } from "../../common/types/lending.js";
+import type { AccountId, LoanTypeId } from "../../common/types/lending.js";
 import type {
   ClaimRewardsV2MessageData,
   MessageBuilderParams,
@@ -60,7 +60,6 @@ import type {
   SendTokenMessageData,
 } from "../../common/types/message.js";
 import type {
-  LoanTypeId,
   PrepareClaimRewardsV2Call,
   PrepareUpdateAccountsPointsForRewardsV2Call,
 } from "../../common/types/module.js";

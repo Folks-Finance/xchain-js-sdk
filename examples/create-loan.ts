@@ -12,8 +12,8 @@ import {
   getSupportedMessageAdapters,
   Action,
   MessageAdapterParamsType,
-  LoanTypeId,
   CHAIN_VIEM,
+  TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
 
 import type { FolksCoreConfig, MessageAdapters, Nonce, AccountId } from "../src/index.js";
@@ -53,7 +53,7 @@ async function main() {
   FolksCore.setFolksSigner({ signer, folksChainId: chain });
 
   const accountId = "0x7d6...b66" as AccountId; // Your xChainApp account id
-  const loanType = LoanTypeId.GENERAL; // LoanTypeId.DEPOSIT for deposits
+  const loanType = TESTNET_LOAN_TYPE_ID.GENERAL; // TESTNET_LOAN_TYPE_ID.DEPOSIT for deposits
   const loanName = convertStringToLoanName("Test Loan");
 
   const prepareCreateLoanCall = await FolksLoan.prepare.createLoan(accountId, nonce, loanType, loanName, adapters);
