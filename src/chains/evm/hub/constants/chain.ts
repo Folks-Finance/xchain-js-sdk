@@ -252,10 +252,11 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
+      bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
+      adapters: {},
       [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
       },
-      // TODO rewards: add deployed contracts
       [REWARDS_TYPE.V2]: {
         hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
         spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
@@ -399,13 +400,28 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewards: {
+      bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
+      adapters: {
+        [AdapterType.HUB]: convertToGenericAddress(
+          "0x1fb4d24C5fB0807d5EC338dEa276e88B13cB48dE" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0x73FC90E2cEcED235D23C8B54d17Ba54d8516d689" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x5c9d6C2202F214f3f8B879eaE3e16C6675338D4E" as EvmAddress,
+          ChainType.EVM,
+        ),
+      },
       [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
       },
       [REWARDS_TYPE.V2]: {
-        hubAddress: convertToGenericAddress("0x41e178f4d6561160f3E1376b6a8324EED293a1bb" as EvmAddress, ChainType.EVM),
+        hubAddress: convertToGenericAddress("0xD962d5198A170bAf75da57C7C408e6EE7d912086" as EvmAddress, ChainType.EVM),
         spokeManagerAddress: convertToGenericAddress(
-          "0x26D5dfb79E54aDF2e67Efe12CefB7835A6646894" as EvmAddress,
+          "0x9c78F1c73B3C21917624e0e6e78bB37bf0b8Ce91" as EvmAddress,
           ChainType.EVM,
         ),
         tokens: {

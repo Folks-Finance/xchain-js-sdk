@@ -53,7 +53,15 @@ export function assertLoanTypeSupported(loanType: LoanTypeId, folksTokenId: Folk
     throw new Error(`Loan type ${loanType} is not supported for folksTokenId: ${folksTokenId}`);
 }
 
-export function getHubChainAdapterAddress(network: NetworkType, adapterType: AdapterType) {
+export function getHubChainAdapterAddress(network: NetworkType, adapterType: AdapterType, isRewards = false) {
   const hubChain = getHubChain(network);
-  return hubChain.adapters[adapterType];
+  const { adapters } = isRewards ? hubChain.rewards : hubChain;
+  const adapterAddress = adapters[adapterType];
+  if (adapterAddress) return adapterAddress;
+  throw new Error(`Adapter ${adapterType} not found for hub chain ${hubChain.folksChainId}`);
+}
+
+export function getHubChainBridgeRouterAddress(hubChain: HubChain, isRewards = false) {
+  const { bridgeRouterAddress } = isRewards ? hubChain.rewards : hubChain;
+  return bridgeRouterAddress;
 }
