@@ -39,7 +39,7 @@ import type { ActiveEpochsInfo as ActiveEpochsInfoV1 } from "../../chains/evm/hu
 import type { ActiveEpochsInfo as ActiveEpochsInfoV2 } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { TokenRateLimit } from "../../chains/evm/spoke/types/pool.js";
 import type { FolksChainId } from "../../common/types/chain.js";
-import type { AccountId, LoanId, LoanName, Nonce } from "../../common/types/lending.js";
+import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../common/types/lending.js";
 import type {
   BorrowMessageData,
   CreateLoanAndDepositMessageData,
@@ -61,7 +61,6 @@ import type {
   WithdrawMessageData,
 } from "../../common/types/message.js";
 import type {
-  LoanTypeId,
   PrepareBorrowCall,
   PrepareCreateLoanAndDepositCall,
   PrepareCreateLoanCall,

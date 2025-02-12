@@ -20,6 +20,7 @@ export async function getPoolInfo(
   provider: Client,
   network: NetworkType,
   folksTokenId: FolksTokenId,
+  blockNumber?: bigint,
 ): Promise<PoolInfo> {
   const {
     poolAddress,
@@ -87,6 +88,7 @@ export async function getPoolInfo(
       },
     ],
     allowFailure: false,
+    blockNumber,
   });
 
   const {

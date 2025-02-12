@@ -3,8 +3,8 @@ import { HUB_CHAIN } from "../constants/chain.js";
 
 import type { GenericAddress } from "../../../../common/types/address.js";
 import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
+import type { LoanTypeId } from "../../../../common/types/lending.js";
 import type { AdapterType } from "../../../../common/types/message.js";
-import type { LoanTypeId } from "../../../../common/types/module.js";
 import type { RewardsTokenId, RewardsType } from "../../../../common/types/rewards.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
 import type { HubChain } from "../types/chain.js";

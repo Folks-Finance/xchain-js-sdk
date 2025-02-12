@@ -1,10 +1,10 @@
 import type { GenericAddress } from "./address.js";
 import type { FolksChainId } from "./chain.js";
-import type { AccountId, LoanId, LoanName, Nonce } from "./lending.js";
-import type { LoanTypeId } from "./module.js";
+import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "./lending.js";
 import type { RewardsTokenId } from "./rewards.js";
 import type { FolksTokenId as LendingTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
 import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
+import type { NonEmptyArray } from "../../types/generics.js";
 import type {
   FINALITY,
   HUB_ACTIONS,
@@ -76,8 +76,8 @@ export type MessageAdapters = {
 };
 
 export type SupportedMessageAdapters = {
-  adapterId: Array<AdapterType>;
-  returnAdapterId: Array<AdapterType>;
+  adapterIds: NonEmptyArray<AdapterType>;
+  returnAdapterIds: NonEmptyArray<AdapterType>;
 };
 
 export type FeeParams = {

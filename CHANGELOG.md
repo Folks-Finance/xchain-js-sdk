@@ -1,5 +1,39 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.58
+
+### Patch Changes
+
+- [#229](https://github.com/Folks-Finance/xchain-js-sdk/pull/229) [`27b74ea`](https://github.com/Folks-Finance/xchain-js-sdk/commit/27b74eac9615f0c13a7829cf146f23ccc43ac42e) Thanks [@palace22](https://github.com/palace22)! - Fixed adapter conv to number
+
+## 0.0.57
+
+### Patch Changes
+
+- [#227](https://github.com/Folks-Finance/xchain-js-sdk/pull/227) [`78f4497`](https://github.com/Folks-Finance/xchain-js-sdk/commit/78f449780044a123b3a5342d666322e3396df443) Thanks [@gidonkatten](https://github.com/gidonkatten)! - new avax efficiency loan type
+
+## 0.0.56
+
+### Patch Changes
+
+- [#224](https://github.com/Folks-Finance/xchain-js-sdk/pull/224) [`c7a44ac`](https://github.com/Folks-Finance/xchain-js-sdk/commit/c7a44ac09525bcf43f64bc933e2efc1393628ccf) Thanks [@palace22](https://github.com/palace22)! - Refactored supported adapters util to return non empty arrays
+
+## 0.0.55
+
+### Patch Changes
+
+- [#222](https://github.com/Folks-Finance/xchain-js-sdk/pull/222) [`3782888`](https://github.com/Folks-Finance/xchain-js-sdk/commit/37828887aea0e52ce45baddf26c62d0a0e0547a9) Thanks [@palace22](https://github.com/palace22)! - Added ggAVAX
+
+## 0.0.54
+
+### Patch Changes
+
+- [#221](https://github.com/Folks-Finance/xchain-js-sdk/pull/221) [`a10e450`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a10e4509a4f34a5240b92476a3c557890e0c8d0a) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can get historical pool info
+
+- [#213](https://github.com/Folks-Finance/xchain-js-sdk/pull/213) [`81ffba7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/81ffba72ff845fc4cf697ccade085949d4a5c72d) Thanks [@palace22](https://github.com/palace22)! - Refactored get supported adapter ids
+
+- [#221](https://github.com/Folks-Finance/xchain-js-sdk/pull/221) [`a10e450`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a10e4509a4f34a5240b92476a3c557890e0c8d0a) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can get historical oracle prices
+
 ## 0.0.53
 
 ### Patch Changes

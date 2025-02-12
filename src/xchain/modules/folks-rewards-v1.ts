@@ -24,9 +24,8 @@ import type {
   PendingRewards,
 } from "../../chains/evm/hub/types/rewards-v1.js";
 import type { ChainType } from "../../common/types/chain.js";
-import type { AccountId } from "../../common/types/lending.js";
+import type { AccountId, LoanTypeId } from "../../common/types/lending.js";
 import type {
-  LoanTypeId,
   PrepareClaimRewardsV1Call,
   PrepareUpdateAccountsPointsForRewardsV1Call,
 } from "../../common/types/module.js";
