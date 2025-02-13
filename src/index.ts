@@ -22,12 +22,14 @@ export * from "./common/types/lending.js";
 export * from "./common/types/message.js";
 export * from "./common/types/module.js";
 export * from "./common/types/rewards.js";
+export * from "./common/types/rewards-v2.js";
 export * from "./common/types/token.js";
 
 export * from "./common/constants/bytes.js";
 export * from "./common/constants/chain.js";
 export * from "./common/constants/gmp.js";
 export * from "./common/constants/message.js";
+export * from "./common/constants/reward.js";
 
 export { getSupportedMessageAdapters } from "./common/utils/adapter.js";
 export { convertFromGenericAddress, convertToGenericAddress } from "./common/utils/address.js";
