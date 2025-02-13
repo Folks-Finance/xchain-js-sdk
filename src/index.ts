@@ -21,6 +21,7 @@ export * from "./common/types/gmp.js";
 export * from "./common/types/lending.js";
 export * from "./common/types/message.js";
 export * from "./common/types/module.js";
+export * from "./common/types/rewards.js";
 export * from "./common/types/token.js";
 
 export * from "./common/constants/bytes.js";
