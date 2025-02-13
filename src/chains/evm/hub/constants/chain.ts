@@ -380,6 +380,16 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         poolAddress: convertToGenericAddress("0x99A15c2529ba1020814E9601F3CcAcC413747935" as EvmAddress, ChainType.EVM),
         supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
       },
+      [TESTNET_FOLKS_TOKEN_ID.MON]: {
+        token: {
+          type: TokenType.NATIVE,
+          decimals: 18,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.MON,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.MON],
+        poolAddress: convertToGenericAddress("0x48808cE8cC5c252d095E9D7b9c6c12FE181d835F" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewardsV1Address: convertToGenericAddress(
       "0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress,
