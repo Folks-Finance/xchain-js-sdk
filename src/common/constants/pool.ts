@@ -21,6 +21,7 @@ export const MAINNET_POOLS = {
   [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: 15,
   [MAINNET_FOLKS_TOKEN_ID.JOE]: 16,
   [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: 17,
+  [MAINNET_FOLKS_TOKEN_ID.SHIB]: 18,
 } as const satisfies Record<MainnetFolksTokenId, number>;
 
 export const TESTNET_POOLS = {

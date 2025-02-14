@@ -39,6 +39,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 5n,
         allowance: 6n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -54,6 +58,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        balanceOf: 0n,
+        allowance: 1n,
       },
     },
   },
@@ -71,6 +79,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.BSC]: {
@@ -87,6 +99,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -102,6 +118,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        balanceOf: 0n,
+        allowance: 1n,
       },
     },
   },
