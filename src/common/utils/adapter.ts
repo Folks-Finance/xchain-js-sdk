@@ -15,9 +15,14 @@ import type { FolksChainId, NetworkType } from "../types/chain.js";
 import type { SupportedMessageAdapters } from "../types/message.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
-export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType): NonEmptyArray<AdapterType> {
+export function getSpokeAdapterIds(
+  folksChainId: FolksChainId,
+  network: NetworkType,
+  isRewards = false,
+): NonEmptyArray<AdapterType> {
   const spokeChain = getSpokeChain(folksChainId, network);
-  const adapterIds = Object.keys(spokeChain.adapters).map<AdapterType>(Number);
+  const { adapters } = isRewards ? spokeChain.rewards : spokeChain;
+  const adapterIds = Object.keys(adapters).map<AdapterType>(Number);
   return ensureNonEmpty(adapterIds, `No adapters found for chain ${folksChainId}`);
 }
 
@@ -104,9 +109,9 @@ function getReturnMessageAdapterIds({ folksTokenId, network }: ReceiveTokenMessa
   return getSendTokenAdapterIds(folksTokenId, network);
 }
 
-export function getSupportedMessageAdapters(params: MessageAdapterParams): SupportedMessageAdapters {
+export function getSupportedMessageAdapters(params: MessageAdapterParams, isRewards = false): SupportedMessageAdapters {
   const { messageAdapterParamType, sourceFolksChainId, network } = params;
-  const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network);
+  const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network, isRewards);
   const supportedAdapterIds = ensureNonEmpty(
     getMessageAdapterIds(params).filter(intersect(spokeAdapterIds)),
     `No supported adapters found for chain ${sourceFolksChainId}`,
@@ -120,7 +125,7 @@ export function getSupportedMessageAdapters(params: MessageAdapterParams): Suppo
       };
     }
     case MessageAdapterParamsType.ReceiveToken: {
-      const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network);
+      const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network, isRewards);
       const supportedReturnAdapterIds = ensureNonEmpty(
         getReturnMessageAdapterIds(params).filter(intersect(destSpokeAdapterIds)),
         `No supported return adapters found for chain ${params.destFolksChainId}`,
