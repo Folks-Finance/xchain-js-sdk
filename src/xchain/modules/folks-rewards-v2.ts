@@ -348,14 +348,19 @@ export const util = {
         if (!rewardPrice) throw Error(`rewardTokenId ${rewardTokenId} price unavailable`);
 
         // calculate apr and add to total
-        const rewardsApr = dn.mul(
-          dn.div(
-            calcAssetDollarValue(remainingRewards, rewardPrice.price, rewardPrice.decimals),
-            calcAssetDollarValue(poolInfo.depositData.totalAmount, tokenPrice.price, tokenPrice.decimals),
-            { decimals: 18 },
-          ),
-          dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
+        const rewardsValue = calcAssetDollarValue(remainingRewards, rewardPrice.price, rewardPrice.decimals);
+        const totalDepositsValue = calcAssetDollarValue(
+          poolInfo.depositData.totalAmount,
+          tokenPrice.price,
+          tokenPrice.decimals,
         );
+        const rewardsApr =
+          dn.gt(totalDepositsValue, dn.from(0)) && remainingTime > 0
+            ? dn.mul(
+                dn.div(rewardsValue, totalDepositsValue, { decimals: 18 }),
+                dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
+              )
+            : dn.from(0, 18);
         totalRewardsApr = dn.add(totalRewardsApr, rewardsApr);
 
         rewardsInfo[rewardTokenId] = { remainingRewards, rewardsApr };
