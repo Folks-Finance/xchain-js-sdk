@@ -1,3 +1,4 @@
+import type { MessageAdapterParamsType } from "./adapter.js";
 import type { GenericAddress } from "./address.js";
 import type { FolksChainId } from "./chain.js";
 import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "./lending.js";
@@ -68,6 +69,8 @@ export type DataAction = Extract<
   | Action.SwitchBorrowType
 >;
 
+export type ClaimRewardAction = Extract<Action, Action.ClaimRewardsV2>;
+
 export type Finality = (typeof FINALITY)[keyof typeof FINALITY];
 
 export type MessageAdapters = {
@@ -78,6 +81,18 @@ export type MessageAdapters = {
 export type SupportedMessageAdapters = {
   adapterIds: NonEmptyArray<AdapterType>;
   returnAdapterIds: NonEmptyArray<AdapterType>;
+};
+
+export type SupportedRewardMessageAdapters = {
+  adapterIds: NonEmptyArray<AdapterType>;
+  returnAdapterIds: Partial<Record<RewardsTokenId, NonEmptyArray<AdapterType>>>;
+};
+
+export type SupportedMessageAdaptersMap = {
+  [MessageAdapterParamsType.SendToken]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.ReceiveToken]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.Data]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.ClaimReward]: SupportedRewardMessageAdapters;
 };
 
 export type FeeParams = {
