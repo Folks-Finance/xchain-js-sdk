@@ -1119,6 +1119,30 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ),
         },
       },
+      rewards: {
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x66A6D8583dddC870Dfa6A4684628b46f6ba49058" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0xc9B5f7c38C6D7B11e45931BDEf92EDBeA84D3EDa" as EvmAddress,
+            ChainType.EVM,
+          ),
+          // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
+          // [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          //   "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
+          //   ChainType.EVM,
+          // ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x2b1AB136105F05E2F91C3b175Dc1550b4C5EcC9F" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
+      },
     },
   } satisfies Record<TestnetFolksChainId, SpokeChain>,
 };
