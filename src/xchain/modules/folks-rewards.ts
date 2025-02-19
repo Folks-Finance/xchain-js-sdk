@@ -203,14 +203,19 @@ export const util = {
       const tokenPrice = oraclePrices[folksTokenId as FolksTokenId];
       if (!tokenPrice) throw Error(`${tokenPrice} price unavailable`);
 
-      const rewardsApr = dn.mul(
-        dn.div(
-          calcAssetDollarValue(remainingRewards, avaxPrice.price, avaxPrice.decimals),
-          calcAssetDollarValue(poolInfo.depositData.totalAmount, tokenPrice.price, tokenPrice.decimals),
-          { decimals: 18 },
-        ),
-        dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
+      const rewardsValue = calcAssetDollarValue(remainingRewards, avaxPrice.price, avaxPrice.decimals);
+      const totalDepositsValue = calcAssetDollarValue(
+        poolInfo.depositData.totalAmount,
+        tokenPrice.price,
+        tokenPrice.decimals,
       );
+      const rewardsApr =
+        dn.gt(totalDepositsValue, dn.from(0)) && remainingTime > 0
+          ? dn.mul(
+              dn.div(rewardsValue, totalDepositsValue, { decimals: 18 }),
+              dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
+            )
+          : dn.from(0, 18);
 
       activeEpochsInfo[folksTokenId as FolksTokenId] = {
         ...activeEpoch,
