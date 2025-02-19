@@ -8,6 +8,7 @@ import {
   bsc,
   bscTestnet,
   mainnet,
+  monadTestnet,
   sepolia,
 } from "viem/chains";
 
@@ -114,6 +115,13 @@ export const FOLKS_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Folks
       folksChainId: FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA,
       chainName: arbitrumSepolia.name,
       chainId: arbitrumSepolia.id,
+      network: NetworkType.TESTNET,
+    },
+    [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
+      chainType: ChainType.EVM,
+      folksChainId: FOLKS_CHAIN_ID.MONAD_TESTNET,
+      chainName: monadTestnet.name,
+      chainId: monadTestnet.id,
       network: NetworkType.TESTNET,
     },
   } satisfies Record<TestnetFolksChainId, FolksChain>,
@@ -911,6 +919,42 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.CCIP_BnM],
           spokeAddress: convertToGenericAddress(
             "0x5699D9efdF6F618e838E62db2C4A8d341C329EC8" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+      },
+    },
+    [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
+      folksChainId: FOLKS_CHAIN_ID.MONAD_TESTNET,
+      spokeCommonAddress: convertToGenericAddress(
+        "0x811A937b4349850AD8a52C6cA47083337d65c3dB" as EvmAddress,
+        ChainType.EVM,
+      ),
+      bridgeRouterAddress: convertToGenericAddress(
+        "0xeA2bcd7178fa69c12389C0a5E6FfaB0B0154D653" as EvmAddress,
+        ChainType.EVM,
+      ),
+      adapters: {
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0x0e78A4EE07e3f20ef7a21C0f61eb58FCa26d4d1f" as EvmAddress,
+          ChainType.EVM,
+        ),
+        // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
+        // [AdapterType.CCIP_DATA]: convertToGenericAddress(
+        //   "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
+        //   ChainType.EVM,
+        // ),
+      },
+      tokens: {
+        [TESTNET_FOLKS_TOKEN_ID.MON]: {
+          token: {
+            type: TokenType.NATIVE,
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.MON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.MON],
+          spokeAddress: convertToGenericAddress(
+            "0x1217Fd6DDa71708FF3A8eB82602777379b59ba64" as EvmAddress,
             ChainType.EVM,
           ),
         },
