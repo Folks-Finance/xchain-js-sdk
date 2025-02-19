@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.59
+
+### Patch Changes
+
+- [#231](https://github.com/Folks-Finance/xchain-js-sdk/pull/231) [`39c4d82`](https://github.com/Folks-Finance/xchain-js-sdk/commit/39c4d8209a8815010c1077d2c4c154e054b2eea6) Thanks [@gidonkatten](https://github.com/gidonkatten)! - Added Monad Testnet chain
+
+- [#233](https://github.com/Folks-Finance/xchain-js-sdk/pull/233) [`7d4e9e2`](https://github.com/Folks-Finance/xchain-js-sdk/commit/7d4e9e20af2d110ac2413ac3893d84a07903f8f0) Thanks [@gidonkatten](https://github.com/gidonkatten)! - fix div by zero when calculating rewards apr
+
 ## 0.0.58
 
 ### Patch Changes

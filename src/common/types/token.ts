@@ -31,6 +31,7 @@ export const TESTNET_FOLKS_TOKEN_ID = {
   LINK_eth_sep: "LINK_eth_sep",
   BNB: "BNB",
   CCIP_BnM: "CCIP_BnM",
+  MON: "MON",
 } as const;
 export type TestnetFolksTokenId = (typeof TESTNET_FOLKS_TOKEN_ID)[keyof typeof TESTNET_FOLKS_TOKEN_ID];
 
