@@ -19,7 +19,7 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../ty
 import { convertToGenericAddress } from "../utils/address.js";
 
 import { MAINNET_POOLS, TESTNET_POOLS } from "./pool.js";
-import { REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "./reward.js";
+import { MAINNET_REWARDS_TOKEN_ID, REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "./reward.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type {
@@ -254,8 +254,50 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-        adapters: {},
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x57d849B4D40536F587f2A9048DC8fE2a1d00dA88" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.HUB]: convertToGenericAddress(
+            "0x043e63A7c886074720b411E3785dE183D1262Ec5" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x7fD21802709f2f180EE1982F56E58533f3031aCa" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {
+            [MAINNET_REWARDS_TOKEN_ID.AVAX]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.AVAX,
+              spokeAddress: convertToGenericAddress(
+                "0x2aa8FeE178A79182C4b7c61EfeB4227Cb8843915" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.NATIVE,
+                decimals: 18,
+              },
+            },
+            [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.GoGoPool,
+              spokeAddress: convertToGenericAddress(
+                "0xb14f2576BE100CFE3B274233091A841f1E040604" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.ERC20,
+                address: convertToGenericAddress(
+                  "0x69260b9483f9871ca57f81a90d91e2f96c2cd11d" as EvmAddress,
+                  ChainType.EVM,
+                ),
+                decimals: 18,
+              },
+            },
+          },
+        },
       },
     },
     [FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -342,8 +384,27 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-        adapters: {},
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x4701FD475D90365A64A1C58fA8932bfA83f4D48F" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0x00db8119B1c919747da91d5fC2b3950bd79Ec0ce" as EvmAddress,
+            ChainType.EVM,
+          ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0x0B8C6eC1495068ABE2A25fB4e63b652d83467572" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0xC6c682B1D8c7B402c6ED8AbA3a6238EB956C38CC" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BASE]: {
@@ -430,8 +491,27 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-        adapters: {},
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x271141304e6eF06ada0c32D22aeB0BaA52ee06Df" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0x517690D219B8A05Aa5eA1E141bD6252c515B9F9b" as EvmAddress,
+            ChainType.EVM,
+          ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0xD0652FA3C9e918C86C72Ca9B85be65620f1D6e3F" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0xd97AF2ff3A44427e4a412FeD0Cb8eBCbF09D4AE3" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.BSC]: {
@@ -513,8 +593,27 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-        adapters: {},
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x57D77FD37670e22188d1c92D7cEc931bccf074A4" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0x37d761883a01e9F0B0d7fe59EEC8c21D94393CDD" as EvmAddress,
+            ChainType.EVM,
+          ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0x1b2a8d56967d00700DD5C94E27B1a116a1deF8Df" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x531490B7674ef239C9FEC39d2Cf3Cc10645d14d4" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
       },
     },
     [FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -601,8 +700,27 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
       rewards: {
-        bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-        adapters: {},
+        bridgeRouterAddress: convertToGenericAddress(
+          "0xDf34f43ba8045CAb5c8A9a7589d5B5066C708aF3" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0x048E47EDdEF06C7f672d6b16D978ad38EC41A9Ec" as EvmAddress,
+            ChainType.EVM,
+          ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0xF14535dB61b2993264e16Daed208A7603E749cdC" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x6BC1439b7663820daCeBc8E8B9a5BA29201ed352" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {},
+        },
       },
     },
   } satisfies Record<MainnetFolksChainId, SpokeChain>,

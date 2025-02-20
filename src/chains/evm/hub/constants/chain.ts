@@ -1,6 +1,10 @@
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { MAINNET_POOLS, TESTNET_POOLS } from "../../../../common/constants/pool.js";
-import { REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
+import {
+  MAINNET_REWARDS_TOKEN_ID,
+  REWARDS_TYPE,
+  TESTNET_REWARDS_TOKEN_ID,
+} from "../../../../common/constants/reward.js";
 import { ChainType, NetworkType } from "../../../../common/types/chain.js";
 import { MAINNET_LOAN_TYPE_ID, TESTNET_LOAN_TYPE_ID } from "../../../../common/types/lending.js";
 import { AdapterType } from "../../../../common/types/message.js";
@@ -252,15 +256,52 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
-      bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
-      adapters: {},
+      bridgeRouterAddress: convertToGenericAddress(
+        "0x347d342F12fA57b6231c82867f964Edfa4eD1431" as EvmAddress,
+        ChainType.EVM,
+      ),
+      adapters: {
+        [AdapterType.HUB]: convertToGenericAddress(
+          "0x043e63A7c886074720b411E3785dE183D1262Ec5" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0x3291FCf6Ca62939fc432Debe6cbB2a838F755D34" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x97592Dc676D6051Bf813f663B717cfD6B177eEFF" as EvmAddress,
+          ChainType.EVM,
+        ),
+      },
       [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
       },
       [REWARDS_TYPE.V2]: {
-        hubAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        spokeManagerAddress: convertToGenericAddress("0x" as EvmAddress, ChainType.EVM),
-        tokens: {},
+        hubAddress: convertToGenericAddress("0x3E85a56C2202Ec067EB4Ac090db3e8149dA46d19" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress(
+          "0x8a8b9386dFd63931284545dB62374b48180f0111" as EvmAddress,
+          ChainType.EVM,
+        ),
+        tokens: {
+          [MAINNET_REWARDS_TOKEN_ID.AVAX]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.AVAX,
+            nodeId: "0xef91e0eb17127b0ebbb35065173e74ea28dccf613e509553bcd0ed42688046f1" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
+            },
+          },
+          [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.GoGoPool,
+            // TODO: add node id when ready
+            nodeId: "" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 18,
+            },
+          },
+        },
       },
     },
   },
@@ -410,7 +451,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewards: {
-      bridgeRouterAddress: convertToGenericAddress("" as EvmAddress, ChainType.EVM),
+      bridgeRouterAddress: convertToGenericAddress(
+        "0xD420eb040341889Be798b417A8ffb4CfAD3b1E9B" as EvmAddress,
+        ChainType.EVM,
+      ),
       adapters: {
         [AdapterType.HUB]: convertToGenericAddress(
           "0x1fb4d24C5fB0807d5EC338dEa276e88B13cB48dE" as EvmAddress,

@@ -1,5 +1,6 @@
 export const MAINNET_REWARDS_TOKEN_ID = {
   AVAX: 1,
+  GoGoPool: 2,
 } as const;
 
 export const TESTNET_REWARDS_TOKEN_ID = {
