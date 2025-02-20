@@ -261,7 +261,7 @@ export async function getUnclaimedRewards(
   // create rewards
   const rewards: UnclaimedRewards = {};
   for (const [i, { rewardTokenId }] of rewardsV2TokensData.entries()) {
-    rewards[rewardTokenId] = unclaimedRewards[i];
+    if (unclaimedRewards[i] > 0) rewards[rewardTokenId] = unclaimedRewards[i];
   }
   return rewards;
 }
