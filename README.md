@@ -81,7 +81,7 @@ The SDK includes several modules, each focusing on a specific area of functional
 - `FolksAccount`: Manages account-related operations, including creating accounts, retrieving account information, and performing management operations such as inviting addresses, accepting invites, and unregistering addresses.
 - `FolksLoan`: Handles all loan-related functions, including retrieving loan information, creating loans, and performing operations such as depositing, withdrawing, repaying, and more.
 - `FolksOracle`: Provides access to updated price information from the oracle.
-- `FolksPool`: Allows retrieval of informations about the pools.
+- `FolksPool`: Allows retrieval of information about the pools.
 - `FolksRewards`: Offers access to information about the rewards system.
 - `FolksGmp`: Manages retry and revert functions for failed operations.
 
