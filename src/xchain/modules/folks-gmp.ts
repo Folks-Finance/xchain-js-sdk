@@ -36,6 +36,7 @@ import type {
   RetryMessageExtraArgsParams,
   ReverseMessageExtraArgsParams,
 } from "../../chains/evm/common/types/gmp.js";
+import type { HubTokenData } from "../../chains/evm/hub/types/token.js";
 import type { GenericAddress } from "../../common/types/address.js";
 import type { FolksChainId } from "../../common/types/chain.js";
 import type { MessageId } from "../../common/types/gmp.js";
@@ -335,18 +336,25 @@ export const util = {
   async hubToSpokeMessageFee(
     adapterId: AdapterType,
     toFolksChainId: FolksChainId,
-    receiveFolksTokenId: FolksTokenId,
+    receiveFolksTokenId?: FolksTokenId,
     gasLimit = 500_000n,
     isRewards = false,
   ): Promise<bigint> {
     const network = FolksCore.getSelectedNetwork();
     const hubChain = getHubChain(network);
-    const hubTokenData = getHubTokenData(receiveFolksTokenId, network);
+
+    let hubTokenData: HubTokenData | undefined;
 
     // check adapter id is supported
-    isCrossChainToken(receiveFolksTokenId)
-      ? assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId)
-      : assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    if (!isRewards) {
+      if (receiveFolksTokenId === undefined) throw Error("Unspecified receiveFolksTokenId");
+      hubTokenData = getHubTokenData(receiveFolksTokenId, network);
+      isCrossChainToken(receiveFolksTokenId)
+        ? assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId)
+        : assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    } else {
+      assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    }
 
     return await FolksHubGmp.getSendMessageFee(
       FolksCore.getHubProvider(),

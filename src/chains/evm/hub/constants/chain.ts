@@ -294,8 +294,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           },
           [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
             rewardTokenId: MAINNET_REWARDS_TOKEN_ID.GoGoPool,
-            // TODO: add node id when ready
-            nodeId: "" as NodeId,
+            nodeId: "0x9316a3c563f1bedd6ac0b2a50d02fffdc57b0eb1bd3e47f1c54745e591ce10f5" as NodeId,
             token: {
               type: TokenType.ERC20,
               decimals: 18,

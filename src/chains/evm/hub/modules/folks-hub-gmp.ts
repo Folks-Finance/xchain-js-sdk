@@ -130,7 +130,7 @@ export async function getSendMessageFee(
   adapterId: AdapterType,
   gasLimit: bigint,
   hubChain: HubChain,
-  hubTokenData: HubTokenData,
+  hubTokenData?: HubTokenData,
   isRewards = false,
 ): Promise<bigint> {
   const bridgeRouterAddress = getHubChainBridgeRouterAddress(hubChain, isRewards);
@@ -150,7 +150,9 @@ export async function getSendMessageFee(
     handler: getRandomGenericAddress(),
     payload: getRandomBytes(256),
     finalityLevel: FINALITY.FINALISED,
-    extraArgs: buildSendTokenExtraArgsWhenRemoving(getRandomGenericAddress(), hubTokenData.token, 1n),
+    extraArgs: hubTokenData
+      ? buildSendTokenExtraArgsWhenRemoving(getRandomGenericAddress(), hubTokenData.token, 1n)
+      : "0x",
   };
 
   // get return adapter fee
