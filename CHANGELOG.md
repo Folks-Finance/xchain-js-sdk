@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.60
+
+### Patch Changes
+
+- [#237](https://github.com/Folks-Finance/xchain-js-sdk/pull/237) [`e988d69`](https://github.com/Folks-Finance/xchain-js-sdk/commit/e988d693e881c8e91374ea8bd1f2bfd3aa31b483) Thanks [@gidonkatten](https://github.com/gidonkatten)! - export util isCrossChainToken
+
 ## 0.0.59
 
 ### Patch Changes
