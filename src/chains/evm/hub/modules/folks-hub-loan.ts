@@ -298,6 +298,7 @@ export async function getUserLoans(
   provider: Client,
   network: NetworkType,
   loanIds: Array<LoanId>,
+  throwErrorOnLoanFailure: boolean,
 ): Promise<Map<LoanId, LoanManagerUserLoan>> {
   const hubChain = getHubChain(network);
   const loanManager = getLoanManagerContract(provider, hubChain.loanManagerAddress);
@@ -309,23 +310,28 @@ export async function getUserLoans(
     args: [loanId],
   }));
 
-  const userLoans: Array<LoanManagerUserLoanAbi> = (await multicall(provider, {
+  const userLoans = await multicall(provider, {
     contracts: getUserLoansCall,
-    allowFailure: false,
-  })) as Array<LoanManagerUserLoanAbi>;
+    allowFailure: true,
+  });
 
   return new Map(
-    loanIds.map((loanId, i) => [
-      loanId,
-      {
-        accountId: userLoans[i][0] as AccountId,
-        loanTypeId: userLoans[i][1] as LoanTypeId,
-        colPools: Array.from(userLoans[i][2]),
-        borPools: Array.from(userLoans[i][3]),
-        userLoanCollateral: Array.from(userLoans[i][4]),
-        userLoanBorrow: Array.from(userLoans[i][5]),
-      } satisfies LoanManagerUserLoan,
-    ]),
+    loanIds.map((loanId, i) => {
+      const { status, error, result } = userLoans[i];
+      if (status === "failure" && throwErrorOnLoanFailure) throw error;
+      const userLoan = result as LoanManagerUserLoanAbi;
+      return [
+        loanId,
+        {
+          accountId: userLoan[0] as AccountId,
+          loanTypeId: userLoan[1] as LoanTypeId,
+          colPools: Array.from(userLoan[2]),
+          borPools: Array.from(userLoan[3]),
+          userLoanCollateral: Array.from(userLoan[4]),
+          userLoanBorrow: Array.from(userLoan[5]),
+        } satisfies LoanManagerUserLoan,
+      ];
+    }),
   );
 }
 
