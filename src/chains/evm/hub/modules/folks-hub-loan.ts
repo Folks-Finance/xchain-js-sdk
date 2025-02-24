@@ -315,24 +315,24 @@ export async function getUserLoans(
     allowFailure: true,
   });
 
-  return new Map(
-    loanIds.map((loanId, i) => {
-      const { status, error, result } = userLoans[i];
-      if (status === "failure" && throwErrorOnLoanFailure) throw error;
+  const userLoansMap = new Map<LoanId, LoanManagerUserLoan>();
+  for (const [i, loanId] of loanIds.entries()) {
+    const { status, error, result } = userLoans[i];
+    if (status === "failure") {
+      if (throwErrorOnLoanFailure) throw error;
+    } else {
       const userLoan = result as LoanManagerUserLoanAbi;
-      return [
-        loanId,
-        {
-          accountId: userLoan[0] as AccountId,
-          loanTypeId: userLoan[1] as LoanTypeId,
-          colPools: Array.from(userLoan[2]),
-          borPools: Array.from(userLoan[3]),
-          userLoanCollateral: Array.from(userLoan[4]),
-          userLoanBorrow: Array.from(userLoan[5]),
-        } satisfies LoanManagerUserLoan,
-      ];
-    }),
-  );
+      userLoansMap.set(loanId, {
+        accountId: userLoan[0] as AccountId,
+        loanTypeId: userLoan[1] as LoanTypeId,
+        colPools: Array.from(userLoan[2]),
+        borPools: Array.from(userLoan[3]),
+        userLoanCollateral: Array.from(userLoan[4]),
+        userLoanBorrow: Array.from(userLoan[5]),
+      });
+    }
+  }
+  return userLoansMap;
 }
 
 export function getUserLoansInfo(
