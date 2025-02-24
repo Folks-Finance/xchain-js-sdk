@@ -1180,10 +1180,10 @@ export const read = {
     return await FolksHubLoan.getUserLoanIds(FolksCore.getHubProvider(), network, accountId, loanTypeIdsFilter);
   },
 
-  async userLoans(loanIds: Array<LoanId>, throwErrorOnLoanFailure = true): Promise<Map<LoanId, LoanManagerUserLoan>> {
+  async userLoans(loanIds: Array<LoanId>): Promise<Map<LoanId, LoanManagerUserLoan | null>> {
     const network = FolksCore.getSelectedNetwork();
     // get user loans
-    return await FolksHubLoan.getUserLoans(FolksCore.getHubProvider(), network, loanIds, throwErrorOnLoanFailure);
+    return await FolksHubLoan.getUserLoans(FolksCore.getHubProvider(), network, loanIds);
   },
 };
 

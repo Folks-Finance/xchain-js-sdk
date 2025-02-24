@@ -298,8 +298,7 @@ export async function getUserLoans(
   provider: Client,
   network: NetworkType,
   loanIds: Array<LoanId>,
-  throwErrorOnLoanFailure: boolean,
-): Promise<Map<LoanId, LoanManagerUserLoan>> {
+): Promise<Map<LoanId, LoanManagerUserLoan | null>> {
   const hubChain = getHubChain(network);
   const loanManager = getLoanManagerContract(provider, hubChain.loanManagerAddress);
 
@@ -315,11 +314,11 @@ export async function getUserLoans(
     allowFailure: true,
   });
 
-  const userLoansMap = new Map<LoanId, LoanManagerUserLoan>();
+  const userLoansMap = new Map<LoanId, LoanManagerUserLoan | null>();
   for (const [i, loanId] of loanIds.entries()) {
-    const { status, error, result } = userLoans[i];
+    const { status, result } = userLoans[i];
     if (status === "failure") {
-      if (throwErrorOnLoanFailure) throw error;
+      userLoansMap.set(loanId, null);
     } else {
       const userLoan = result as LoanManagerUserLoanAbi;
       userLoansMap.set(loanId, {

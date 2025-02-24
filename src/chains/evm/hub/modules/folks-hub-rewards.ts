@@ -342,10 +342,10 @@ export async function getUserPoints(
   const userRewards: UserPoints = { accountId, poolsPoints: rewards };
 
   // add all the rewards which are not updated
-  const userLoans = await getUserLoans(provider, network, loanIds, false);
+  const userLoans = await getUserLoans(provider, network, loanIds);
   for (const loanId of loanIds) {
     const userLoan = userLoans.get(loanId);
-    if (userLoan === undefined) throw Error("Unknown user loan");
+    if (!userLoan) throw Error("Unknown user loan");
 
     const {
       accountId: userLoanAccountId,

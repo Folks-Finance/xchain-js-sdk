@@ -2,4 +2,4 @@
 "@folks-finance/xchain-sdk": patch
 ---
 
-can optionally ignore inactive user loans in FolksLoan.read.getUserLoans
+Will return null for inactive loan in Folksloan.read.getUserloansLoans in FolksLoan.read.getUserLoans
