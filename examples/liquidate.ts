@@ -57,6 +57,11 @@ async function main() {
   const userGeneralLoansInfo = FolksLoan.util.userLoansInfo(userGeneralLoans, poolsInfo, loanTypeInfo, oraclePrices);
   const violatorLoanInfo = userGeneralLoansInfo[violatorLoanId];
 
+  if (!violatorLoanInfo) {
+    console.log("Violator loan not found");
+    return;
+  }
+
   if (dn.lt(violatorLoanInfo.totalEffectiveBorrowBalanceValue, violatorLoanInfo.totalEffectiveCollateralBalanceValue)) {
     console.log("Loan can't be liquidated.");
     return;
