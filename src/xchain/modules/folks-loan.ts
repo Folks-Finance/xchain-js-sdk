@@ -1176,26 +1176,23 @@ export const read = {
     loanTypeIdsFilter?: Array<LoanTypeId>,
   ): Promise<Map<LoanTypeId, Array<LoanId>>> {
     const network = FolksCore.getSelectedNetwork();
-    // get active user loans ids
     return await FolksHubLoan.getUserLoanIds(FolksCore.getHubProvider(), network, accountId, loanTypeIdsFilter);
   },
 
   async userLoans(loanIds: Array<LoanId>): Promise<Map<LoanId, LoanManagerUserLoan | null>> {
     const network = FolksCore.getSelectedNetwork();
-    // get user loans
     return await FolksHubLoan.getUserLoans(FolksCore.getHubProvider(), network, loanIds);
   },
 };
 
 export const util = {
   userLoansInfo(
-    userLoansMap: Map<LoanId, LoanManagerUserLoan>,
+    userLoansMap: Map<LoanId, LoanManagerUserLoan | null>,
     poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
     loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
     oraclePrices: OraclePrices,
     activeEpochsInfo?: ActiveEpochsInfo,
-  ): Record<LoanId, UserLoanInfo> {
-    // get info of each user loan
+  ): Record<LoanId, UserLoanInfo | null> {
     return FolksHubLoan.getUserLoansInfo(userLoansMap, poolsInfo, loanTypesInfo, oraclePrices, activeEpochsInfo);
   },
 

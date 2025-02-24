@@ -335,21 +335,27 @@ export async function getUserLoans(
 }
 
 export function getUserLoansInfo(
-  userLoansMap: Map<LoanId, LoanManagerUserLoan>,
+  userLoansMap: Map<LoanId, LoanManagerUserLoan | null>,
   poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
   loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
   oraclePrices: OraclePrices,
   activeEpochsInfo?: ActiveEpochsInfo,
-): Record<LoanId, UserLoanInfo> {
+): Record<LoanId, UserLoanInfo | null> {
   const poolIdToFolksTokenId = new Map(
     Object.values(poolsInfo).map(({ folksTokenId, poolId }) => [poolId, folksTokenId]),
   );
 
-  const userLoansInfo: Record<LoanId, UserLoanInfo> = {};
+  const userLoansInfo: Record<LoanId, UserLoanInfo | null> = {};
 
   for (const [loanId, userLoan] of userLoansMap.entries()) {
-    const { accountId, loanTypeId, colPools, borPools, userLoanCollateral, userLoanBorrow } = userLoan;
+    // handle special case where user loan is inactive
+    if (userLoan === null) {
+      userLoansInfo[loanId] = null;
+      continue;
+    }
 
+    // user loan is active
+    const { accountId, loanTypeId, colPools, borPools, userLoanCollateral, userLoanBorrow } = userLoan;
     const loanTypeInfo = loanTypesInfo[loanTypeId];
     if (!loanTypeInfo) throw new Error(`Unknown loan type id ${loanTypeId}`);
 
