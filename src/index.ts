@@ -22,13 +22,14 @@ export * from "./common/constants/message.js";
 
 export { getSupportedMessageAdapters } from "./common/utils/adapter.js";
 export { convertFromGenericAddress, convertToGenericAddress } from "./common/utils/address.js";
-export { buildAccountId, buildLoanId } from "./common/utils/lending.js";
+export { getRandomBytes } from "./common/utils/bytes.js";
 export { getAdapterAddress } from "./common/utils/chain.js";
 export { toFAmount, toUnderlyingAmount, calcAssetDollarValue } from "./common/utils/formulae.js";
 export { getCcipData, getWormholeData } from "./common/utils/gmp.js";
+export { buildAccountId, buildLoanId } from "./common/utils/lending.js";
 export { getOperationIdsByTransaction, waitOperationIds } from "./common/utils/messages.js";
+export { isCrossChainToken } from "./common/utils/token.js";
 export { waitTransaction } from "./common/utils/transaction.js";
-export { getRandomBytes } from "./common/utils/bytes.js";
 
 // === HUB ===
 export { isHubChain } from "./chains/evm/hub/utils/chain.js";
