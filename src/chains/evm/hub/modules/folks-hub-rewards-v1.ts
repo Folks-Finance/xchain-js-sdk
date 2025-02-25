@@ -106,7 +106,7 @@ export const write = {
     accountIds: Array<AccountId>,
     prepareCall: PrepareUpdateAccountsPointsForRewardsV1Call,
   ) {
-    const { gasLimit, poolEpochs, rewardsV1Address } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, poolEpochs, rewardsV1Address } = prepareCall;
 
     const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address, signer);
 
@@ -114,6 +114,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
     });
   },
 
@@ -123,7 +125,7 @@ export const write = {
     accountId: AccountId,
     prepareCall: PrepareClaimRewardsV1Call,
   ) {
-    const { gasLimit, poolEpochs, receiver, rewardsV1Address } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, poolEpochs, receiver, rewardsV1Address } = prepareCall;
 
     const rewardsV1 = getHubRewardsV1Contract(provider, rewardsV1Address, signer);
 
@@ -131,6 +133,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
     });
   },
 };

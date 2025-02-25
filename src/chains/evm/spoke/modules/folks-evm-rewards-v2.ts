@@ -57,7 +57,16 @@ export const write = {
     accountId: AccountId,
     prepareCall: PrepareClaimRewardsV2Call,
   ) {
-    const { msgValue, gasLimit, messageParams, poolEpochs, rewardTokens, spokeRewardsV2CommonAddress } = prepareCall;
+    const {
+      msgValue,
+      gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
+      messageParams,
+      poolEpochs,
+      rewardTokens,
+      spokeRewardsV2CommonAddress,
+    } = prepareCall;
 
     const spokeRewardsCommon = getSpokeRewardsV2CommonContract(provider, spokeRewardsV2CommonAddress, signer);
 
@@ -65,6 +74,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },

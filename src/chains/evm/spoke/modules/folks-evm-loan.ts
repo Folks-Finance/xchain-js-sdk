@@ -447,7 +447,7 @@ export const write = {
     loanName: LoanName,
     prepareCall: PrepareCreateLoanCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -455,6 +455,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -466,7 +468,7 @@ export const write = {
     loanId: LoanId,
     prepareCall: PrepareDeleteLoanCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -474,6 +476,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -489,7 +493,7 @@ export const write = {
     includeApprove = true,
     prepareCall: PrepareCreateLoanAndDepositCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeTokenData } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeTokenData } = prepareCall;
     const { token } = spokeTokenData;
 
     const spokeToken = getSpokeTokenContract(provider, spokeTokenData.spokeAddress, signer);
@@ -511,6 +515,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
@@ -525,7 +531,7 @@ export const write = {
     includeApprove = true,
     prepareCall: PrepareDepositCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeTokenData } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeTokenData } = prepareCall;
     const { token } = spokeTokenData;
 
     const spokeToken = getSpokeTokenContract(provider, spokeTokenData.spokeAddress, signer);
@@ -545,6 +551,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -560,7 +568,7 @@ export const write = {
     receiverChainId: FolksChainId,
     prepareCall: PrepareWithdrawCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -570,6 +578,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
@@ -586,7 +596,7 @@ export const write = {
     receiverChainId: FolksChainId,
     prepareCall: PrepareBorrowCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -596,6 +606,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
@@ -611,7 +623,7 @@ export const write = {
     includeApprove = true,
     prepareCall: PrepareRepayCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeTokenData } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeTokenData } = prepareCall;
     const { token } = spokeTokenData;
 
     const spokeToken = getSpokeTokenContract(provider, spokeTokenData.spokeAddress, signer);
@@ -631,6 +643,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -644,7 +658,7 @@ export const write = {
     amount: bigint,
     prepareCall: PrepareRepayWithCollateralCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -652,6 +666,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -665,7 +681,7 @@ export const write = {
     maxStableRate: bigint,
     prepareCall: PrepareSwitchBorrowTypeCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -673,6 +689,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },

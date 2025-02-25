@@ -140,13 +140,15 @@ export const prepare = {
 
 export const write = {
   async liquidate(provider: Client, signer: WalletClient, accountId: AccountId, prepareCall: PrepareLiquidateCall) {
-    const { gasLimit, messageData, hubAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageData, hubAddress } = prepareCall;
 
     const hub = getHubContract(provider, hubAddress, signer);
 
     return await hub.write.directOperation([Action.Liquidate, accountId, messageData], {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       gas: gasLimit,
     });
   },
