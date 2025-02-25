@@ -1,4 +1,4 @@
-import { TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
+import { MAINNET_REWARDS_TOKEN_ID, TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
 import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
 
 import { EVM_FOLKS_CHAIN_ID } from "./chain.js";
@@ -40,6 +40,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: {
         balanceOf: 5n,
         allowance: 6n,
+      },
+      [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+        balanceOf: 3n,
+        allowance: 4n,
       },
     },
   },
