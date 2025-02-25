@@ -5,6 +5,7 @@ import { increaseByPercent } from "../../../../common/utils/math-lib.js";
 import { RETRY_REVERSE_GAS_LIMIT_SLIPPAGE } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
 import { buildMessageParams, buildSendTokenExtraArgsWhenRemoving } from "../../common/utils/message.js";
+import { getHubChainBridgeRouterAddress } from "../utils/chain.js";
 import { getBridgeRouterHubContract } from "../utils/contract.js";
 
 import type { EvmAddress } from "../../../../common/types/address.js";
@@ -27,11 +28,13 @@ export const prepare = {
     extraArgs: Hex,
     value: bigint,
     hubChain: HubChain,
+    isRewards = false,
     transactionOptions: EstimateGasParameters = {
       account: sender,
     },
   ): Promise<PrepareRetryMessageCall> {
-    const bridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
+    const bridgeRouterAddress = getHubChainBridgeRouterAddress(hubChain, isRewards);
+    const bridgeRouter = getBridgeRouterHubContract(provider, bridgeRouterAddress);
 
     const gasLimit = await bridgeRouter.estimateGas.retryMessage([adapterId, messageId, message, extraArgs], {
       ...transactionOptions,
@@ -57,11 +60,13 @@ export const prepare = {
     extraArgs: Hex,
     value: bigint,
     hubChain: HubChain,
+    isRewards = false,
     transactionOptions: EstimateGasParameters = {
       account: sender,
     },
   ): Promise<PrepareRetryMessageCall> {
-    const bridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
+    const bridgeRouterAddress = getHubChainBridgeRouterAddress(hubChain, isRewards);
+    const bridgeRouter = getBridgeRouterHubContract(provider, bridgeRouterAddress);
 
     const gasLimit = await bridgeRouter.estimateGas.reverseMessage([adapterId, messageId, message, extraArgs], {
       ...transactionOptions,
@@ -87,7 +92,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareRetryMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterHubContract(provider, bridgeRouterAddress, signer);
 
@@ -95,6 +101,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -106,7 +114,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareReverseMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterHubContract(provider, bridgeRouterAddress, signer);
 
@@ -114,6 +123,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -125,9 +136,11 @@ export async function getSendMessageFee(
   adapterId: AdapterType,
   gasLimit: bigint,
   hubChain: HubChain,
-  hubTokenData: HubTokenData,
+  hubTokenData?: HubTokenData,
+  isRewards = false,
 ): Promise<bigint> {
-  const hubBridgeRouter = getBridgeRouterHubContract(provider, hubChain.bridgeRouterAddress);
+  const bridgeRouterAddress = getHubChainBridgeRouterAddress(hubChain, isRewards);
+  const hubBridgeRouter = getBridgeRouterHubContract(provider, bridgeRouterAddress);
 
   // construct return message
   const message: MessageToSend = {
@@ -143,7 +156,9 @@ export async function getSendMessageFee(
     handler: getRandomGenericAddress(),
     payload: getRandomBytes(256),
     finalityLevel: FINALITY.FINALISED,
-    extraArgs: buildSendTokenExtraArgsWhenRemoving(getRandomGenericAddress(), hubTokenData.token, 1n),
+    extraArgs: hubTokenData
+      ? buildSendTokenExtraArgsWhenRemoving(getRandomGenericAddress(), hubTokenData.token, 1n)
+      : "0x",
   };
 
   // get return adapter fee

@@ -1,11 +1,12 @@
 import { multicall } from "viem/actions";
 
 import { getHubChain } from "../utils/chain.js";
-import { getOracleManagerContract } from "../utils/contract.js";
+import { getNodeManagerContract, getOracleManagerContract } from "../utils/contract.js";
 
 import type { NetworkType } from "../../../../common/types/chain.js";
+import type { NodeManagerAbi } from "../constants/abi/node-manager-abi.js";
 import type { OracleManagerAbi } from "../constants/abi/oracle-manager-abi.js";
-import type { OraclePrice, OraclePrices } from "../types/oracle.js";
+import type { OracleNode, OracleNodePrice, OracleNodePrices, OraclePrice, OraclePrices } from "../types/oracle.js";
 import type { HubTokenData } from "../types/token.js";
 import type { Client, ContractFunctionParameters, ReadContractReturnType } from "viem";
 
@@ -47,8 +48,50 @@ export async function getOraclePrices(
 
   const oraclePrices: OraclePrices = {};
   for (const [i, { price, decimals }] of priceFeeds.entries()) {
-    const token = tokens[i];
-    oraclePrices[token.folksTokenId] = { price: [price, 18], decimals };
+    const { folksTokenId } = tokens[i];
+    oraclePrices[folksTokenId] = { price: [price, 18], decimals };
   }
   return oraclePrices;
+}
+
+export async function getNodePrice(
+  provider: Client,
+  network: NetworkType,
+  oracleNode: OracleNode,
+): Promise<OracleNodePrice> {
+  const hubChain = getHubChain(network);
+
+  const nodeManager = getNodeManagerContract(provider, hubChain.nodeManagerAddress);
+
+  const { nodeId, decimals } = oracleNode;
+  const { price, timestamp } = await nodeManager.read.process([nodeId]);
+  return { price: [price, 18], decimals, timestamp };
+}
+
+export async function getNodePrices(
+  provider: Client,
+  network: NetworkType,
+  oracleNodes: Array<OracleNode>,
+): Promise<OracleNodePrices> {
+  const hubChain = getHubChain(network);
+  const nodeManager = getNodeManagerContract(provider, hubChain.nodeManagerAddress);
+
+  const processPriceFeeds: Array<ContractFunctionParameters> = oracleNodes.map(({ nodeId }) => ({
+    address: nodeManager.address,
+    abi: nodeManager.abi,
+    functionName: "process",
+    args: [nodeId],
+  }));
+
+  const priceFeeds = (await multicall(provider, {
+    contracts: processPriceFeeds,
+    allowFailure: false,
+  })) as Array<ReadContractReturnType<typeof NodeManagerAbi, "process">>;
+
+  const oracleNodePrices: OracleNodePrices = {};
+  for (const [i, { price, timestamp }] of priceFeeds.entries()) {
+    const { nodeId, decimals } = oracleNodes[i];
+    oracleNodePrices[nodeId] = { price: [price, 18], decimals, timestamp };
+  }
+  return oracleNodePrices;
 }

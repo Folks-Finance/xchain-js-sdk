@@ -48,13 +48,13 @@ export type ITokenData = {
   folksTokenId: FolksTokenId;
 };
 
-type Erc20SpokeTokenType = {
+export type Erc20SpokeTokenType = {
   type: TokenType.ERC20;
   address: GenericAddress;
   decimals: number;
 };
 
-type Erc20HubTokenType = {
+export type Erc20HubTokenType = {
   type: TokenType.ERC20;
   decimals: number;
 };
@@ -66,7 +66,7 @@ export type CrossChainTokenType = {
   decimals: number;
 };
 
-type NativeTokenType = {
+export type NativeTokenType = {
   type: TokenType.NATIVE;
   decimals: number;
 };

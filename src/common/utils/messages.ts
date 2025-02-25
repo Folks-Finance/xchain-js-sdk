@@ -31,6 +31,7 @@ import { getFolksChain, getSpokeChainAdapterAddress } from "./chain.js";
 import { getCcipData, getWormholeData } from "./gmp.js";
 import { waitTransaction } from "./transaction.js";
 
+import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { GenericAddress } from "../types/address.js";
 import type { FolksChainId, NetworkType } from "../types/chain.js";
 import type { FolksProvider } from "../types/core.js";
@@ -43,6 +44,7 @@ import type {
   OptionalFeeParams,
   Payload,
 } from "../types/message.js";
+import type { RewardsTokenId } from "../types/rewards.js";
 import type { Client as EVMProvider, Hex, StateOverride } from "viem";
 
 export function buildMessageToSend(
@@ -70,15 +72,16 @@ function getAdaptersAddresses(
   destFolksChainId: FolksChainId,
   network: NetworkType,
   adapterId: AdapterType,
+  isRewards = false,
 ) {
   if (messageDirection === MessageDirection.SpokeToHub)
     return {
-      sourceAdapterAddress: getSpokeChainAdapterAddress(sourceFolksChainId, network, adapterId),
-      destAdapterAddress: getHubChainAdapterAddress(network, adapterId),
+      sourceAdapterAddress: getSpokeChainAdapterAddress(sourceFolksChainId, network, adapterId, isRewards),
+      destAdapterAddress: getHubChainAdapterAddress(network, adapterId, isRewards),
     };
   return {
-    sourceAdapterAddress: getHubChainAdapterAddress(network, adapterId),
-    destAdapterAddress: getSpokeChainAdapterAddress(destFolksChainId, network, adapterId),
+    sourceAdapterAddress: getHubChainAdapterAddress(network, adapterId, isRewards),
+    destAdapterAddress: getSpokeChainAdapterAddress(destFolksChainId, network, adapterId, isRewards),
   };
 }
 
@@ -91,6 +94,7 @@ export async function estimateAdapterReceiveGasLimit(
   messageBuilderParams: MessageBuilderParams,
   receiverValue = BigInt(0),
   returnGasLimit = BigInt(0),
+  isRewards = false,
 ) {
   const destFolksChain = getFolksChain(destFolksChainId, network);
 
@@ -101,6 +105,7 @@ export async function estimateAdapterReceiveGasLimit(
     destFolksChainId,
     network,
     adapterId,
+    isRewards,
   );
 
   switch (destFolksChain.chainType) {
@@ -143,6 +148,7 @@ export async function estimateAdapterReceiveGasLimit(
             destFolksChainId,
             network,
             AdapterType.WORMHOLE_DATA,
+            isRewards,
           );
           const sourceWormholeChainId = getWormholeData(sourceFolksChainId).wormholeChainId;
           const wormholeRelayer = convertFromGenericAddress(
@@ -190,6 +196,7 @@ export async function estimateAdapterReceiveGasLimit(
             destFolksChainId,
             network,
             AdapterType.CCIP_DATA,
+            isRewards,
           );
           const sourceCcipChainId = getCcipData(sourceFolksChainId).ccipChainId;
           const ccipRouter = convertFromGenericAddress(getCcipData(destFolksChainId).ccipRouter, ChainType.EVM);
@@ -401,6 +408,38 @@ export function decodeMessagePayloadData<A extends Action>(action: A, data: Hex)
     case Action.SendToken: {
       return {
         amount: bytesToBigInt(bytes),
+      } as MessageDataMap[A];
+    }
+    case Action.ClaimRewardsV2: {
+      let index = 0;
+      const poolEpochsToClaimLength = bytesToBigInt(bytes.slice(index, index + UINT8_LENGTH));
+      index += UINT8_LENGTH;
+      const rewardTokensToReceiveLength = bytesToBigInt(bytes.slice(index, index + UINT8_LENGTH));
+      index += UINT8_LENGTH;
+
+      const poolEpochsToClaim: Array<PoolEpoch> = [];
+      for (let i = 0; i < poolEpochsToClaimLength; i++) {
+        const poolId = Number(bytesToBigInt(bytes.slice(index, index + UINT8_LENGTH)));
+        index += UINT8_LENGTH;
+        const epochIndex = Number(bytesToBigInt(bytes.slice(index, index + UINT16_LENGTH)));
+        index += UINT16_LENGTH;
+        poolEpochsToClaim.push({ poolId, epochIndex });
+      }
+
+      const rewardTokensToReceive: Array<ReceiveRewardToken> = [];
+      for (let i = 0; i < rewardTokensToReceiveLength; i++) {
+        const rewardTokenId = Number(bytesToBigInt(bytes.slice(index, index + UINT8_LENGTH))) as RewardsTokenId;
+        index += UINT8_LENGTH;
+        const returnAdapterId = Number(bytesToBigInt(bytes.slice(index, index + UINT16_LENGTH)));
+        index += UINT16_LENGTH;
+        const returnGasLimit = bytesToBigInt(bytes.slice(index, index + UINT256_LENGTH));
+        index += UINT256_LENGTH;
+        rewardTokensToReceive.push({ rewardTokenId, returnAdapterId, returnGasLimit });
+      }
+
+      return {
+        poolEpochsToClaim,
+        rewardTokensToReceive,
       } as MessageDataMap[A];
     }
     case Action.AcceptInviteAddress:

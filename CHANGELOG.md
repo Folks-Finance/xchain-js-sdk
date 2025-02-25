@@ -1,5 +1,15 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.61
+
+### Patch Changes
+
+- [#242](https://github.com/Folks-Finance/xchain-js-sdk/pull/242) [`f61cdca`](https://github.com/Folks-Finance/xchain-js-sdk/commit/f61cdca6e203641402e625435b9c0105546f23a9) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can specify fee to use for gas
+
+- [#240](https://github.com/Folks-Finance/xchain-js-sdk/pull/240) [`be87d0f`](https://github.com/Folks-Finance/xchain-js-sdk/commit/be87d0f6a474632753b381bc293a3cf0769f3888) Thanks [@gidonkatten](https://github.com/gidonkatten)! - can optionally ignore inactive user loans in FolksLoan.read.userLoans
+
+- [#217](https://github.com/Folks-Finance/xchain-js-sdk/pull/217) [`ea37af7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/ea37af765c664ffb4fba494a3c85491a9fb707e3) Thanks [@gidonkatten](https://github.com/gidonkatten)! - support for new reward system
+
 ## 0.0.60
 
 ### Patch Changes

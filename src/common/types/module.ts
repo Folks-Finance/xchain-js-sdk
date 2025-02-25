@@ -14,12 +14,14 @@ import type {
   PrepareRepayWithCollateralCall as PrepareRepayWithCollateralEVMCall,
   PrepareSwitchBorrowTypeCall as PrepareSwitchBorrowTypeEVMCall,
   PrepareLiquidateCall as PrepareLiquidateEVMCall,
+  PrepareUpdateUserPointsInLoansCall as PrepareUpdateUserPointsInLoansEVMCall,
   PrepareRetryMessageCall as PrepareRetryMessageEVMCall,
   PrepareReverseMessageCall as PrepareReverseMessageEVMCall,
   PrepareResendWormholeMessageCall as PrepareResendWormholeMessageEVMCall,
-  PrepareUpdateUserPointsInLoans as PrepareUpdateUserLoanPoolEVMPoints,
-  PrepareUpdateAccountsPointsForRewardsCall as PrepareUpdateAccountsPointsForRewardsEVMCall,
-  PrepareClaimRewardsCall as PrepareClaimRewardsEVMCall,
+  PrepareUpdateAccountsPointsForRewardsV1Call as PrepareUpdateAccountsPointsForRewardsV1EVMCall,
+  PrepareUpdateAccountsPointsForRewardsV2Call as PrepareUpdateAccountsPointsForRewardsV2EVMCall,
+  PrepareClaimRewardsV1Call as PrepareClaimRewardsV1EVMCall,
+  PrepareClaimRewardsV2Call as PrepareClaimRewardsV2EVMCall,
 } from "../../chains/evm/common/types/module.js";
 
 export type PrepareCall = PrepareEVMCall;
@@ -39,9 +41,11 @@ export type PrepareRepayCall = PrepareRepayEVMCall;
 export type PrepareRepayWithCollateralCall = PrepareRepayWithCollateralEVMCall;
 export type PrepareSwitchBorrowTypeCall = PrepareSwitchBorrowTypeEVMCall;
 export type PrepareLiquidateCall = PrepareLiquidateEVMCall;
+export type PrepareUpdateUserPointsInLoansCall = PrepareUpdateUserPointsInLoansEVMCall;
 export type PrepareRetryMessageCall = PrepareRetryMessageEVMCall;
 export type PrepareReverseMessageCall = PrepareReverseMessageEVMCall;
 export type PrepareResendWormholeMessageCall = PrepareResendWormholeMessageEVMCall;
-export type PrepareUpdateUserLoanPoolPoints = PrepareUpdateUserLoanPoolEVMPoints;
-export type PrepareUpdateAccountsPointsForRewardsCall = PrepareUpdateAccountsPointsForRewardsEVMCall;
-export type PrepareClaimRewardsCall = PrepareClaimRewardsEVMCall;
+export type PrepareUpdateAccountsPointsForRewardsV1Call = PrepareUpdateAccountsPointsForRewardsV1EVMCall;
+export type PrepareUpdateAccountsPointsForRewardsV2Call = PrepareUpdateAccountsPointsForRewardsV2EVMCall;
+export type PrepareClaimRewardsV1Call = PrepareClaimRewardsV1EVMCall;
+export type PrepareClaimRewardsV2Call = PrepareClaimRewardsV2EVMCall;

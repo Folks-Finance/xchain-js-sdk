@@ -6,6 +6,7 @@ import {
   getRandomGenericAddress,
 } from "../../../../common/utils/address.js";
 import { getRandomBytes } from "../../../../common/utils/bytes.js";
+import { getSpokeChainBridgeRouterAddress } from "../../../../common/utils/chain.js";
 import { getWormholeData } from "../../../../common/utils/gmp.js";
 import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
@@ -37,11 +38,13 @@ export const prepare = {
     extraArgs: Hex,
     value: bigint,
     spokeChain: SpokeChain,
+    isRewards = false,
     transactionOptions: EstimateGasParameters = {
       account: sender,
     },
   ): Promise<PrepareRetryMessageCall> {
-    const bridgeRouter = getBridgeRouterSpokeContract(provider, spokeChain.bridgeRouterAddress);
+    const bridgeRouterAddress = getSpokeChainBridgeRouterAddress(spokeChain, isRewards);
+    const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress);
 
     const gasLimit = await bridgeRouter.estimateGas.retryMessage([adapterId, messageId, message, extraArgs], {
       ...transactionOptions,
@@ -67,11 +70,13 @@ export const prepare = {
     extraArgs: Hex,
     value: bigint,
     spokeChain: SpokeChain,
+    isRewards = false,
     transactionOptions: EstimateGasParameters = {
       account: sender,
     },
   ): Promise<PrepareRetryMessageCall> {
-    const bridgeRouter = getBridgeRouterSpokeContract(provider, spokeChain.bridgeRouterAddress);
+    const bridgeRouterAddress = getSpokeChainBridgeRouterAddress(spokeChain, isRewards);
+    const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress);
 
     const gasLimit = await bridgeRouter.estimateGas.reverseMessage([adapterId, messageId, message, extraArgs], {
       ...transactionOptions,
@@ -153,7 +158,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareRetryMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress, signer);
 
@@ -161,6 +167,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -172,7 +180,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareReverseMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress, signer);
 
@@ -180,6 +189,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -187,6 +198,8 @@ export const write = {
   async resendMessage(provider: Client, signer: WalletClient, prepareCall: PrepareResendWormholeMessageCall) {
     const {
       gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       msgValue,
       vaaKey,
       targetWormholeChainId,
@@ -205,6 +218,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
@@ -219,8 +234,10 @@ export async function getSendMessageFee(
   hubChain: HubChain,
   spokeChain: SpokeChain,
   spokeTokenData?: SpokeTokenData,
+  isRewards = false,
 ): Promise<bigint> {
-  const bridgeRouter = getBridgeRouterSpokeContract(provider, spokeChain.bridgeRouterAddress);
+  const bridgeRouterAddress = getSpokeChainBridgeRouterAddress(spokeChain, isRewards);
+  const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress);
 
   // construct return message
   const message: MessageToSend = {

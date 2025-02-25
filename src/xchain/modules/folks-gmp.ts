@@ -36,6 +36,7 @@ import type {
   RetryMessageExtraArgsParams,
   ReverseMessageExtraArgsParams,
 } from "../../chains/evm/common/types/gmp.js";
+import type { HubTokenData } from "../../chains/evm/hub/types/token.js";
 import type { GenericAddress } from "../../common/types/address.js";
 import type { FolksChainId } from "../../common/types/chain.js";
 import type { MessageId } from "../../common/types/gmp.js";
@@ -55,6 +56,7 @@ export const prepare = {
     message: MessageReceived,
     extraArgsParams: RetryMessageExtraArgsParams,
     isHub = true,
+    isRewards = false,
   ) {
     const folksChain = FolksCore.getSelectedFolksChain();
     const payload = decodeMessagePayload(message.payload);
@@ -83,7 +85,7 @@ export const prepare = {
         payload,
       );
       const encodedExtraArgs = encodeRetryMessageExtraArgs(extraArgs);
-      const bridgeRouterBalance = await util.bridgeRouterHubBalance(payload.accountId);
+      const bridgeRouterBalance = await util.bridgeRouterHubBalance(payload.accountId, isRewards);
       const value = bigIntMax(adapterFees - bridgeRouterBalance, 0n);
 
       return await FolksHubGmp.prepare.retryMessage(
@@ -95,6 +97,7 @@ export const prepare = {
         encodedExtraArgs,
         value,
         getHubChain(folksChain.network),
+        isRewards,
       );
     } else {
       assertRetryableAction(payload.action, messageDirection);
@@ -110,6 +113,7 @@ export const prepare = {
             "0x",
             0n,
             getSpokeChain(folksChain.folksChainId, folksChain.network),
+            isRewards,
           );
         }
         default:
@@ -124,6 +128,7 @@ export const prepare = {
     message: MessageReceived,
     extraArgsParams: ReverseMessageExtraArgsParams,
     isHub = true,
+    isRewards = false,
   ) {
     const folksChain = FolksCore.getSelectedFolksChain();
     const payload = decodeMessagePayload(message.payload);
@@ -150,7 +155,7 @@ export const prepare = {
         payload,
       );
       const encodedExtraArgs = encodeReverseMessageExtraArgs(extraArgs);
-      const bridgeRouterBalance = await util.bridgeRouterHubBalance(payload.accountId);
+      const bridgeRouterBalance = await util.bridgeRouterHubBalance(payload.accountId, isRewards);
       const value = bigIntMax(adapterFees - bridgeRouterBalance, 0n);
 
       return await FolksHubGmp.prepare.reverseMessage(
@@ -162,6 +167,7 @@ export const prepare = {
         encodedExtraArgs,
         value,
         hubChain,
+        isRewards,
       );
     } else {
       switch (folksChain.chainType) {
@@ -177,6 +183,7 @@ export const prepare = {
             "0x",
             0n,
             getSpokeChain(folksChain.folksChainId, folksChain.network),
+            isRewards,
           );
         }
         default:
@@ -267,22 +274,25 @@ export const write = {
 };
 
 export const util = {
-  async bridgeRouterHubBalance(accountId: AccountId): Promise<bigint> {
+  async bridgeRouterHubBalance(accountId: AccountId, isRewards = false): Promise<bigint> {
     const hubChain = getHubChain(FolksCore.getSelectedNetwork());
-    const bridgeRouter = getBridgeRouterHubContract(FolksCore.getHubProvider(), hubChain.bridgeRouterAddress);
+    const { bridgeRouterAddress } = isRewards ? hubChain.rewards : hubChain;
+    const bridgeRouter = getBridgeRouterHubContract(FolksCore.getHubProvider(), bridgeRouterAddress);
 
     return await bridgeRouter.read.balances([accountId]);
   },
 
-  async bridgeRouterSpokeBalance(userAddress: GenericAddress, folksChainId: FolksChainId): Promise<bigint> {
+  async bridgeRouterSpokeBalance(
+    userAddress: GenericAddress,
+    folksChainId: FolksChainId,
+    isRewards = false,
+  ): Promise<bigint> {
     const folksChain = getFolksChain(folksChainId, FolksCore.getSelectedNetwork());
     const spokeChain = getSpokeChain(folksChainId, FolksCore.getSelectedNetwork());
+    const { bridgeRouterAddress } = isRewards ? spokeChain.rewards : spokeChain;
     switch (folksChain.chainType) {
       case ChainType.EVM: {
-        const bridgeRouter = getBridgeRouterSpokeContract(
-          FolksCore.getEVMProvider(folksChainId),
-          spokeChain.bridgeRouterAddress,
-        );
+        const bridgeRouter = getBridgeRouterSpokeContract(FolksCore.getEVMProvider(folksChainId), bridgeRouterAddress);
         return await bridgeRouter.read.balances([userAddress]);
       }
       default:
@@ -296,6 +306,7 @@ export const util = {
     sendFolksTokenId?: FolksTokenId,
     receiverValue = 0n,
     gasLimit = 1_500_000n,
+    isRewards = false,
   ): Promise<bigint> {
     const network = FolksCore.getSelectedNetwork();
     const spokeChain = getSpokeChain(fromFolksChainId, network);
@@ -318,23 +329,32 @@ export const util = {
       hubChain,
       spokeChain,
       spokeTokenData,
+      isRewards,
     );
   },
 
   async hubToSpokeMessageFee(
     adapterId: AdapterType,
     toFolksChainId: FolksChainId,
-    receiveFolksTokenId: FolksTokenId,
+    receiveFolksTokenId?: FolksTokenId,
     gasLimit = 500_000n,
+    isRewards = false,
   ): Promise<bigint> {
     const network = FolksCore.getSelectedNetwork();
     const hubChain = getHubChain(network);
-    const hubTokenData = getHubTokenData(receiveFolksTokenId, network);
+
+    let hubTokenData: HubTokenData | undefined;
 
     // check adapter id is supported
-    isCrossChainToken(receiveFolksTokenId)
-      ? assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId)
-      : assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    if (!isRewards) {
+      if (receiveFolksTokenId === undefined) throw Error("Unspecified receiveFolksTokenId");
+      hubTokenData = getHubTokenData(receiveFolksTokenId, network);
+      isCrossChainToken(receiveFolksTokenId)
+        ? assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId)
+        : assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    } else {
+      assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+    }
 
     return await FolksHubGmp.getSendMessageFee(
       FolksCore.getHubProvider(),
@@ -343,6 +363,7 @@ export const util = {
       gasLimit,
       hubChain,
       hubTokenData,
+      isRewards,
     );
   },
 
@@ -353,6 +374,7 @@ export const util = {
     receiveFolksTokenId: FolksTokenId,
     gasLimit = 1_500_000n,
     returnGasLimit = 500_000n,
+    isRewards = false,
   ): Promise<bigint> {
     const { adapterId, returnAdapterId } = adapters;
     const receiverValue = await this.hubToSpokeMessageFee(
@@ -360,7 +382,8 @@ export const util = {
       endFolksChainId,
       receiveFolksTokenId,
       returnGasLimit,
+      isRewards,
     );
-    return await this.spokeToHubMessageFee(adapterId, startFolksChainId, undefined, receiverValue, gasLimit);
+    return await this.spokeToHubMessageFee(adapterId, startFolksChainId, undefined, receiverValue, gasLimit, isRewards);
   },
 };
