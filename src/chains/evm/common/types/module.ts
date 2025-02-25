@@ -3,7 +3,8 @@ import type { EvmAddress, GenericAddress } from "../../../../common/types/addres
 import type { AccountId } from "../../../../common/types/lending.js";
 import type { MessageParams } from "../../../../common/types/message.js";
 import type { SpokeTokenData } from "../../../../common/types/token.js";
-import type { PoolEpoch } from "../../hub/types/rewards.js";
+import type { PoolEpoch as PoolEpochV1 } from "../../hub/types/rewards-v1.js";
+import type { PoolEpoch as PoolEpochV2, ReceiveRewardToken } from "../../hub/types/rewards-v2.js";
 import type { Hex } from "viem";
 
 export type PrepareCall = {
@@ -78,6 +79,10 @@ export type PrepareLiquidateCall = {
   hubAddress: GenericAddress;
 } & Omit<PrepareCall, "messageParams" | "msgValue">;
 
+export type PrepareUpdateUserPointsInLoansCall = {
+  loanManagerAddress: GenericAddress;
+} & Omit<PrepareCall, "messageParams" | "msgValue">;
+
 export type PrepareRetryMessageCall = {
   isHub: boolean;
   message: MessageReceived;
@@ -105,17 +110,24 @@ export type PrepareResendWormholeMessageCall = {
   wormholeRelayerAddress: GenericAddress;
 } & Omit<PrepareCall, "messageParams">;
 
-export type PrepareUpdateUserPointsInLoans = {
-  loanManagerAddress: GenericAddress;
-} & Omit<PrepareCall, "messageParams" | "msgValue">;
-
-export type PrepareUpdateAccountsPointsForRewardsCall = {
-  poolEpochs: Array<PoolEpoch>;
+export type PrepareUpdateAccountsPointsForRewardsV1Call = {
+  poolEpochs: Array<PoolEpochV1>;
   rewardsV1Address: GenericAddress;
 } & Omit<PrepareCall, "messageParams" | "msgValue">;
 
-export type PrepareClaimRewardsCall = {
-  poolEpochs: Array<PoolEpoch>;
+export type PrepareUpdateAccountsPointsForRewardsV2Call = {
+  poolEpochs: Array<PoolEpochV2>;
+  rewardsV2Address: GenericAddress;
+} & Omit<PrepareCall, "messageParams" | "msgValue">;
+
+export type PrepareClaimRewardsV1Call = {
+  poolEpochs: Array<PoolEpochV1>;
   receiver: EvmAddress;
   rewardsV1Address: GenericAddress;
 } & Omit<PrepareCall, "messageParams" | "msgValue">;
+
+export type PrepareClaimRewardsV2Call = {
+  poolEpochs: Array<PoolEpochV2>;
+  rewardTokens: Array<ReceiveRewardToken>;
+  spokeRewardsV2CommonAddress: GenericAddress;
+} & PrepareCall;

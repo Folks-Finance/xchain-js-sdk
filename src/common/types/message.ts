@@ -1,7 +1,10 @@
+import type { MessageAdapterParamsType } from "./adapter.js";
 import type { GenericAddress } from "./address.js";
 import type { FolksChainId } from "./chain.js";
 import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "./lending.js";
-import type { FolksTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
+import type { RewardsTokenId } from "./rewards.js";
+import type { FolksTokenId as LendingTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
+import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { NonEmptyArray } from "../../types/generics.js";
 import type {
   FINALITY,
@@ -42,6 +45,8 @@ export enum Action {
   SwitchBorrowType,
   // HUB -> SPOKE
   SendToken,
+  // CUSTOM,
+  ClaimRewardsV2,
 }
 
 export type SendTokenAction = Extract<Action, (typeof SEND_TOKEN_ACTIONS)[number]>;
@@ -64,6 +69,8 @@ export type DataAction = Extract<
   | Action.SwitchBorrowType
 >;
 
+export type ClaimRewardAction = Extract<Action, Action.ClaimRewardsV2>;
+
 export type Finality = (typeof FINALITY)[keyof typeof FINALITY];
 
 export type MessageAdapters = {
@@ -74,6 +81,18 @@ export type MessageAdapters = {
 export type SupportedMessageAdapters = {
   adapterIds: NonEmptyArray<AdapterType>;
   returnAdapterIds: NonEmptyArray<AdapterType>;
+};
+
+export type SupportedRewardMessageAdapters = {
+  adapterIds: NonEmptyArray<AdapterType>;
+  returnAdapterIds: Partial<Record<RewardsTokenId, NonEmptyArray<AdapterType>>>;
+};
+
+export type SupportedMessageAdaptersMap = {
+  [MessageAdapterParamsType.SendToken]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.ReceiveToken]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.Data]: SupportedMessageAdapters;
+  [MessageAdapterParamsType.ClaimReward]: SupportedRewardMessageAdapters;
 };
 
 export type FeeParams = {
@@ -196,6 +215,11 @@ export type SendTokenMessageData = {
   amount: bigint;
 };
 
+export type ClaimRewardsV2MessageData = {
+  poolEpochsToClaim: Array<PoolEpoch>;
+  rewardTokensToReceive: Array<ReceiveRewardToken>;
+};
+
 // Extra args
 export type DefaultExtraArgs = "0x";
 
@@ -213,14 +237,14 @@ export type RepayExtraArgs = {
 };
 
 export type SendTokenExtraArgs = {
-  folksTokenId: FolksTokenId;
+  folksTokenId: LendingTokenId | RewardsTokenId;
   token: FolksHubTokenType;
   recipient: GenericAddress;
   amount: bigint;
 };
 
 export type OverrideTokenData = {
-  folksTokenId: FolksTokenId;
+  folksTokenId: LendingTokenId | RewardsTokenId;
   token: FolksSpokeTokenType;
   address: GenericAddress;
   amount: bigint;
@@ -246,6 +270,7 @@ export type MessageDataMap = {
   [Action.SwitchBorrowType]: SwitchBorrowTypeMessageData;
   [Action.Liquidate]: LiquidateMessageData;
   [Action.SendToken]: SendTokenMessageData;
+  [Action.ClaimRewardsV2]: ClaimRewardsV2MessageData;
 };
 
 // Params
@@ -347,6 +372,13 @@ export type SendTokenMessageDataParams = {
   overrideData: OverrideTokenData;
 };
 
+// Params: rewards
+export type ClaimRewardsV2MessageDataParams = {
+  action: Action.ClaimRewardsV2;
+  data: ClaimRewardsV2MessageData;
+  extraArgs: DefaultExtraArgs;
+};
+
 export type MessageDataParams =
   | DefaultMessageDataParams
   | CreateAccountMessageDataParams
@@ -362,7 +394,8 @@ export type MessageDataParams =
   | RepayWithCollateralMessageDataParams
   | SwitchBorrowTypeMessageDataParams
   | LiquidateMessageDataParams
-  | SendTokenMessageDataParams;
+  | SendTokenMessageDataParams
+  | ClaimRewardsV2MessageDataParams;
 
 export type MessageBuilderParams = {
   userAddress: GenericAddress;

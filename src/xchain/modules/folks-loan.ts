@@ -26,10 +26,17 @@ import { buildMessageToSend, estimateAdapterReceiveGasLimit } from "../../common
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../core/folks-core.js";
 
-import type { LoanChange, LoanManagerUserLoan, LoanTypeInfo, UserLoanInfo } from "../../chains/evm/hub/types/loan.js";
+import type {
+  LoanChange,
+  LoanManagerUserLoan,
+  LoanTypeInfo,
+  UserLoanInfo,
+  UserPoints,
+} from "../../chains/evm/hub/types/loan.js";
 import type { OraclePrice, OraclePrices } from "../../chains/evm/hub/types/oracle.js";
 import type { PoolInfo } from "../../chains/evm/hub/types/pool.js";
-import type { ActiveEpochsInfo } from "../../chains/evm/hub/types/rewards.js";
+import type { ActiveEpochsInfo as ActiveEpochsInfoV1 } from "../../chains/evm/hub/types/rewards-v1.js";
+import type { ActiveEpochsInfo as ActiveEpochsInfoV2 } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { TokenRateLimit } from "../../chains/evm/spoke/types/pool.js";
 import type { FolksChainId } from "../../common/types/chain.js";
 import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../common/types/lending.js";
@@ -62,6 +69,7 @@ import type {
   PrepareRepayCall,
   PrepareRepayWithCollateralCall,
   PrepareSwitchBorrowTypeCall,
+  PrepareUpdateUserPointsInLoansCall,
   PrepareWithdrawCall,
 } from "../../common/types/module.js";
 import type { FolksTokenId } from "../../common/types/token.js";
@@ -875,6 +883,24 @@ export const prepare = {
       hubChain,
     );
   },
+
+  async updateUserPointsInLoans(loanIds: Array<LoanId>): Promise<PrepareUpdateUserPointsInLoansCall> {
+    const folksChain = FolksCore.getSelectedFolksChain();
+    assertHubChainSelected(folksChain.folksChainId, folksChain.network);
+    const hubChain = getHubChain(folksChain.network);
+
+    const userAddress = getSignerGenericAddress({
+      signer: FolksCore.getFolksSigner().signer,
+      chainType: folksChain.chainType,
+    });
+
+    return await FolksHubLoan.prepare.updateUserPointsInLoans(
+      FolksCore.getProvider<ChainType.EVM>(folksChain.folksChainId),
+      convertFromGenericAddress(userAddress, folksChain.chainType),
+      loanIds,
+      hubChain,
+    );
+  },
 };
 
 export const write = {
@@ -1138,6 +1164,18 @@ export const write = {
       prepareCall,
     );
   },
+
+  async updateUserPointsInLoans(loanIds: Array<LoanId>, prepareCall: PrepareUpdateUserPointsInLoansCall) {
+    const folksChain = FolksCore.getSelectedFolksChain();
+    assertHubChainSelected(folksChain.folksChainId, folksChain.network);
+
+    return await FolksHubLoan.write.updateUserPointsInLoans(
+      FolksCore.getProvider<ChainType.EVM>(folksChain.folksChainId),
+      FolksCore.getSigner<ChainType.EVM>(),
+      loanIds,
+      prepareCall,
+    );
+  },
 };
 
 export const read = {
@@ -1183,6 +1221,20 @@ export const read = {
     const network = FolksCore.getSelectedNetwork();
     return await FolksHubLoan.getUserLoans(FolksCore.getHubProvider(), network, loanIds, throwErrorOnLoanFailure);
   },
+
+  async userPoints(
+    accountId: AccountId,
+    loanIds: Array<LoanId>,
+    loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
+  ): Promise<UserPoints> {
+    return FolksHubLoan.getUserPoints(
+      FolksCore.getHubProvider(),
+      FolksCore.getSelectedNetwork(),
+      accountId,
+      loanIds,
+      loanTypesInfo,
+    );
+  },
 };
 
 export const util = {
@@ -1191,7 +1243,8 @@ export const util = {
     poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
     loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
     oraclePrices: OraclePrices,
-    activeEpochsInfo?: ActiveEpochsInfo,
+    // TODO rewards: remove v1 rewards once deprecated
+    activeEpochsInfo?: ActiveEpochsInfoV1 | ActiveEpochsInfoV2,
   ): Record<LoanId, UserLoanInfo> {
     // get info of each user loan
     return FolksHubLoan.getUserLoansInfo(userLoansMap, poolsInfo, loanTypesInfo, oraclePrices, activeEpochsInfo);

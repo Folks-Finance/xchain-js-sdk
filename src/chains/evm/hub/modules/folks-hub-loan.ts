@@ -8,6 +8,7 @@ import { getRandomGenericAddress } from "../../../../common/utils/address.js";
 import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
 import { getSpokeChain, getSpokeTokenData } from "../../../../common/utils/chain.js";
 import {
+  calcAccruedRewards,
   calcBorrowAssetLoanValue,
   calcBorrowBalance,
   calcBorrowInterestIndex,
@@ -25,6 +26,7 @@ import {
   defaultEventParams,
   GAS_LIMIT_ESTIMATE_INCREASE,
   RECEIVER_VALUE_SLIPPAGE,
+  UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
 import {
@@ -51,7 +53,7 @@ import type {
   LiquidateMessageDataParams,
 } from "../../../../common/types/message.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { PrepareLiquidateCall } from "../../common/types/module.js";
+import type { PrepareLiquidateCall, PrepareUpdateUserPointsInLoansCall } from "../../common/types/module.js";
 import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
 import type { HubChain } from "../types/chain.js";
 import type {
@@ -60,13 +62,16 @@ import type {
   LoanManagerUserLoanAbi,
   LoanPoolInfo,
   LoanTypeInfo,
+  PoolsPoints,
   UserLoanInfo,
   UserLoanInfoBorrow,
   UserLoanInfoCollateral,
+  UserPoints,
 } from "../types/loan.js";
 import type { OraclePrice, OraclePrices } from "../types/oracle.js";
 import type { PoolInfo } from "../types/pool.js";
-import type { ActiveEpochsInfo } from "../types/rewards.js";
+import type { ActiveEpochsInfo as ActiveEpochsInfoV1 } from "../types/rewards-v1.js";
+import type { ActiveEpochsInfo as ActiveEpochsInfoV2 } from "../types/rewards-v2.js";
 import type { HubTokenData } from "../types/token.js";
 import type { Dnum } from "dnum";
 import type {
@@ -109,6 +114,28 @@ export const prepare = {
       messageData,
     };
   },
+
+  async updateUserPointsInLoans(
+    provider: Client,
+    sender: EvmAddress,
+    loanIds: Array<LoanId>,
+    hubChain: HubChain,
+    transactionOptions: EstimateGasParameters = {
+      account: sender,
+    },
+  ): Promise<PrepareUpdateUserPointsInLoansCall> {
+    const loanManager = getLoanManagerContract(provider, hubChain.loanManagerAddress);
+
+    const gasLimit = await loanManager.estimateGas.updateUserLoansPoolsRewards([loanIds], {
+      ...transactionOptions,
+      value: undefined,
+    });
+
+    return {
+      gasLimit: increaseByPercent(gasLimit, UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE),
+      loanManagerAddress: hubChain.loanManagerAddress,
+    };
+  },
 };
 
 export const write = {
@@ -118,6 +145,23 @@ export const write = {
     const hub = getHubContract(provider, hubAddress, signer);
 
     return await hub.write.directOperation([Action.Liquidate, accountId, messageData], {
+      account: getEvmSignerAccount(signer),
+      chain: signer.chain,
+      gas: gasLimit,
+    });
+  },
+
+  async updateUserPointsInLoans(
+    provider: Client,
+    signer: WalletClient,
+    loanIds: Array<LoanId>,
+    prepareCall: PrepareUpdateUserPointsInLoansCall,
+  ) {
+    const { gasLimit, loanManagerAddress } = prepareCall;
+
+    const loanManager = getLoanManagerContract(provider, loanManagerAddress, signer);
+
+    return await loanManager.write.updateUserLoansPoolsRewards([loanIds], {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
@@ -335,12 +379,112 @@ export async function getUserLoans(
   return userLoansMap;
 }
 
+export async function getUserPoints(
+  provider: Client,
+  network: NetworkType,
+  accountId: AccountId,
+  loanIds: Array<LoanId>,
+  loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
+): Promise<UserPoints> {
+  const hubChain = getHubChain(network);
+  const loanManager = getLoanManagerContract(provider, hubChain.loanManagerAddress);
+
+  // derive the tokens/pools you are interested in
+  const seen = new Map<number, FolksTokenId>();
+  const poolIds: Array<number> = [];
+  const folksTokenIds: Array<FolksTokenId> = [];
+  for (const { pools } of Object.values(loanTypesInfo)) {
+    for (const { poolId, folksTokenId } of Object.values(pools)) {
+      if (!seen.has(poolId)) {
+        poolIds.push(poolId);
+        folksTokenIds.push(folksTokenId);
+        seen.set(poolId, folksTokenId);
+      }
+    }
+  }
+
+  // fetch the account rewards which are updated
+  const getUsersPoolRewards: Array<ContractFunctionParameters> = [];
+  for (const poolId of poolIds) {
+    getUsersPoolRewards.push({
+      address: loanManager.address,
+      abi: loanManager.abi,
+      functionName: "getUserPoolRewards",
+      args: [accountId, poolId],
+    });
+  }
+
+  const accountPoolRewards: Array<PoolsPoints> = (await multicall(provider, {
+    contracts: getUsersPoolRewards,
+    allowFailure: false,
+  })) as Array<PoolsPoints>;
+
+  // initialise with all the rewards which are updated
+  const rewards: Partial<Record<FolksTokenId, PoolsPoints>> = {};
+  for (const [i, accountPoolReward] of accountPoolRewards.entries()) {
+    const folksTokenId = folksTokenIds[i];
+    rewards[folksTokenId] = accountPoolReward;
+  }
+  const userRewards: UserPoints = { accountId, poolsPoints: rewards };
+
+  // add all the rewards which are not updated
+  const userLoans = await getUserLoans(provider, network, loanIds, false);
+  for (const loanId of loanIds) {
+    const userLoan = userLoans.get(loanId);
+    if (userLoan === undefined) throw Error("Unknown user loan");
+
+    const {
+      accountId: userLoanAccountId,
+      loanTypeId,
+      colPools,
+      borPools,
+      userLoanCollateral,
+      userLoanBorrow,
+    } = userLoan;
+
+    const loanTypeInfo = loanTypesInfo[loanTypeId];
+    if (!loanTypeInfo) throw new Error(`Unknown loan type id ${loanTypeId}`);
+    if (accountId !== userLoanAccountId) throw new Error(`Loan ${loanId} belongs to account ${userLoanAccountId}`);
+
+    for (const [i, poolId] of colPools.entries()) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const folksTokenId = seen.get(poolId)!;
+      const { balance, rewardIndex } = userLoanCollateral[i];
+
+      const loanPool = loanTypeInfo.pools[folksTokenId];
+      if (!loanPool) throw new Error(`Unknown loan pool for token ${folksTokenId}`);
+      const { collateralRewardIndex } = loanPool.reward;
+
+      const accrued = calcAccruedRewards(balance, collateralRewardIndex, [rewardIndex, 18]);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      userRewards.poolsPoints[folksTokenId]!.collateral += accrued;
+    }
+
+    for (const [i, poolId] of borPools.entries()) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const folksTokenId = seen.get(poolId)!;
+      const { amount, rewardIndex } = userLoanBorrow[i];
+
+      const loanPool = loanTypeInfo.pools[folksTokenId];
+      if (!loanPool) throw new Error(`Unknown loan pool for token ${folksTokenId}`);
+      const { borrowRewardIndex } = loanPool.reward;
+
+      const accrued = calcAccruedRewards(amount, borrowRewardIndex, [rewardIndex, 18]);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      userRewards.poolsPoints[folksTokenId]!.borrow += accrued;
+    }
+  }
+
+  return userRewards;
+}
+
 export function getUserLoansInfo(
   userLoansMap: Map<LoanId, LoanManagerUserLoan>,
   poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
   loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
   oraclePrices: OraclePrices,
-  activeEpochsInfo?: ActiveEpochsInfo,
+  // TODO rewards: remove v1 rewards once deprecated
+  activeEpochsInfo?: ActiveEpochsInfoV1 | ActiveEpochsInfoV2,
 ): Record<LoanId, UserLoanInfo> {
   const poolIdToFolksTokenId = new Map(
     Object.values(poolsInfo).map(({ folksTokenId, poolId }) => [poolId, folksTokenId]),
@@ -369,7 +513,7 @@ export function getUserLoansInfo(
       if (!folksTokenId) throw new Error(`Unknown pool id ${poolId}`);
 
       const activeEpochInfo = activeEpochsInfo?.[folksTokenId];
-      const rewardsApr = activeEpochInfo?.rewardsApr ?? dn.from(0, 18);
+      const rewardsApr = activeEpochInfo?.totalRewardsApr ?? dn.from(0, 18);
 
       const poolInfo = poolsInfo[folksTokenId];
       const loanPoolInfo = loanTypeInfo.pools[folksTokenId];

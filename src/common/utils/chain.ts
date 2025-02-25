@@ -10,6 +10,8 @@ import type { GenericAddress } from "../types/address.js";
 import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
 import type { FolksChainSigner } from "../types/core.js";
 import type { AdapterType } from "../types/message.js";
+import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
+import type { RewardsTokenId, RewardsType } from "../types/rewards.js";
 import type { FolksTokenId, SpokeTokenData } from "../types/token.js";
 
 export function getFolksChain(folksChainId: FolksChainId, network: NetworkType): FolksChain {
@@ -54,6 +56,38 @@ export function getSpokeTokenData(spokeChain: SpokeChain, folksTokenId: FolksTok
   return tokenData;
 }
 
+export function getRewardTokenSpokeChain(
+  rewardTokenId: RewardsTokenId,
+  network: NetworkType,
+  rewardType: RewardsType,
+): SpokeChain {
+  const spokeChain = Object.values(SPOKE_CHAIN[network]).find(
+    (spokeChain) => spokeChain.rewards[rewardType]?.tokens[rewardTokenId] !== undefined,
+  );
+  if (!spokeChain) throw new Error(`Spoke chain not found for rewardTokenId: ${rewardTokenId} - ${rewardType}`);
+
+  return spokeChain;
+}
+
+export function getSpokeRewardsCommonAddress(spokeChain: SpokeChain, rewardType: RewardsType): GenericAddress {
+  const spokeRewardsCommonAddress = spokeChain.rewards[rewardType]?.spokeRewardsCommonAddress;
+  if (!spokeRewardsCommonAddress) throw new Error(`Rewards ${rewardType} Spoke Common Address not found`);
+
+  return spokeRewardsCommonAddress;
+}
+
+export function getSpokeRewardsTokenData(
+  spokeChain: SpokeChain,
+  rewardTokenId: RewardsTokenId,
+  rewardType: RewardsType,
+): SpokeRewardTokenData {
+  const spokeRewardTokenData = spokeChain.rewards[rewardType]?.tokens[rewardTokenId];
+  if (!spokeRewardTokenData)
+    throw new Error(`Rewards ${rewardType} Spoke Token not found for rewardTokenId: ${rewardTokenId}`);
+
+  return spokeRewardTokenData;
+}
+
 export function isFolksTokenSupported(
   folksTokenId: FolksTokenId,
   folksChainId: FolksChainId,
@@ -76,16 +110,28 @@ export function getSpokeChainAdapterAddress(
   folksChainId: FolksChainId,
   network: NetworkType,
   adapterType: AdapterType,
+  isRewards = false,
 ): GenericAddress {
   const spokeChain = getSpokeChain(folksChainId, network);
-  const adapterAddress = spokeChain.adapters[adapterType];
+  const { adapters } = isRewards ? spokeChain.rewards : spokeChain;
+  const adapterAddress = adapters[adapterType];
   if (adapterAddress) return adapterAddress;
   throw new Error(`Adapter ${adapterType} not found for spoke chain ${folksChainId}`);
 }
 
-export function getAdapterAddress(folksChainId: FolksChainId, network: NetworkType, adapterType: AdapterType) {
-  if (isHubChain(folksChainId, network)) return getHubChainAdapterAddress(network, adapterType);
-  return getSpokeChainAdapterAddress(folksChainId, network, adapterType);
+export function getAdapterAddress(
+  folksChainId: FolksChainId,
+  network: NetworkType,
+  adapterType: AdapterType,
+  isRewards = false,
+) {
+  if (isHubChain(folksChainId, network)) return getHubChainAdapterAddress(network, adapterType, isRewards);
+  return getSpokeChainAdapterAddress(folksChainId, network, adapterType, isRewards);
+}
+
+export function getSpokeChainBridgeRouterAddress(spokeChain: SpokeChain, isRewards = false) {
+  const { bridgeRouterAddress } = isRewards ? spokeChain.rewards : spokeChain;
+  return bridgeRouterAddress;
 }
 
 export function getSignerGenericAddress(folksChainSigner: FolksChainSigner): GenericAddress {

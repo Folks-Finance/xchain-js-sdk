@@ -6,9 +6,11 @@ import { AccountManagerAbi } from "../constants/abi/account-manager-abi.js";
 import { BridgeRouterHubAbi } from "../constants/abi/bridge-router-hub-abi.js";
 import { HubAbi } from "../constants/abi/hub-abi.js";
 import { HubPoolAbi } from "../constants/abi/hub-pool-abi.js";
+import { HubRewardsV1Abi } from "../constants/abi/hub-rewards-v1-abi.js";
+import { HubRewardsV2Abi } from "../constants/abi/hub-rewards-v2-abi.js";
 import { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
+import { NodeManagerAbi } from "../constants/abi/node-manager-abi.js";
 import { OracleManagerAbi } from "../constants/abi/oracle-manager-abi.js";
-import { RewardsV1Abi } from "../constants/abi/rewards-v1-abi.js";
 
 import type { GenericAddress } from "../../../../common/types/address.js";
 import type { GetReadContractReturnType } from "../../common/types/contract.js";
@@ -90,22 +92,54 @@ export function getOracleManagerContract(
   });
 }
 
-export function getRewardsV1Contract(
+export function getNodeManagerContract(
   provider: Client,
   address: GenericAddress,
-): GetReadContractReturnType<typeof RewardsV1Abi>;
-export function getRewardsV1Contract(
+): GetReadContractReturnType<typeof NodeManagerAbi> {
+  return getContract({
+    abi: NodeManagerAbi,
+    address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
+    client: { public: provider },
+  });
+}
+
+export function getHubRewardsV1Contract(
+  provider: Client,
+  address: GenericAddress,
+): GetReadContractReturnType<typeof HubRewardsV1Abi>;
+export function getHubRewardsV1Contract(
   provider: Client,
   address: GenericAddress,
   signer: WalletClient,
-): GetContractReturnType<typeof RewardsV1Abi, Client>;
-export function getRewardsV1Contract(
+): GetContractReturnType<typeof HubRewardsV1Abi, Client>;
+export function getHubRewardsV1Contract(
   provider: Client,
   address: GenericAddress,
   signer?: WalletClient,
-): GetReadContractReturnType<typeof RewardsV1Abi> | GetContractReturnType<typeof RewardsV1Abi, Client> {
+): GetReadContractReturnType<typeof HubRewardsV1Abi> | GetContractReturnType<typeof HubRewardsV1Abi, Client> {
   return getContract({
-    abi: RewardsV1Abi,
+    abi: HubRewardsV1Abi,
+    address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
+    client: { wallet: signer, public: provider },
+  });
+}
+
+export function getHubRewardsV2Contract(
+  provider: Client,
+  address: GenericAddress,
+): GetReadContractReturnType<typeof HubRewardsV2Abi>;
+export function getHubRewardsV2Contract(
+  provider: Client,
+  address: GenericAddress,
+  signer: WalletClient,
+): GetContractReturnType<typeof HubRewardsV2Abi, Client>;
+export function getHubRewardsV2Contract(
+  provider: Client,
+  address: GenericAddress,
+  signer?: WalletClient,
+): GetReadContractReturnType<typeof HubRewardsV2Abi> | GetContractReturnType<typeof HubRewardsV2Abi, Client> {
+  return getContract({
+    abi: HubRewardsV2Abi,
     address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
     client: { wallet: signer, public: provider },
   });

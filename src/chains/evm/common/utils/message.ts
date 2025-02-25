@@ -204,6 +204,21 @@ export function buildEvmMessageData(messageDataParams: MessageDataParams): Hex {
     case Action.SendToken: {
       return convertNumberToBytes(data.amount, UINT256_LENGTH);
     }
+    case Action.ClaimRewardsV2: {
+      return concat([
+        convertNumberToBytes(data.poolEpochsToClaim.length, UINT8_LENGTH),
+        convertNumberToBytes(data.rewardTokensToReceive.length, UINT8_LENGTH),
+        ...data.poolEpochsToClaim.flatMap(({ poolId, epochIndex }) => [
+          convertNumberToBytes(poolId, UINT8_LENGTH),
+          convertNumberToBytes(epochIndex, UINT16_LENGTH),
+        ]),
+        ...data.rewardTokensToReceive.flatMap(({ rewardTokenId, returnAdapterId, returnGasLimit }) => [
+          convertNumberToBytes(rewardTokenId, UINT8_LENGTH),
+          convertNumberToBytes(returnAdapterId, UINT16_LENGTH),
+          convertNumberToBytes(returnGasLimit, UINT256_LENGTH),
+        ]),
+      ]);
+    }
     default:
       return exhaustiveCheck(action);
   }
@@ -398,6 +413,18 @@ export function buildEvmMessageToSend(
         payload: buildMessagePayload(Action.SendToken, accountId, userAddress, data),
         finalityLevel: FINALITY.FINALISED,
         extraArgs: buildSendTokenExtraArgsWhenRemoving(extraArgs.recipient, extraArgs.token, extraArgs.amount),
+      };
+      return message;
+    }
+    case Action.ClaimRewardsV2: {
+      const message: MessageToSend = {
+        params,
+        sender,
+        destinationChainId,
+        handler,
+        payload: buildMessagePayload(Action.ClaimRewardsV2, accountId, userAddress, data),
+        finalityLevel: FINALITY.IMMEDIATE,
+        extraArgs,
       };
       return message;
     }

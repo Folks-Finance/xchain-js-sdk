@@ -7,17 +7,22 @@ import { MessageAdapterParamsType } from "../types/adapter.js";
 import { AdapterType } from "../types/message.js";
 import { TokenType } from "../types/token.js";
 
-import { getSpokeChain } from "./chain.js";
+import { getRewardTokenSpokeChain, getSpokeChain } from "./chain.js";
 
 import type { NonEmptyArray } from "../../types/generics.js";
 import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
 import type { FolksChainId, NetworkType } from "../types/chain.js";
-import type { SupportedMessageAdapters } from "../types/message.js";
+import type { SupportedMessageAdaptersMap } from "../types/message.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
-export function getSpokeAdapterIds(folksChainId: FolksChainId, network: NetworkType): NonEmptyArray<AdapterType> {
+export function getSpokeAdapterIds(
+  folksChainId: FolksChainId,
+  network: NetworkType,
+  isRewards = false,
+): NonEmptyArray<AdapterType> {
   const spokeChain = getSpokeChain(folksChainId, network);
-  const adapterIds = Object.keys(spokeChain.adapters).map<AdapterType>(Number);
+  const { adapters } = isRewards ? spokeChain.rewards : spokeChain;
+  const adapterIds = Object.keys(adapters).map<AdapterType>(Number);
   return ensureNonEmpty(adapterIds, `No adapters found for chain ${folksChainId}`);
 }
 
@@ -104,23 +109,26 @@ function getReturnMessageAdapterIds({ folksTokenId, network }: ReceiveTokenMessa
   return getSendTokenAdapterIds(folksTokenId, network);
 }
 
-export function getSupportedMessageAdapters(params: MessageAdapterParams): SupportedMessageAdapters {
+export function getSupportedMessageAdapters<T extends MessageAdapterParams>(
+  params: T,
+): SupportedMessageAdaptersMap[T["messageAdapterParamType"]] {
+  const isRewards = params.messageAdapterParamType === MessageAdapterParamsType.ClaimReward;
   const { messageAdapterParamType, sourceFolksChainId, network } = params;
-  const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network);
+  const spokeAdapterIds = getSpokeAdapterIds(sourceFolksChainId, network, isRewards);
   const supportedAdapterIds = ensureNonEmpty(
     getMessageAdapterIds(params).filter(intersect(spokeAdapterIds)),
     `No supported adapters found for chain ${sourceFolksChainId}`,
   );
 
   switch (messageAdapterParamType) {
-    case MessageAdapterParamsType.SendToken: {
+    case MessageAdapterParamsType.SendToken:
       return {
         adapterIds: supportedAdapterIds,
         returnAdapterIds: supportedAdapterIds,
-      };
-    }
+      } as SupportedMessageAdaptersMap[T["messageAdapterParamType"]];
+
     case MessageAdapterParamsType.ReceiveToken: {
-      const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network);
+      const destSpokeAdapterIds = getSpokeAdapterIds(params.destFolksChainId, network, isRewards);
       const supportedReturnAdapterIds = ensureNonEmpty(
         getReturnMessageAdapterIds(params).filter(intersect(destSpokeAdapterIds)),
         `No supported return adapters found for chain ${params.destFolksChainId}`,
@@ -128,13 +136,32 @@ export function getSupportedMessageAdapters(params: MessageAdapterParams): Suppo
       return {
         adapterIds: supportedAdapterIds,
         returnAdapterIds: supportedReturnAdapterIds,
-      };
+      } as SupportedMessageAdaptersMap[T["messageAdapterParamType"]];
     }
+
     case MessageAdapterParamsType.Data:
       return {
         adapterIds: supportedAdapterIds,
         returnAdapterIds: [AdapterType.HUB],
-      };
+      } as SupportedMessageAdaptersMap[T["messageAdapterParamType"]];
+
+    case MessageAdapterParamsType.ClaimReward: {
+      const { rewardTokenIds, rewardType } = params;
+      return {
+        adapterIds: supportedAdapterIds,
+        returnAdapterIds: Object.fromEntries(
+          rewardTokenIds.map((rewardTokenIds) => [
+            rewardTokenIds,
+            getSpokeAdapterIds(
+              getRewardTokenSpokeChain(rewardTokenIds, network, rewardType).folksChainId,
+              network,
+              isRewards,
+            ),
+          ]),
+        ),
+      } as SupportedMessageAdaptersMap[T["messageAdapterParamType"]];
+    }
+
     default:
       return exhaustiveCheck(messageAdapterParamType);
   }

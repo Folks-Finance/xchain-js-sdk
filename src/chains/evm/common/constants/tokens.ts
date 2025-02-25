@@ -1,13 +1,15 @@
+import { MAINNET_REWARDS_TOKEN_ID, TESTNET_REWARDS_TOKEN_ID } from "../../../../common/constants/reward.js";
 import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
 
 import { EVM_FOLKS_CHAIN_ID } from "./chain.js";
 
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type { RewardsTokenId } from "../../../../common/types/rewards.js";
+import type { FolksTokenId as LendingTokenId } from "../../../../common/types/token.js";
 import type { EvmFolksChainId } from "../types/chain.js";
 import type { Erc20ContractSlot } from "../types/tokens.js";
 
 export const CONTRACT_SLOT: Partial<
-  Record<EvmFolksChainId, { erc20: Partial<Record<FolksTokenId, Erc20ContractSlot>> }>
+  Record<EvmFolksChainId, { erc20: Partial<Record<LendingTokenId | RewardsTokenId, Erc20ContractSlot>> }>
 > = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE]: {
     erc20: {
@@ -38,6 +40,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: {
         balanceOf: 5n,
         allowance: 6n,
+      },
+      [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+        balanceOf: 3n,
+        allowance: 4n,
       },
     },
   },
@@ -126,6 +132,10 @@ export const CONTRACT_SLOT: Partial<
       [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: {
         balanceOf: 0n,
         allowance: 1n,
+      },
+      [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
+        balanceOf: 9n,
+        allowance: 10n,
       },
     },
   },

@@ -35,6 +35,17 @@ export type LoanTypeInfo = {
   pools: Partial<Record<FolksTokenId, LoanPoolInfo>>;
 };
 
+export type PoolsPoints = {
+  collateral: bigint;
+  borrow: bigint;
+  interestPaid: bigint;
+};
+
+export type UserPoints = {
+  accountId: AccountId;
+  poolsPoints: Partial<Record<FolksTokenId, PoolsPoints>>;
+};
+
 export type UserLoanInfoCollateral = {
   folksTokenId: FolksTokenId;
   poolId: number;

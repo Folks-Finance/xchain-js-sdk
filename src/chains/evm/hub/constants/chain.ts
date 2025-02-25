@@ -1,6 +1,11 @@
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { MAINNET_POOLS, TESTNET_POOLS } from "../../../../common/constants/pool.js";
-import { NetworkType, ChainType } from "../../../../common/types/chain.js";
+import {
+  MAINNET_REWARDS_TOKEN_ID,
+  REWARDS_TYPE,
+  TESTNET_REWARDS_TOKEN_ID,
+} from "../../../../common/constants/reward.js";
+import { ChainType, NetworkType } from "../../../../common/types/chain.js";
 import { MAINNET_LOAN_TYPE_ID, TESTNET_LOAN_TYPE_ID } from "../../../../common/types/lending.js";
 import { AdapterType } from "../../../../common/types/message.js";
 import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../../../../common/types/token.js";
@@ -9,6 +14,7 @@ import { convertToGenericAddress } from "../../../../common/utils/address.js";
 import type { EvmAddress } from "../../../../common/types/address.js";
 import type { MainnetFolksTokenId, TestnetFolksTokenId } from "../../../../common/types/token.js";
 import type { HubChain } from "../types/chain.js";
+import type { NodeId } from "../types/oracle.js";
 import type { HubTokenData } from "../types/token.js";
 
 export const HUB_CHAIN: Record<NetworkType, HubChain> = {
@@ -41,6 +47,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ChainType.EVM,
       ),
     },
+    nodeManagerAddress: convertToGenericAddress(
+      "0x802063A23E78D0f5D158feaAc605028Ee490b03b" as EvmAddress,
+      ChainType.EVM,
+    ),
     oracleManagerAddress: convertToGenericAddress(
       "0x7218Bd1050D41A9ECfc517abdd294FB8116aEe81" as EvmAddress,
       ChainType.EVM,
@@ -245,10 +255,54 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ]),
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
-    rewardsV1Address: convertToGenericAddress(
-      "0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress,
-      ChainType.EVM,
-    ),
+    rewards: {
+      bridgeRouterAddress: convertToGenericAddress(
+        "0x347d342F12fA57b6231c82867f964Edfa4eD1431" as EvmAddress,
+        ChainType.EVM,
+      ),
+      adapters: {
+        [AdapterType.HUB]: convertToGenericAddress(
+          "0x043e63A7c886074720b411E3785dE183D1262Ec5" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0x3291FCf6Ca62939fc432Debe6cbB2a838F755D34" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x97592Dc676D6051Bf813f663B717cfD6B177eEFF" as EvmAddress,
+          ChainType.EVM,
+        ),
+      },
+      [REWARDS_TYPE.V1]: {
+        hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
+      },
+      [REWARDS_TYPE.V2]: {
+        hubAddress: convertToGenericAddress("0x3E85a56C2202Ec067EB4Ac090db3e8149dA46d19" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress(
+          "0x8a8b9386dFd63931284545dB62374b48180f0111" as EvmAddress,
+          ChainType.EVM,
+        ),
+        tokens: {
+          [MAINNET_REWARDS_TOKEN_ID.AVAX]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.AVAX,
+            nodeId: "0xef91e0eb17127b0ebbb35065173e74ea28dccf613e509553bcd0ed42688046f1" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
+            },
+          },
+          [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.GoGoPool,
+            nodeId: "0x9316a3c563f1bedd6ac0b2a50d02fffdc57b0eb1bd3e47f1c54745e591ce10f5" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 18,
+            },
+          },
+        },
+      },
+    },
   },
   [NetworkType.TESTNET]: {
     folksChainId: FOLKS_CHAIN_ID.AVALANCHE_FUJI,
@@ -279,6 +333,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ChainType.EVM,
       ),
     },
+    nodeManagerAddress: convertToGenericAddress(
+      "0xbb492e822b8CC0c9032bCe642F29e0B3D55F0446" as EvmAddress,
+      ChainType.EVM,
+    ),
     oracleManagerAddress: convertToGenericAddress(
       "0xba18A8d45bF2f7032aB0758839eac914D345c99e" as EvmAddress,
       ChainType.EVM,
@@ -391,9 +449,53 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
       },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
-    rewardsV1Address: convertToGenericAddress(
-      "0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress,
-      ChainType.EVM,
-    ),
+    rewards: {
+      bridgeRouterAddress: convertToGenericAddress(
+        "0xD420eb040341889Be798b417A8ffb4CfAD3b1E9B" as EvmAddress,
+        ChainType.EVM,
+      ),
+      adapters: {
+        [AdapterType.HUB]: convertToGenericAddress(
+          "0x1fb4d24C5fB0807d5EC338dEa276e88B13cB48dE" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0x73FC90E2cEcED235D23C8B54d17Ba54d8516d689" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x5c9d6C2202F214f3f8B879eaE3e16C6675338D4E" as EvmAddress,
+          ChainType.EVM,
+        ),
+      },
+      [REWARDS_TYPE.V1]: {
+        hubAddress: convertToGenericAddress("0xB8Aa9782d5922B00fC63e7def85F276059B4aCd0" as EvmAddress, ChainType.EVM),
+      },
+      [REWARDS_TYPE.V2]: {
+        hubAddress: convertToGenericAddress("0xD962d5198A170bAf75da57C7C408e6EE7d912086" as EvmAddress, ChainType.EVM),
+        spokeManagerAddress: convertToGenericAddress(
+          "0x9c78F1c73B3C21917624e0e6e78bB37bf0b8Ce91" as EvmAddress,
+          ChainType.EVM,
+        ),
+        tokens: {
+          [TESTNET_REWARDS_TOKEN_ID.AVAX]: {
+            rewardTokenId: TESTNET_REWARDS_TOKEN_ID.AVAX,
+            nodeId: "0x7c670cba5237644f0184621fd144be32dcb5a0de5f38117d2ed81109becf6261" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
+            },
+          },
+          [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
+            rewardTokenId: TESTNET_REWARDS_TOKEN_ID.USDC_base_sep,
+            nodeId: "0xd439d505b6141ad27963114eab223318945f1f6e79176d2fc129e811576e8a5a" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 6,
+            },
+          },
+        },
+      },
+    },
   },
 };
