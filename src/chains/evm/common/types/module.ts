@@ -10,6 +10,8 @@ import type { Hex } from "viem";
 export type PrepareCall = {
   msgValue: bigint;
   gasLimit: bigint;
+  maxFeePerGas?: bigint;
+  maxPriorityFeePerGas?: bigint;
   messageParams: MessageParams;
 };
 

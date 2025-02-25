@@ -159,7 +159,8 @@ export const write = {
     refAccountId: AccountId,
     prepareCall: PrepareCreateAccountCall,
   ) {
-    const { msgValue, gasLimit, messageParams, accountId, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, accountId, spokeCommonAddress } =
+      prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -167,6 +168,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -180,7 +183,7 @@ export const write = {
     refAccountId: AccountId,
     prepareCall: PrepareInviteAddressCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -190,6 +193,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
@@ -201,7 +206,7 @@ export const write = {
     accountId: AccountId,
     prepareCall: PrepareAcceptInviteAddressCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, gasLimit, maxFeePerGas, maxPriorityFeePerGas, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -209,6 +214,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -220,7 +227,7 @@ export const write = {
     folksChainIdToUnregister: FolksChainId,
     prepareCall: PrepareUnregisterAddressCall,
   ) {
-    const { msgValue, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
+    const { msgValue, maxFeePerGas, maxPriorityFeePerGas, gasLimit, messageParams, spokeCommonAddress } = prepareCall;
 
     const spokeCommon = getSpokeCommonContract(provider, spokeCommonAddress, signer);
 
@@ -228,6 +235,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },

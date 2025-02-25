@@ -158,7 +158,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareRetryMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress, signer);
 
@@ -166,6 +167,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -177,7 +180,8 @@ export const write = {
     messageId: MessageId,
     prepareCall: PrepareReverseMessageCall,
   ) {
-    const { gasLimit, msgValue, message, extraArgs, bridgeRouterAddress } = prepareCall;
+    const { gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, message, extraArgs, bridgeRouterAddress } =
+      prepareCall;
 
     const bridgeRouter = getBridgeRouterSpokeContract(provider, bridgeRouterAddress, signer);
 
@@ -185,6 +189,8 @@ export const write = {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
       gas: gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       value: msgValue,
     });
   },
@@ -192,6 +198,8 @@ export const write = {
   async resendMessage(provider: Client, signer: WalletClient, prepareCall: PrepareResendWormholeMessageCall) {
     const {
       gasLimit,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
       msgValue,
       vaaKey,
       targetWormholeChainId,
@@ -210,6 +218,8 @@ export const write = {
         account: getEvmSignerAccount(signer),
         chain: signer.chain,
         gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
         value: msgValue,
       },
     );
