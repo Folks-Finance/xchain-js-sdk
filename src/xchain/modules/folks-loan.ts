@@ -35,7 +35,7 @@ import type {
 } from "../../chains/evm/hub/types/loan.js";
 import type { OraclePrice, OraclePrices } from "../../chains/evm/hub/types/oracle.js";
 import type { PoolInfo } from "../../chains/evm/hub/types/pool.js";
-import type { ActiveEpochsInfo as ActiveEpochsInfo } from "../../chains/evm/hub/types/rewards-v2.js";
+import type { ActiveEpochsInfo } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { TokenRateLimit } from "../../chains/evm/spoke/types/pool.js";
 import type { FolksChainId } from "../../common/types/chain.js";
 import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../common/types/lending.js";
