@@ -35,8 +35,7 @@ import type {
 } from "../../chains/evm/hub/types/loan.js";
 import type { OraclePrice, OraclePrices } from "../../chains/evm/hub/types/oracle.js";
 import type { PoolInfo } from "../../chains/evm/hub/types/pool.js";
-import type { ActiveEpochsInfo as ActiveEpochsInfoV1 } from "../../chains/evm/hub/types/rewards-v1.js";
-import type { ActiveEpochsInfo as ActiveEpochsInfoV2 } from "../../chains/evm/hub/types/rewards-v2.js";
+import type { ActiveEpochsInfo } from "../../chains/evm/hub/types/rewards-v2.js";
 import type { TokenRateLimit } from "../../chains/evm/spoke/types/pool.js";
 import type { FolksChainId } from "../../common/types/chain.js";
 import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../common/types/lending.js";
@@ -1243,8 +1242,7 @@ export const util = {
     poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
     loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
     oraclePrices: OraclePrices,
-    // TODO rewards: remove v1 rewards once deprecated
-    activeEpochsInfo?: ActiveEpochsInfoV1 | ActiveEpochsInfoV2,
+    activeEpochsInfo?: ActiveEpochsInfo,
   ): Record<LoanId, UserLoanInfo> {
     // get info of each user loan
     return FolksHubLoan.getUserLoansInfo(userLoansMap, poolsInfo, loanTypesInfo, oraclePrices, activeEpochsInfo);
