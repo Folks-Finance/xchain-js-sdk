@@ -456,7 +456,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       ),
       adapters: {
         [AdapterType.HUB]: convertToGenericAddress(
-          "0x1fb4d24C5fB0807d5EC338dEa276e88B13cB48dE" as EvmAddress,
+          "0x2D3Ed308f03c1703261fDF9EB63f8232eef7952f" as EvmAddress,
           ChainType.EVM,
         ),
         [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
