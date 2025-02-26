@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.62
+
+### Patch Changes
+
+- [#243](https://github.com/Folks-Finance/xchain-js-sdk/pull/243) [`f591043`](https://github.com/Folks-Finance/xchain-js-sdk/commit/f5910430626274a27e375e447d8281d841e4c9e3) Thanks [@gidonkatten](https://github.com/gidonkatten)! - remove v1 active epochs in apr calculation
+
+- [#245](https://github.com/Folks-Finance/xchain-js-sdk/pull/245) [`5a7018f`](https://github.com/Folks-Finance/xchain-js-sdk/commit/5a7018f580456de7076b84904cb3c65f65230b24) Thanks [@gidonkatten](https://github.com/gidonkatten)! - updated rewards hub adapter on testnet
+
 ## 0.0.61
 
 ### Patch Changes
