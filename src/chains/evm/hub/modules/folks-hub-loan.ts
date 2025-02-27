@@ -70,8 +70,7 @@ import type {
 } from "../types/loan.js";
 import type { OraclePrice, OraclePrices } from "../types/oracle.js";
 import type { PoolInfo } from "../types/pool.js";
-import type { ActiveEpochsInfo as ActiveEpochsInfoV1 } from "../types/rewards-v1.js";
-import type { ActiveEpochsInfo as ActiveEpochsInfoV2 } from "../types/rewards-v2.js";
+import type { ActiveEpochsInfo } from "../types/rewards-v2.js";
 import type { HubTokenData } from "../types/token.js";
 import type { Dnum } from "dnum";
 import type {
@@ -485,8 +484,7 @@ export function getUserLoansInfo(
   poolsInfo: Partial<Record<FolksTokenId, PoolInfo>>,
   loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
   oraclePrices: OraclePrices,
-  // TODO rewards: remove v1 rewards once deprecated
-  activeEpochsInfo?: ActiveEpochsInfoV1 | ActiveEpochsInfoV2,
+  activeEpochsInfo?: ActiveEpochsInfo,
 ): Record<LoanId, UserLoanInfo> {
   const poolIdToFolksTokenId = new Map(
     Object.values(poolsInfo).map(({ folksTokenId, poolId }) => [poolId, folksTokenId]),
