@@ -7,7 +7,7 @@ import type { EvmAddress } from "../types/address.js";
 import type { FolksChainId } from "../types/chain.js";
 import type { CCIPData, WormholeData } from "../types/gmp.js";
 
-export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
+export const WORMHOLE_DATA: Partial<Record<FolksChainId, WormholeData>> = {
   [FOLKS_CHAIN_ID.AVALANCHE]: {
     wormholeChainId: 6,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
@@ -98,5 +98,9 @@ export const CCIP_DATA: Record<FolksChainId, CCIPData> = {
   [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
     ccipChainId: BigInt("2183018362218727504"),
     ccipRouter: convertToGenericAddress("0x5f16e51e3Dcb255480F090157DD01bA962a53E54" as EvmAddress, ChainType.EVM),
+  },
+  [FOLKS_CHAIN_ID.POLYGON_AMOY]: {
+    ccipChainId: BigInt("16281711391670634445"),
+    ccipRouter: convertToGenericAddress("0x9C32fCB86BF0f4a1A8921a9Fe46de3198bb884B2" as EvmAddress, ChainType.EVM),
   },
 };
