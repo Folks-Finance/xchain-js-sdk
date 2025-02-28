@@ -1308,7 +1308,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             type: TokenType.CROSS_CHAIN,
             adapters: [AdapterType.CCIP_TOKEN],
             address: convertToGenericAddress("0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582" as EvmAddress, ChainType.EVM),
-            decimals: 18,
+            decimals: 6,
           },
           folksTokenId: TESTNET_FOLKS_TOKEN_ID.USDC,
           poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.USDC],
