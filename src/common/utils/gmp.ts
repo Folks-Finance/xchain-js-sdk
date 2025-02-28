@@ -4,7 +4,9 @@ import type { FolksChainId } from "../types/chain.js";
 import type { CCIPData, WormholeData } from "../types/gmp.js";
 
 export function getWormholeData(folksChainId: FolksChainId): WormholeData {
-  return WORMHOLE_DATA[folksChainId];
+  const wormholeDataAdapter = WORMHOLE_DATA[folksChainId];
+  if (!wormholeDataAdapter) throw new Error(`Wormhole data not found for folksChainId: ${folksChainId}`);
+  return wormholeDataAdapter;
 }
 
 export function getCcipData(folksChainId: FolksChainId): CCIPData {

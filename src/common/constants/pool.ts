@@ -33,6 +33,7 @@ export const TESTNET_POOLS = {
   [TESTNET_FOLKS_TOKEN_ID.BNB]: 134,
   [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: 135,
   [TESTNET_FOLKS_TOKEN_ID.MON]: 136,
+  [TESTNET_FOLKS_TOKEN_ID.POL]: 137,
 } as const satisfies Record<TestnetFolksTokenId, number>;
 
 const MAINNET_FOLKS_TOKEN_IDS_FROM_POOL = Object.fromEntries(
