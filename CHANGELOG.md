@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.64
+
+### Patch Changes
+
+- [#248](https://github.com/Folks-Finance/xchain-js-sdk/pull/248) [`8c13a90`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8c13a90cd68c4e59527fcf3d907aadbfe1f05dee) Thanks [@palace22](https://github.com/palace22)! - Fixed Polygon Amoy USDC decimals
+
 ## 0.0.63
 
 ### Patch Changes
