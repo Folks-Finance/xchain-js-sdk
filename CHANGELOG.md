@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.63
+
+### Patch Changes
+
+- [#246](https://github.com/Folks-Finance/xchain-js-sdk/pull/246) [`aba2acd`](https://github.com/Folks-Finance/xchain-js-sdk/commit/aba2acdc6be42d144b405c4ea00a06207e78d28d) Thanks [@palace22](https://github.com/palace22)! - Added Polygon Amoy
+
 ## 0.0.62
 
 ### Patch Changes
