@@ -254,6 +254,36 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.AVAX_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.POL]: {
+        token: {
+          type: TokenType.NATIVE,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.POL,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.POL],
+        poolAddress: convertToGenericAddress("0x481cF0c02BF17a33753CE32f1931ED9990fFB40E" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_pol]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 8,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.wBTC_pol,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wBTC_pol],
+        poolAddress: convertToGenericAddress("0x7054254933279d93D97309745AfbFF9310cdb570" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wETH_pol]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.wETH_pol,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wETH_pol],
+        poolAddress: convertToGenericAddress("0x88Ae56886233C706409c74c3D4EA9A9Ac1D65ab2" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
