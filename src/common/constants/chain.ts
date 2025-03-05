@@ -268,7 +268,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         ),
         adapters: {
           [AdapterType.HUB]: convertToGenericAddress(
-            "0x043e63A7c886074720b411E3785dE183D1262Ec5" as EvmAddress,
+            "0xc02AdA9fdd113c2e76A86121fb1e69540E02B29c" as EvmAddress,
             ChainType.EVM,
           ),
         },
