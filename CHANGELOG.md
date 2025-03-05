@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.65
+
+### Patch Changes
+
+- [#251](https://github.com/Folks-Finance/xchain-js-sdk/pull/251) [`63eb26a`](https://github.com/Folks-Finance/xchain-js-sdk/commit/63eb26af5fa6d68987c7118c73330e655b8c0312) Thanks [@gidonkatten](https://github.com/gidonkatten)! - updated hub rewards adapter on mainnet
+
 ## 0.0.64
 
 ### Patch Changes
