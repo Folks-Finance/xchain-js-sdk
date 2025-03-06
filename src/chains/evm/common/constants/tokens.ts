@@ -175,16 +175,4 @@ export const CONTRACT_SLOT: Partial<
       },
     },
   },
-  [EVM_FOLKS_CHAIN_ID.POLYGON_AMOY]: {
-    erc20: {
-      [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: {
-        balanceOf: 0n,
-        allowance: 1n,
-      },
-      [TESTNET_FOLKS_TOKEN_ID.USDC]: {
-        balanceOf: 9n,
-        allowance: 10n,
-      },
-    },
-  },
 } as const;
