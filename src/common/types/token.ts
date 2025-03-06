@@ -19,6 +19,9 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   SolvBTC: "SolvBTC",
   JOE: "JOE",
   ggAVAX: "ggAVAX",
+  POL: "POL",
+  wBTC_pol: "wBTC_pol",
+  wETH_pol: "wETH_pol",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
