@@ -9,7 +9,6 @@ import {
   bscTestnet,
   mainnet,
   monadTestnet,
-  polygonAmoy,
   sepolia,
 } from "viem/chains";
 
@@ -124,13 +123,6 @@ export const FOLKS_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Folks
       folksChainId: FOLKS_CHAIN_ID.MONAD_TESTNET,
       chainName: monadTestnet.name,
       chainId: monadTestnet.id,
-      network: NetworkType.TESTNET,
-    },
-    [FOLKS_CHAIN_ID.POLYGON_AMOY]: {
-      chainType: ChainType.EVM,
-      folksChainId: FOLKS_CHAIN_ID.POLYGON_AMOY,
-      chainName: polygonAmoy.name,
-      chainId: polygonAmoy.id,
       network: NetworkType.TESTNET,
     },
   } satisfies Record<TestnetFolksChainId, FolksChain>,
@@ -1264,88 +1256,6 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         [REWARDS_TYPE.V2]: {
           spokeRewardsCommonAddress: convertToGenericAddress(
             "0x2b1AB136105F05E2F91C3b175Dc1550b4C5EcC9F" as EvmAddress,
-            ChainType.EVM,
-          ),
-          tokens: {},
-        },
-      },
-    },
-    [FOLKS_CHAIN_ID.POLYGON_AMOY]: {
-      folksChainId: FOLKS_CHAIN_ID.POLYGON_AMOY,
-      spokeCommonAddress: convertToGenericAddress(
-        "0x811A937b4349850AD8a52C6cA47083337d65c3dB" as EvmAddress,
-        ChainType.EVM,
-      ),
-      bridgeRouterAddress: convertToGenericAddress(
-        "0x3e44ba19e932F4985983994DFa1Bd01f2a2f8eE2" as EvmAddress,
-        ChainType.EVM,
-      ),
-      adapters: {
-        [AdapterType.CCIP_DATA]: convertToGenericAddress(
-          "0xeA2bcd7178fa69c12389C0a5E6FfaB0B0154D653" as EvmAddress,
-          ChainType.EVM,
-        ),
-        [AdapterType.CCIP_TOKEN]: convertToGenericAddress(
-          "0x0e78A4EE07e3f20ef7a21C0f61eb58FCa26d4d1f" as EvmAddress,
-          ChainType.EVM,
-        ),
-      },
-      tokens: {
-        [TESTNET_FOLKS_TOKEN_ID.POL]: {
-          token: {
-            type: TokenType.NATIVE,
-            decimals: 18,
-          },
-          folksTokenId: TESTNET_FOLKS_TOKEN_ID.POL,
-          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.POL],
-          spokeAddress: convertToGenericAddress(
-            "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
-            ChainType.EVM,
-          ),
-        },
-        [TESTNET_FOLKS_TOKEN_ID.USDC]: {
-          token: {
-            type: TokenType.CROSS_CHAIN,
-            adapters: [AdapterType.CCIP_TOKEN],
-            address: convertToGenericAddress("0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582" as EvmAddress, ChainType.EVM),
-            decimals: 6,
-          },
-          folksTokenId: TESTNET_FOLKS_TOKEN_ID.USDC,
-          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.USDC],
-          spokeAddress: convertToGenericAddress(
-            "0x9b01F7a57B1EDC123dd8BeE81781da11a90b4F3a" as EvmAddress,
-            ChainType.EVM,
-          ),
-        },
-        [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: {
-          token: {
-            type: TokenType.CROSS_CHAIN,
-            adapters: [AdapterType.CCIP_TOKEN],
-            address: convertToGenericAddress("0xcab0EF91Bee323d1A617c0a027eE753aFd6997E4" as EvmAddress, ChainType.EVM),
-            decimals: 18,
-          },
-          folksTokenId: TESTNET_FOLKS_TOKEN_ID.CCIP_BnM,
-          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.CCIP_BnM],
-          spokeAddress: convertToGenericAddress(
-            "0x66A6D8583dddC870Dfa6A4684628b46f6ba49058" as EvmAddress,
-            ChainType.EVM,
-          ),
-        },
-      },
-      rewards: {
-        bridgeRouterAddress: convertToGenericAddress(
-          "0x1217Fd6DDa71708FF3A8eB82602777379b59ba64" as EvmAddress,
-          ChainType.EVM,
-        ),
-        adapters: {
-          [AdapterType.CCIP_DATA]: convertToGenericAddress(
-            "0xa966b3C166db05ECE0f2DC6ee8E59E91A6778e0e" as EvmAddress,
-            ChainType.EVM,
-          ),
-        },
-        [REWARDS_TYPE.V2]: {
-          spokeRewardsCommonAddress: convertToGenericAddress(
-            "0x06433E6389c9cf742501Ba6a665c558be35Ea1B4" as EvmAddress,
             ChainType.EVM,
           ),
           tokens: {},
