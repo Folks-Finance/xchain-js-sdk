@@ -20,6 +20,9 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   JOE: "JOE",
   ggAVAX: "ggAVAX",
   SHIB: "SHIB",
+  POL: "POL",
+  wBTC_pol: "wBTC_pol",
+  wETH_pol: "wETH_pol",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 

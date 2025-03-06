@@ -1,5 +1,35 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.67
+
+### Patch Changes
+
+- [#250](https://github.com/Folks-Finance/xchain-js-sdk/pull/250) [`d01361b`](https://github.com/Folks-Finance/xchain-js-sdk/commit/d01361b5319a3241c2f3d128122267a5c83edd59) Thanks [@palace22](https://github.com/palace22)! - Added Polygon
+
+## 0.0.66
+
+### Patch Changes
+
+- [#253](https://github.com/Folks-Finance/xchain-js-sdk/pull/253) [`1d35422`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1d35422bf9d60f5d7e3c78d6db5fecebcde722c1) Thanks [@gidonkatten](https://github.com/gidonkatten)! - remove polygon amoy contracts
+
+## 0.0.65
+
+### Patch Changes
+
+- [#251](https://github.com/Folks-Finance/xchain-js-sdk/pull/251) [`63eb26a`](https://github.com/Folks-Finance/xchain-js-sdk/commit/63eb26af5fa6d68987c7118c73330e655b8c0312) Thanks [@gidonkatten](https://github.com/gidonkatten)! - updated hub rewards adapter on mainnet
+
+## 0.0.64
+
+### Patch Changes
+
+- [#248](https://github.com/Folks-Finance/xchain-js-sdk/pull/248) [`8c13a90`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8c13a90cd68c4e59527fcf3d907aadbfe1f05dee) Thanks [@palace22](https://github.com/palace22)! - Fixed Polygon Amoy USDC decimals
+
+## 0.0.63
+
+### Patch Changes
+
+- [#246](https://github.com/Folks-Finance/xchain-js-sdk/pull/246) [`aba2acd`](https://github.com/Folks-Finance/xchain-js-sdk/commit/aba2acdc6be42d144b405c4ea00a06207e78d28d) Thanks [@palace22](https://github.com/palace22)! - Added Polygon Amoy
+
 ## 0.0.62
 
 ### Patch Changes
