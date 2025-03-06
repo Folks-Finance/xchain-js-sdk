@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.67
+
+### Patch Changes
+
+- [#250](https://github.com/Folks-Finance/xchain-js-sdk/pull/250) [`d01361b`](https://github.com/Folks-Finance/xchain-js-sdk/commit/d01361b5319a3241c2f3d128122267a5c83edd59) Thanks [@palace22](https://github.com/palace22)! - Added Polygon
+
 ## 0.0.66
 
 ### Patch Changes
