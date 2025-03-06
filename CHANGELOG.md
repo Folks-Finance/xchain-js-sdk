@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.66
+
+### Patch Changes
+
+- [#253](https://github.com/Folks-Finance/xchain-js-sdk/pull/253) [`1d35422`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1d35422bf9d60f5d7e3c78d6db5fecebcde722c1) Thanks [@gidonkatten](https://github.com/gidonkatten)! - remove polygon amoy contracts
+
 ## 0.0.65
 
 ### Patch Changes
