@@ -45,7 +45,7 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 0n,
         allowance: 1n,
       },
-    [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+      [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
         balanceOf: 3n,
         allowance: 4n,
       },
