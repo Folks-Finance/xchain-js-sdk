@@ -29,6 +29,7 @@ export * from "./common/constants/bytes.js";
 export * from "./common/constants/chain.js";
 export * from "./common/constants/gmp.js";
 export * from "./common/constants/message.js";
+export * from "./common/constants/pool.js";
 export * from "./common/constants/reward.js";
 
 export { getSupportedMessageAdapters } from "./common/utils/adapter.js";
