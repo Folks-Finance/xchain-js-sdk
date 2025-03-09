@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.68
+
+### Patch Changes
+
+- [#256](https://github.com/Folks-Finance/xchain-js-sdk/pull/256) [`a0048e7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a0048e794982919bc35d9c4d3adc3e4119d2116c) Thanks [@gidonkatten](https://github.com/gidonkatten)! - export pool constants
+
 ## 0.0.67
 
 ### Patch Changes
