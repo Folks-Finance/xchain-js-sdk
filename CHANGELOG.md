@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.69
+
+### Patch Changes
+
+- [#258](https://github.com/Folks-Finance/xchain-js-sdk/pull/258) [`1f832b2`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1f832b2b0f6ce8760c980f2a22f3150eed3325e3) Thanks [@gidonkatten](https://github.com/gidonkatten)! - throw error regardless if not related to loan being deleted
+
 ## 0.0.68
 
 ### Patch Changes
