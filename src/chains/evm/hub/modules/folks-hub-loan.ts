@@ -29,6 +29,7 @@ import {
   UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
+import { extractRevertErrorName } from "../../common/utils/contract.js";
 import {
   buildEvmMessageData,
   buildMessageParams,
@@ -343,7 +344,7 @@ export async function getUserLoans(
   provider: Client,
   network: NetworkType,
   loanIds: Array<LoanId>,
-  throwErrorOnLoanFailure: boolean,
+  throwErrorOnInactiveLoan: boolean,
 ): Promise<Map<LoanId, LoanManagerUserLoan>> {
   const hubChain = getHubChain(network);
   const loanManager = getLoanManagerContract(provider, hubChain.loanManagerAddress);
@@ -364,7 +365,9 @@ export async function getUserLoans(
   for (const [i, loanId] of loanIds.entries()) {
     const { status, error, result } = userLoans[i];
     if (status === "failure") {
-      if (throwErrorOnLoanFailure) throw error;
+      // if the error is not on inactive loan then throw error regardless
+      const errorName = extractRevertErrorName(error);
+      if (errorName !== "UserLoanInactive" || throwErrorOnInactiveLoan) throw error;
     } else {
       const userLoan = result as LoanManagerUserLoanAbi;
       userLoansMap.set(loanId, {
