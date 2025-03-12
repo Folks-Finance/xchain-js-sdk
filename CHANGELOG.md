@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.70
+
+### Patch Changes
+
+- [#260](https://github.com/Folks-Finance/xchain-js-sdk/pull/260) [`6e3754d`](https://github.com/Folks-Finance/xchain-js-sdk/commit/6e3754d32cb4558c6c172a90c70fd000d090f001) Thanks [@gidonkatten](https://github.com/gidonkatten)! - ignore zero pending rewards
+
 ## 0.0.69
 
 ### Patch Changes
