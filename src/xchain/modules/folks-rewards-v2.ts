@@ -408,7 +408,8 @@ export const util = {
       const folksTokenPendingRewards: Partial<Record<RewardsTokenId, bigint>> = {};
       for (const { rewardTokenId, totalRewards } of activeEpoch.rewards) {
         // proportional to the percentage of points you already have of the total points (incl for rest of epoch)
-        folksTokenPendingRewards[rewardTokenId] = (userEpochPoints * totalRewards) / totalPointsInEpoch;
+        const pendingRewards = (userEpochPoints * totalRewards) / totalPointsInEpoch;
+        if (pendingRewards > 0n) folksTokenPendingRewards[rewardTokenId] = pendingRewards;
       }
       pendingRewards[folksTokenId as FolksTokenId] = folksTokenPendingRewards;
     }
