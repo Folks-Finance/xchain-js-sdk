@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.71
+
+### Patch Changes
+
+- [#262](https://github.com/Folks-Finance/xchain-js-sdk/pull/262) [`80e18c6`](https://github.com/Folks-Finance/xchain-js-sdk/commit/80e18c679fc509fd34a03abe34f1ce7ba55b863d) Thanks [@palace22](https://github.com/palace22)! - Fixed calc deposit and borrow index and retention utils
+
 ## 0.0.70
 
 ### Patch Changes
