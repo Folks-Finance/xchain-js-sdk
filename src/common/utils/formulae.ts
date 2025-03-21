@@ -31,8 +31,13 @@ export function calcOverallBorrowInterestRate(
   );
 }
 
-export function calcDepositInterestIndex(dirt1: Dnum, diit1: Dnum, latestUpdate: bigint): Dnum {
-  const dt = BigInt(unixTime()) - latestUpdate;
+export function calcDepositInterestIndex(
+  dirt1: Dnum,
+  diit1: Dnum,
+  latestUpdate: bigint,
+  lastTimestamp = BigInt(unixTime()),
+): Dnum {
+  const dt = lastTimestamp - latestUpdate;
   return dn.mul(
     diit1,
     dn.add(
@@ -45,8 +50,13 @@ export function calcDepositInterestIndex(dirt1: Dnum, diit1: Dnum, latestUpdate:
   );
 }
 
-export function calcBorrowInterestIndex(birt1: Dnum, biit1: Dnum, latestUpdate: bigint): Dnum {
-  const dt = BigInt(unixTime()) - latestUpdate;
+export function calcBorrowInterestIndex(
+  birt1: Dnum,
+  biit1: Dnum,
+  latestUpdate: bigint,
+  lastTimestamp = BigInt(unixTime()),
+): Dnum {
+  const dt = lastTimestamp - latestUpdate;
   return dn.mul(
     biit1,
     expBySquaring(dn.add(dn.from(1, 18), dn.div(birt1, SECONDS_IN_YEAR, { rounding: "ROUND_DOWN" })), dt),
@@ -60,8 +70,9 @@ export function calcRetention(
   overallBorrowInterestRate: Dnum,
   retentionRate: Dnum,
   latestUpdate: bigint,
+  lastTimestamp = BigInt(unixTime()),
 ): bigint {
-  const dt = BigInt(unixTime()) - latestUpdate;
+  const dt = lastTimestamp - latestUpdate;
 
   const [retainedDelta] = dn.div(
     dn.mul(
