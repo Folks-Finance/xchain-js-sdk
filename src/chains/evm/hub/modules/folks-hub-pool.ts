@@ -6,7 +6,8 @@ import {
   calcOverallBorrowInterestRate,
   calcRetention,
 } from "../../../../common/utils/formulae.js";
-import { compoundEveryHour, compoundEverySecond } from "../../../../common/utils/math-lib.js";
+import { compoundEveryHour, compoundEverySecond, unixTime } from "../../../../common/utils/math-lib.js";
+import { getBlockTimestamp } from "../../common/utils/chain.js";
 import { getHubTokenData } from "../utils/chain.js";
 import { getHubPoolContract } from "../utils/contract.js";
 
@@ -91,6 +92,8 @@ export async function getPoolInfo(
     blockNumber,
   });
 
+  const lastTimestamp = blockNumber ? await getBlockTimestamp(provider, blockNumber) : BigInt(unixTime());
+
   const {
     flashLoanFee,
     retentionRate,
@@ -148,6 +151,7 @@ export async function getPoolInfo(
         ),
         [BigInt(retentionRate), 6],
         lastUpdateTimestamp,
+        lastTimestamp,
       ),
       fTokenFeeRecipient: fTokenFeeRecipient as EvmAddress,
       tokenFeeClaimer: tokenFeeClaimer as EvmAddress,
@@ -162,6 +166,7 @@ export async function getPoolInfo(
         [depositInterestRate, 18],
         [oldDepositInterestIndex, 18],
         lastUpdateTimestamp,
+        lastTimestamp,
       ),
     },
     variableBorrowData: {
@@ -175,6 +180,7 @@ export async function getPoolInfo(
         [variableBorrowInterestRate, 18],
         [oldVariableBorrowInterestsIndex, 18],
         lastUpdateTimestamp,
+        lastTimestamp,
       ),
     },
     stableBorrowData: {
