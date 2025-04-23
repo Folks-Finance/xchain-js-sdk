@@ -1,4 +1,12 @@
-import { BaseError, ContractFunctionRevertedError, encodeAbiParameters, getContract, keccak256 } from "viem";
+import {
+  BaseError,
+  ContractFunctionRevertedError,
+  encodeAbiParameters,
+  getContract,
+  keccak256,
+  padHex,
+  toHex,
+} from "viem";
 
 import { ChainType } from "../../../../common/types/chain.js";
 import { convertFromGenericAddress } from "../../../../common/utils/address.js";
@@ -90,6 +98,12 @@ export function extractRevertErrorName(err: unknown): string | undefined {
       return revertError.data.errorName;
     }
   }
+}
+
+export function encodeErc20AccountData(data: { isFrozen: boolean; amount: bigint }) {
+  const bitFlag = data.isFrozen ? 1n : 0n;
+  const packed = (data.amount << 8n) | bitFlag;
+  return padHex(toHex(packed), { size: 32 });
 }
 
 export function getBalanceOfSlotHash(address: EvmAddress, slot: bigint) {
