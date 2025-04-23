@@ -22,6 +22,16 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   POL: "POL",
   wBTC_pol: "wBTC_pol",
   wETH_pol: "wETH_pol",
+  aUSD: "aUSD",
+  savUSD: "savUSD",
+  wBTC_arb: "wBTC_arb",
+  tBTC_arb: "tBTC_arb",
+  wstETH_arb: "wstETH_arb",
+  weETH_arb: "weETH_arb",
+  rsETH_arb: "rsETH_arb",
+  wstETH_pol: "wstETH_pol",
+  LINK_pol: "LINK_pol",
+  MaticX: "MaticX",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
