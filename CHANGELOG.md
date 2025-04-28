@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.72
+
+### Patch Changes
+
+- [#266](https://github.com/Folks-Finance/xchain-js-sdk/pull/266) [`b8dda3e`](https://github.com/Folks-Finance/xchain-js-sdk/commit/b8dda3edc5a157f17d9ebb144bbb1a3e90ec936a) Thanks [@gidonkatten](https://github.com/gidonkatten)! - Added new loan type eth efficiency
+
 ## 0.0.71
 
 ### Patch Changes
