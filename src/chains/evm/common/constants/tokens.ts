@@ -41,10 +41,6 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 5n,
         allowance: 6n,
       },
-      [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
-        balanceOf: 3n,
-        allowance: 4n,
-      },
       [MAINNET_FOLKS_TOKEN_ID.aUSD]: {
         balanceOf: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402496"),
         allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
@@ -52,6 +48,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.savUSD]: {
         balanceOf: 4n,
         allowance: 5n,
+      },
+      [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
+        balanceOf: 3n,
+        allowance: 4n,
       },
     },
   },
