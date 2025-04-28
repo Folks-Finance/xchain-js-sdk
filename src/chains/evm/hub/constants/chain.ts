@@ -12,9 +12,11 @@ import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../..
 import { convertToGenericAddress } from "../../../../common/utils/address.js";
 
 import type { EvmAddress } from "../../../../common/types/address.js";
+import type { MainnetRewardsTokenId, TestnetRewardsTokenId } from "../../../../common/types/rewards.js";
 import type { MainnetFolksTokenId, TestnetFolksTokenId } from "../../../../common/types/token.js";
 import type { HubChain } from "../types/chain.js";
 import type { NodeId } from "../types/oracle.js";
+import type { HubRewardTokenData } from "../types/rewards-v2.js";
 import type { HubTokenData } from "../types/token.js";
 
 export const HUB_CHAIN: Record<NetworkType, HubChain> = {
@@ -354,7 +356,15 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
               decimals: 18,
             },
           },
-        },
+          [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.USDC_arb,
+            nodeId: "0x3c7d21242f7b2ec7812a5f91cade699bd06e358fd38a5462aff240cba10a6cbe" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 6,
+            },
+          },
+        } satisfies Record<MainnetRewardsTokenId, HubRewardTokenData>,
       },
     },
   },
@@ -548,7 +558,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
               decimals: 6,
             },
           },
-        },
+        } satisfies Record<TestnetRewardsTokenId, HubRewardTokenData>,
       },
     },
   },

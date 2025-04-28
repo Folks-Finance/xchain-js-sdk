@@ -45,6 +45,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 3n,
         allowance: 4n,
       },
+      [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
+        balanceOf: 9n,
+        allowance: 10n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {

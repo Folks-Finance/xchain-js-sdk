@@ -727,7 +727,23 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x6BC1439b7663820daCeBc8E8B9a5BA29201ed352" as EvmAddress,
             ChainType.EVM,
           ),
-          tokens: {},
+          tokens: {
+            [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.USDC_arb,
+              spokeAddress: convertToGenericAddress(
+                "0x88f15e36308ED060d8543DA8E2a5dA0810Efded2" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.ERC20,
+                address: convertToGenericAddress(
+                  "0xaf88d065e77c8cC2239327C5EDb3A432268e5831" as EvmAddress,
+                  ChainType.EVM,
+                ),
+                decimals: 6,
+              },
+            },
+          },
         },
       },
     },
