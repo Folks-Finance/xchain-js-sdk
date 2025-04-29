@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.74
+
+### Patch Changes
+
+- [#265](https://github.com/Folks-Finance/xchain-js-sdk/pull/265) [`47896e5`](https://github.com/Folks-Finance/xchain-js-sdk/commit/47896e55ac50ab889a3728b9d47b6fb772068142) Thanks [@palace22](https://github.com/palace22)! - Added new tokens: aUSD, savUSD, wBTC_arb, tBTC_arb, wstETH_arb, weETH_arb, rsETH_arb, wstETH_pol, LINK_pol, MaticX
+
 ## 0.0.73
 
 ### Patch Changes
