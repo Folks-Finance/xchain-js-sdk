@@ -41,13 +41,17 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 5n,
         allowance: 6n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.aUSD]: {
+        balanceOf: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402496"),
+        allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.savUSD]: {
+        balanceOf: 4n,
+        allowance: 5n,
+      },
       [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
         balanceOf: 3n,
         allowance: 4n,
-      },
-      [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
-        balanceOf: 9n,
-        allowance: 10n,
       },
     },
   },
@@ -113,6 +117,30 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_arb]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wstETH_arb]: {
+        balanceOf: 1n,
+        allowance: 2n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.weETH_arb]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.rsETH_arb]: {
+        balanceOf: 5n,
+        allowance: 6n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.tBTC_arb]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
+      [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
+        balanceOf: 9n,
+        allowance: 10n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.POLYGON]: {
@@ -126,6 +154,18 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wETH_pol]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wstETH_pol]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.LINK_pol]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.MaticX]: {
         balanceOf: 0n,
         allowance: 1n,
       },
