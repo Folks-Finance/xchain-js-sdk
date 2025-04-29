@@ -96,6 +96,16 @@ export type UserLoanInfo = {
   liquidationMargin: Dnum;
 };
 
+export type AssetsAdditionalInterest = Partial<
+  Record<
+    FolksTokenId,
+    {
+      additionalRate: Dnum;
+      additionalYield: Dnum;
+    }
+  >
+>;
+
 export type CreateUserLoanEventParams = GetEventParams & {
   loanManager: GetReadContractReturnType<typeof LoanManagerAbi>;
   accountId: AccountId;

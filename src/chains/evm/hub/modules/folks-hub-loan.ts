@@ -58,6 +58,7 @@ import type { PrepareLiquidateCall, PrepareUpdateUserPointsInLoansCall } from ".
 import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
 import type { HubChain } from "../types/chain.js";
 import type {
+  AssetsAdditionalInterest,
   LoanChange,
   LoanManagerUserLoan,
   LoanManagerUserLoanAbi,
@@ -488,6 +489,7 @@ export function getUserLoansInfo(
   loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
   oraclePrices: OraclePrices,
   activeEpochsInfo?: ActiveEpochsInfo,
+  additionalInterests?: AssetsAdditionalInterest,
 ): Record<LoanId, UserLoanInfo> {
   const poolIdToFolksTokenId = new Map(
     Object.values(poolsInfo).map(({ folksTokenId, poolId }) => [poolId, folksTokenId]),
@@ -541,6 +543,14 @@ export function getUserLoansInfo(
       totalEffectiveCollateralBalanceValue = dn.add(totalEffectiveCollateralBalanceValue, effectiveBalanceValue);
       netRate = dn.add(netRate, dn.mul(balanceValue, dn.add(interestRate, rewardsApr)));
       netYield = dn.add(netYield, dn.mul(balanceValue, dn.add(interestYield, rewardsApr)));
+
+      // add additional interests if specified
+      const additionalInterest = additionalInterests?.[folksTokenId];
+      if (additionalInterest) {
+        const { additionalRate, additionalYield } = additionalInterest;
+        netRate = dn.add(netRate, dn.mul(balanceValue, additionalRate));
+        netYield = dn.add(netYield, dn.mul(balanceValue, additionalYield));
+      }
 
       collaterals[folksTokenId] = {
         folksTokenId,
@@ -619,6 +629,14 @@ export function getUserLoansInfo(
       totalEffectiveBorrowBalanceValue = dn.add(totalEffectiveBorrowBalanceValue, effectiveBorrowBalanceValue);
       netRate = dn.sub(netRate, dn.mul(borrowBalanceValue, interestRate));
       netYield = dn.sub(netYield, dn.mul(borrowBalanceValue, interestYield));
+
+      // subtract additional interests if specified
+      const additionalInterest = additionalInterests?.[folksTokenId];
+      if (additionalInterest) {
+        const { additionalRate, additionalYield } = additionalInterest;
+        netRate = dn.sub(netRate, dn.mul(borrowBalanceValue, additionalRate));
+        netYield = dn.sub(netYield, dn.mul(borrowBalanceValue, additionalYield));
+      }
 
       borrows[folksTokenId] = {
         folksTokenId,
