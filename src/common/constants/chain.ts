@@ -1477,11 +1477,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           "0x0e78A4EE07e3f20ef7a21C0f61eb58FCa26d4d1f" as EvmAddress,
           ChainType.EVM,
         ),
-        // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
-        // [AdapterType.CCIP_DATA]: convertToGenericAddress(
-        //   "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
-        //   ChainType.EVM,
-        // ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
+          ChainType.EVM,
+        ),
       },
       tokens: {
         [TESTNET_FOLKS_TOKEN_ID.MON]: {
@@ -1507,11 +1506,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0xc9B5f7c38C6D7B11e45931BDEf92EDBeA84D3EDa" as EvmAddress,
             ChainType.EVM,
           ),
-          // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
-          // [AdapterType.CCIP_DATA]: convertToGenericAddress(
-          //   "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
-          //   ChainType.EVM,
-          // ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
+            ChainType.EVM,
+          ),
         },
         [REWARDS_TYPE.V2]: {
           spokeRewardsCommonAddress: convertToGenericAddress(
