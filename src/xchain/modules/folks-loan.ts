@@ -27,6 +27,7 @@ import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../core/folks-core.js";
 
 import type {
+  AssetsAdditionalInterest,
   LoanChange,
   LoanManagerUserLoan,
   LoanTypeInfo,
@@ -1243,9 +1244,17 @@ export const util = {
     loanTypesInfo: Partial<Record<LoanTypeId, LoanTypeInfo>>,
     oraclePrices: OraclePrices,
     activeEpochsInfo?: ActiveEpochsInfo,
+    additionalInterests?: AssetsAdditionalInterest,
   ): Record<LoanId, UserLoanInfo> {
     // get info of each user loan
-    return FolksHubLoan.getUserLoansInfo(userLoansMap, poolsInfo, loanTypesInfo, oraclePrices, activeEpochsInfo);
+    return FolksHubLoan.getUserLoansInfo(
+      userLoansMap,
+      poolsInfo,
+      loanTypesInfo,
+      oraclePrices,
+      activeEpochsInfo,
+      additionalInterests,
+    );
   },
 
   emptyLoanForSimulate(accountId: AccountId, loanTypeId: LoanTypeId): LoanManagerUserLoan {
