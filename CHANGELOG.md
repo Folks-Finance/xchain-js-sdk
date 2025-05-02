@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.75
+
+### Patch Changes
+
+- [#271](https://github.com/Folks-Finance/xchain-js-sdk/pull/271) [`bc3e37b`](https://github.com/Folks-Finance/xchain-js-sdk/commit/bc3e37bcaee73b92f36f1e3569b48503ccac0e20) Thanks [@gidonkatten](https://github.com/gidonkatten)! - consider additional interests in net rate and yield loan calculations
+
+- [#272](https://github.com/Folks-Finance/xchain-js-sdk/pull/272) [`494bd77`](https://github.com/Folks-Finance/xchain-js-sdk/commit/494bd77d85b86161ae2ebfe7e439326d5537e489) Thanks [@gidonkatten](https://github.com/gidonkatten)! - add support for ccip on monad
+
 ## 0.0.74
 
 ### Patch Changes
