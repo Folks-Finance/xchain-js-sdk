@@ -1507,11 +1507,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0xc9B5f7c38C6D7B11e45931BDEf92EDBeA84D3EDa" as EvmAddress,
             ChainType.EVM,
           ),
-          // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
-          // [AdapterType.CCIP_DATA]: convertToGenericAddress(
-          //   "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
-          //   ChainType.EVM,
-          // ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
+            ChainType.EVM,
+          ),
         },
         [REWARDS_TYPE.V2]: {
           spokeRewardsCommonAddress: convertToGenericAddress(
