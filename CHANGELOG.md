@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.76
+
+### Patch Changes
+
+- [#275](https://github.com/Folks-Finance/xchain-js-sdk/pull/275) [`9fbee15`](https://github.com/Folks-Finance/xchain-js-sdk/commit/9fbee157e79091a8e621b0f8f43ac5c390bccfeb) Thanks [@gidonkatten](https://github.com/gidonkatten)! - fix name for max amount you can wihtdraw from loan
+
 ## 0.0.75
 
 ### Patch Changes
