@@ -1265,13 +1265,13 @@ export const util = {
     return FolksHubLoan.simulateLoanChanges(loan, changes);
   },
 
-  maxReduceBorrowForBorrowUtilisationRatio(
+  maxReduceCollateralForBorrowUtilisationRatio(
     loan: UserLoanInfo,
     reduceFolksTokenId: FolksTokenId,
     depositInterestIndex: Dnum,
     targetBorrowUtilisationRatio: Dnum,
   ) {
-    return FolksHubLoan.maxReduceBorrowForBorrowUtilisationRatio(
+    return FolksHubLoan.maxReduceCollateralForBorrowUtilisationRatio(
       loan,
       reduceFolksTokenId,
       depositInterestIndex,

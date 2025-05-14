@@ -796,7 +796,7 @@ export function simulateLoanChanges(loan: LoanManagerUserLoan, changes: Array<Lo
   return { accountId, loanTypeId, colPools, borPools, userLoanCollateral, userLoanBorrow };
 }
 
-export function maxReduceBorrowForBorrowUtilisationRatio(
+export function maxReduceCollateralForBorrowUtilisationRatio(
   loan: UserLoanInfo,
   reduceFolksTokenId: FolksTokenId,
   depositInterestIndex: Dnum,
