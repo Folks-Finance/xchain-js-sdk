@@ -1495,6 +1495,58 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [TESTNET_FOLKS_TOKEN_ID.sMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xe1d2439b75fb9746E7Bc6cB777Ae10AA7f7ef9c5" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.sMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.sMON],
+          spokeAddress: convertToGenericAddress(
+            "0xf5C2cbC3aE42d9a3a45F5eD53AB4C2cfF1ca2e06" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.aprMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xb2f82D0f38dc453D596Ad40A37799446Cc89274A" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.aprMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.aprMON],
+          spokeAddress: convertToGenericAddress(
+            "0x0093eB5058250f60F109f74991E1B78346DEd996" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.gMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xaEef2f6B429Cb59C9B2D7bB2141ADa993E8571c3" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.gMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.gMON],
+          spokeAddress: convertToGenericAddress(
+            "0x6dEee8955334a3608e536bc9ACcF710Fc0251166" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.shMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x3a98250f98dd388c211206983453837c8365bdc1" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.shMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.shMON],
+          spokeAddress: convertToGenericAddress(
+            "0x728983074ab96AC83E972905C1C55C50A1997298" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(

@@ -629,6 +629,46 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         poolAddress: convertToGenericAddress("0x48808cE8cC5c252d095E9D7b9c6c12FE181d835F" as EvmAddress, ChainType.EVM),
         supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
       },
+      [TESTNET_FOLKS_TOKEN_ID.sMON]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.sMON,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.sMON],
+        poolAddress: convertToGenericAddress("0xbaEe7dD681BF1652171ebEE4c96da78407922209" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [TESTNET_FOLKS_TOKEN_ID.aprMON]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.aprMON,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.aprMON],
+        poolAddress: convertToGenericAddress("0x6B5a247C436DfA5b5e0b22C83EFc709672C7B337" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [TESTNET_FOLKS_TOKEN_ID.gMON]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.gMON,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.gMON],
+        poolAddress: convertToGenericAddress("0x503EDEc647AfddDC8E1D7DE13780db9B1388a4Fc" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [TESTNET_FOLKS_TOKEN_ID.shMON]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.shMON,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.shMON],
+        poolAddress: convertToGenericAddress("0xF494F0Ba4e447a5FCaEacB459Cbd8cBD2F94a9Ac" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
