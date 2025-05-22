@@ -1,35 +1,35 @@
 import * as dn from "dnum";
 
 import {
-  getActiveEpochs,
-  getHistoricalEpochs,
-  getUnclaimedRewards,
+    getActiveEpochs,
+    getHistoricalEpochs,
+    getUnclaimedRewards,
 } from "../../chains/evm/hub/modules/folks-hub-rewards-v1.js";
-import { FolksHubRewardsV1 } from "../../chains/evm/hub/modules/index.js";
-import { getHubChain, getHubTokensData } from "../../chains/evm/hub/utils/chain.js";
-import { convertFromGenericAddress } from "../../common/utils/address.js";
-import { assertHubChainSelected, getSignerGenericAddress } from "../../common/utils/chain.js";
-import { calcAssetDollarValue } from "../../common/utils/formulae.js";
-import { SECONDS_IN_YEAR, unixTime } from "../../common/utils/math-lib.js";
-import { FolksCore } from "../core/folks-core.js";
+import {FolksHubRewardsV1} from "../../chains/evm/hub/modules/index.js";
+import {getHubChain, getHubTokensData} from "../../chains/evm/hub/utils/chain.js";
+import {convertFromGenericAddress} from "../../common/utils/address.js";
+import {assertHubChainSelected, getSignerGenericAddress} from "../../common/utils/chain.js";
+import {calcAssetDollarValue} from "../../common/utils/formulae.js";
+import {SECONDS_IN_YEAR, unixTime} from "../../common/utils/math-lib.js";
+import {FolksCore} from "../core/folks-core.js";
 
-import type { LoanTypeInfo, UserPoints } from "../../chains/evm/hub/types/loan.js";
-import type { OraclePrices } from "../../chains/evm/hub/types/oracle.js";
-import type { PoolInfo } from "../../chains/evm/hub/types/pool.js";
+import type {LoanTypeInfo, UserPoints} from "../../chains/evm/hub/types/loan.js";
+import type {OraclePrices} from "../../chains/evm/hub/types/oracle.js";
+import type {PoolInfo} from "../../chains/evm/hub/types/pool.js";
 import type {
-  ActiveEpochs,
-  ActiveEpochsInfo,
-  Epochs,
-  LastUpdatedPointsForRewards,
-  PendingRewards,
+    ActiveEpochs,
+    ActiveEpochsInfo,
+    Epochs,
+    LastUpdatedPointsForRewards,
+    PendingRewards,
 } from "../../chains/evm/hub/types/rewards-v1.js";
-import type { ChainType } from "../../common/types/chain.js";
-import type { AccountId, LoanTypeId } from "../../common/types/lending.js";
+import type {ChainType} from "../../common/types/chain.js";
+import type {AccountId, LoanTypeId} from "../../common/types/lending.js";
 import type {
-  PrepareClaimRewardsV1Call,
-  PrepareUpdateAccountsPointsForRewardsV1Call,
+    PrepareClaimRewardsV1Call,
+    PrepareUpdateAccountsPointsForRewardsV1Call,
 } from "../../common/types/module.js";
-import type { FolksTokenId } from "../../common/types/token.js";
+import type {FolksTokenId} from "../../common/types/token.js";
 
 export const prepare = {
   async updateAccountsPointsForRewards(

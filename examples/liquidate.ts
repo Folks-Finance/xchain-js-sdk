@@ -1,20 +1,19 @@
 import * as dn from "dnum";
-import { createWalletClient, http, parseUnits } from "viem";
-import { mnemonicToAccount } from "viem/accounts";
+import {createWalletClient, http, parseUnits} from "viem";
+import {mnemonicToAccount} from "viem/accounts";
 
+import type {AccountId, FolksCoreConfig, FolksTokenId, LoanId, PoolInfo} from "../src/index.js";
 import {
-  NetworkType,
-  FolksCore,
-  FolksLoan,
-  FOLKS_CHAIN_ID,
-  CHAIN_VIEM,
-  TESTNET_FOLKS_TOKEN_ID,
-  FolksPool,
-  FolksOracle,
-  TESTNET_LOAN_TYPE_ID,
+    CHAIN_VIEM,
+    FOLKS_CHAIN_ID,
+    FolksCore,
+    FolksLoan,
+    FolksOracle,
+    FolksPool,
+    NetworkType,
+    TESTNET_FOLKS_TOKEN_ID,
+    TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
-
-import type { FolksCoreConfig, AccountId, LoanId, FolksTokenId, PoolInfo } from "../src/index.js";
 
 async function main() {
   const network = NetworkType.TESTNET;

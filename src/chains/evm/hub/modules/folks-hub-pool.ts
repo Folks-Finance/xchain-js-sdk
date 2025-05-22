@@ -1,21 +1,21 @@
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
 import {
-  calcBorrowInterestIndex,
-  calcDepositInterestIndex,
-  calcOverallBorrowInterestRate,
-  calcRetention,
+    calcBorrowInterestIndex,
+    calcDepositInterestIndex,
+    calcOverallBorrowInterestRate,
+    calcRetention,
 } from "../../../../common/utils/formulae.js";
-import { compoundEveryHour, compoundEverySecond, unixTime } from "../../../../common/utils/math-lib.js";
-import { getBlockTimestamp } from "../../common/utils/chain.js";
-import { getHubTokenData } from "../utils/chain.js";
-import { getHubPoolContract } from "../utils/contract.js";
+import {compoundEveryHour, compoundEverySecond, unixTime} from "../../../../common/utils/math-lib.js";
+import {getBlockTimestamp} from "../../common/utils/chain.js";
+import {getHubTokenData} from "../utils/chain.js";
+import {getHubPoolContract} from "../utils/contract.js";
 
-import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { NetworkType } from "../../../../common/types/chain.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { PoolInfo } from "../types/pool.js";
-import type { Client } from "viem";
+import type {EvmAddress, GenericAddress} from "../../../../common/types/address.js";
+import type {NetworkType} from "../../../../common/types/chain.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {PoolInfo} from "../types/pool.js";
+import type {Client} from "viem";
 
 export async function getPoolInfo(
   provider: Client,

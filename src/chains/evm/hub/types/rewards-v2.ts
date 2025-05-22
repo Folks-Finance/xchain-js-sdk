@@ -1,8 +1,8 @@
-import type { NodeId } from "./oracle.js";
-import type { AdapterType } from "../../../../common/types/message.js";
-import type { RewardsTokenId } from "../../../../common/types/rewards.js";
-import type { Erc20HubTokenType, FolksTokenId, NativeTokenType } from "../../../../common/types/token.js";
-import type { Dnum } from "dnum";
+import type {NodeId} from "./oracle.js";
+import type {AdapterType} from "../../../../common/types/message.js";
+import type {RewardsTokenId} from "../../../../common/types/rewards.js";
+import type {Erc20HubTokenType, FolksTokenId, NativeTokenType} from "../../../../common/types/token.js";
+import type {Dnum} from "dnum";
 
 export type FolksHubRewardTokenType = Erc20HubTokenType | NativeTokenType;
 

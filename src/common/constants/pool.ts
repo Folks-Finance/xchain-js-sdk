@@ -1,7 +1,6 @@
-import { NetworkType } from "../types/chain.js";
-import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID } from "../types/token.js";
-
-import type { FolksTokenId, MainnetFolksTokenId, TestnetFolksTokenId } from "../types/token.js";
+import {NetworkType} from "../types/chain.js";
+import type {FolksTokenId, MainnetFolksTokenId, TestnetFolksTokenId} from "../types/token.js";
+import {MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID} from "../types/token.js";
 
 export const MAINNET_POOLS = {
   [MAINNET_FOLKS_TOKEN_ID.USDC]: 1,

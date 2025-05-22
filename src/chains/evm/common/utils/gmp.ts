@@ -1,12 +1,12 @@
-import { concat } from "viem";
+import type {Hex} from "viem";
+import {concat} from "viem";
 
-import { UINT16_LENGTH, UINT256_LENGTH } from "../../../../common/constants/bytes.js";
-import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
+import {UINT16_LENGTH, UINT256_LENGTH} from "../../../../common/constants/bytes.js";
+import {convertNumberToBytes} from "../../../../common/utils/bytes.js";
 
-import type { GenericAddress } from "../../../../common/types/address.js";
-import type { AdapterType } from "../../../../common/types/message.js";
-import type { RetryMessageExtraArgs, ReverseMessageExtraArgs } from "../types/gmp.js";
-import type { Hex } from "viem";
+import type {GenericAddress} from "../../../../common/types/address.js";
+import type {AdapterType} from "../../../../common/types/message.js";
+import type {RetryMessageExtraArgs, ReverseMessageExtraArgs} from "../types/gmp.js";
 
 export function encodeEvmPayloadWithMetadata(
   returnAdapterId: AdapterType,

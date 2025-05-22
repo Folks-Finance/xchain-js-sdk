@@ -1,6 +1,6 @@
-import type { Branded } from "../../../../common/types/brand.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { Dnum } from "dnum";
+import type {Branded} from "../../../../common/types/brand.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {Dnum} from "dnum";
 
 export type NodeId = Branded<`0x${string}`, "NodeId">;
 

@@ -1,8 +1,8 @@
-import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { FolksChainId } from "../../../../common/types/chain.js";
-import type { AccountId } from "../../../../common/types/lending.js";
-import type { AdapterType } from "../../../../common/types/message.js";
-import type { Hex } from "viem";
+import type {EvmAddress, GenericAddress} from "../../../../common/types/address.js";
+import type {FolksChainId} from "../../../../common/types/chain.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {AdapterType} from "../../../../common/types/message.js";
+import type {Hex} from "viem";
 
 type CCIPTokenAmount = {
   token: EvmAddress;

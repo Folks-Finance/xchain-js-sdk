@@ -1,18 +1,17 @@
-import { createClient, http } from "viem";
+import {createClient, http} from "viem";
 
+import type {AccountId, FolksCoreConfig, FolksTokenId, PoolInfo} from "../src/index.js";
 import {
-  CHAIN_VIEM,
-  FOLKS_CHAIN_ID,
-  FolksCore,
-  FolksLoan,
-  FolksOracle,
-  FolksPool,
-  NetworkType,
-  TESTNET_FOLKS_TOKEN_ID,
-  TESTNET_LOAN_TYPE_ID,
+    CHAIN_VIEM,
+    FOLKS_CHAIN_ID,
+    FolksCore,
+    FolksLoan,
+    FolksOracle,
+    FolksPool,
+    NetworkType,
+    TESTNET_FOLKS_TOKEN_ID,
+    TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
-
-import type { AccountId, FolksCoreConfig, PoolInfo, FolksTokenId } from "../src/index.js";
 
 async function main() {
   const network = NetworkType.TESTNET;

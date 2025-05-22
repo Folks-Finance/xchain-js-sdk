@@ -1,18 +1,18 @@
-import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getBridgeRouterSpokeContract, getSpokeCommonContract } from "../utils/contract.js";
+import {GAS_LIMIT_ESTIMATE_INCREASE} from "../../common/constants/contract.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
+import {getBridgeRouterSpokeContract, getSpokeCommonContract} from "../utils/contract.js";
 
-import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, SpokeChain } from "../../../../common/types/chain.js";
-import type { AccountId, Nonce } from "../../../../common/types/lending.js";
-import type { MessageToSend } from "../../../../common/types/message.js";
+import type {EvmAddress, GenericAddress} from "../../../../common/types/address.js";
+import type {FolksChainId, SpokeChain} from "../../../../common/types/chain.js";
+import type {AccountId, Nonce} from "../../../../common/types/lending.js";
+import type {MessageToSend} from "../../../../common/types/message.js";
 import type {
-  PrepareAcceptInviteAddressCall,
-  PrepareCreateAccountCall,
-  PrepareInviteAddressCall,
-  PrepareUnregisterAddressCall,
+    PrepareAcceptInviteAddressCall,
+    PrepareCreateAccountCall,
+    PrepareInviteAddressCall,
+    PrepareUnregisterAddressCall,
 } from "../../common/types/module.js";
-import type { Client, EstimateGasParameters, WalletClient } from "viem";
+import type {Client, EstimateGasParameters, WalletClient} from "viem";
 
 export const prepare = {
   async createAccount(

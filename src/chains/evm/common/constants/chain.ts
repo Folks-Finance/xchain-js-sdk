@@ -1,20 +1,20 @@
 import {
-  arbitrum,
-  arbitrumSepolia,
-  avalanche,
-  avalancheFuji,
-  base,
-  baseSepolia,
-  bsc,
-  bscTestnet,
-  mainnet,
-  monadTestnet,
-  polygon,
-  sepolia,
+    arbitrum,
+    arbitrumSepolia,
+    avalanche,
+    avalancheFuji,
+    base,
+    baseSepolia,
+    bsc,
+    bscTestnet,
+    mainnet,
+    monadTestnet,
+    polygon,
+    sepolia,
 } from "viem/chains";
 
-import type { EvmChainName, EvmFolksChainId } from "../types/chain.js";
-import type { Chain } from "viem";
+import type {EvmChainName, EvmFolksChainId} from "../types/chain.js";
+import type {Chain} from "viem";
 
 export const MAINNET_EVM_CHAIN_NAMES = ["AVALANCHE", "ETHEREUM", "BASE", "BSC", "ARBITRUM", "POLYGON"] as const;
 export const TESTNET_EVM_CHAIN_NAMES = [

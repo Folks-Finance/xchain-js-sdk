@@ -1,19 +1,19 @@
-import { getHubTokenData, isHubChain } from "../../chains/evm/hub/utils/chain.js";
-import { ensureNonEmpty, intersect } from "../../utils/array.js";
-import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
-import { FolksCore } from "../../xchain/core/folks-core.js";
-import { DATA_ADAPTERS } from "../constants/adapter.js";
-import { MessageAdapterParamsType } from "../types/adapter.js";
-import { AdapterType } from "../types/message.js";
-import { TokenType } from "../types/token.js";
+import {getHubTokenData, isHubChain} from "../../chains/evm/hub/utils/chain.js";
+import {ensureNonEmpty, intersect} from "../../utils/array.js";
+import {exhaustiveCheck} from "../../utils/exhaustive-check.js";
+import {FolksCore} from "../../xchain/core/folks-core.js";
+import {DATA_ADAPTERS} from "../constants/adapter.js";
+import type {MessageAdapterParams, ReceiveTokenMessageAdapterParams} from "../types/adapter.js";
+import {MessageAdapterParamsType} from "../types/adapter.js";
+import type {SupportedMessageAdaptersMap} from "../types/message.js";
+import {AdapterType} from "../types/message.js";
+import type {CrossChainTokenType, FolksTokenId} from "../types/token.js";
+import {TokenType} from "../types/token.js";
 
-import { getRewardTokenSpokeChain, getSpokeChain } from "./chain.js";
+import {getRewardTokenSpokeChain, getSpokeChain} from "./chain.js";
 
-import type { NonEmptyArray } from "../../types/generics.js";
-import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
-import type { FolksChainId, NetworkType } from "../types/chain.js";
-import type { SupportedMessageAdaptersMap } from "../types/message.js";
-import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
+import type {NonEmptyArray} from "../../types/generics.js";
+import type {FolksChainId, NetworkType} from "../types/chain.js";
 
 export function getSpokeAdapterIds(
   folksChainId: FolksChainId,

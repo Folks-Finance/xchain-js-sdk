@@ -1,34 +1,34 @@
-import { multicall, waitForTransactionReceipt } from "viem/actions";
+import {multicall, waitForTransactionReceipt} from "viem/actions";
 
-import { ChainType } from "../../../../common/types/chain.js";
-import { TokenType } from "../../../../common/types/token.js";
-import { convertFromGenericAddress } from "../../../../common/utils/address.js";
-import { calcNextPeriodReset, calcPeriodNumber } from "../../../../common/utils/formulae.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { sendERC20Approve } from "../../common/utils/contract.js";
-import { getAllowanceStateOverride } from "../../common/utils/tokens.js";
-import { getHubTokenData } from "../../hub/utils/chain.js";
-import { getBridgeRouterSpokeContract, getSpokeCommonContract, getSpokeTokenContract } from "../utils/contract.js";
+import type {FolksChainId, NetworkType, SpokeChain} from "../../../../common/types/chain.js";
+import {ChainType} from "../../../../common/types/chain.js";
+import type {FolksTokenId, SpokeTokenData} from "../../../../common/types/token.js";
+import {TokenType} from "../../../../common/types/token.js";
+import {convertFromGenericAddress} from "../../../../common/utils/address.js";
+import {calcNextPeriodReset, calcPeriodNumber} from "../../../../common/utils/formulae.js";
+import {GAS_LIMIT_ESTIMATE_INCREASE} from "../../common/constants/contract.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
+import {sendERC20Approve} from "../../common/utils/contract.js";
+import {getAllowanceStateOverride} from "../../common/utils/tokens.js";
+import {getHubTokenData} from "../../hub/utils/chain.js";
+import {getBridgeRouterSpokeContract, getSpokeCommonContract, getSpokeTokenContract} from "../utils/contract.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, NetworkType, SpokeChain } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "../../../../common/types/lending.js";
-import type { MessageToSend } from "../../../../common/types/message.js";
-import type { FolksTokenId, SpokeTokenData } from "../../../../common/types/token.js";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {AccountId, LoanId, LoanName, LoanTypeId, Nonce} from "../../../../common/types/lending.js";
+import type {MessageToSend} from "../../../../common/types/message.js";
 import type {
-  PrepareBorrowCall,
-  PrepareCreateLoanAndDepositCall,
-  PrepareCreateLoanCall,
-  PrepareDeleteLoanCall,
-  PrepareDepositCall,
-  PrepareRepayCall,
-  PrepareRepayWithCollateralCall,
-  PrepareSwitchBorrowTypeCall,
-  PrepareWithdrawCall,
+    PrepareBorrowCall,
+    PrepareCreateLoanAndDepositCall,
+    PrepareCreateLoanCall,
+    PrepareDeleteLoanCall,
+    PrepareDepositCall,
+    PrepareRepayCall,
+    PrepareRepayWithCollateralCall,
+    PrepareSwitchBorrowTypeCall,
+    PrepareWithdrawCall,
 } from "../../common/types/module.js";
-import type { TokenRateLimit } from "../types/pool.js";
-import type { Client, EstimateGasParameters, WalletClient } from "viem";
+import type {TokenRateLimit} from "../types/pool.js";
+import type {Client, EstimateGasParameters, WalletClient} from "viem";
 
 export const prepare = {
   async createLoan(

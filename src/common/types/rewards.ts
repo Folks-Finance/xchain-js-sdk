@@ -1,4 +1,4 @@
-import type { MAINNET_REWARDS_TOKEN_ID, REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "../constants/reward.js";
+import type {MAINNET_REWARDS_TOKEN_ID, REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID} from "../constants/reward.js";
 
 export type RewardsType = (typeof REWARDS_TYPE)[keyof typeof REWARDS_TYPE];
 

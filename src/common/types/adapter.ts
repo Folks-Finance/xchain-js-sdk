@@ -1,7 +1,7 @@
-import type { FolksChainId, NetworkType } from "./chain.js";
-import type { ClaimRewardAction, DataAction, ReceiveTokenAction, SendTokenAction } from "./message.js";
-import type { RewardsTokenId, RewardsType } from "./rewards.js";
-import type { FolksTokenId } from "./token.js";
+import type {FolksChainId, NetworkType} from "./chain.js";
+import type {ClaimRewardAction, DataAction, ReceiveTokenAction, SendTokenAction} from "./message.js";
+import type {RewardsTokenId, RewardsType} from "./rewards.js";
+import type {FolksTokenId} from "./token.js";
 
 export enum MessageAdapterParamsType {
   SendToken,

@@ -1,11 +1,11 @@
-import type { MessageReceived } from "./gmp.js";
-import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { AccountId } from "../../../../common/types/lending.js";
-import type { MessageParams } from "../../../../common/types/message.js";
-import type { SpokeTokenData } from "../../../../common/types/token.js";
-import type { PoolEpoch as PoolEpochV1 } from "../../hub/types/rewards-v1.js";
-import type { PoolEpoch as PoolEpochV2, ReceiveRewardToken } from "../../hub/types/rewards-v2.js";
-import type { Hex } from "viem";
+import type {MessageReceived} from "./gmp.js";
+import type {EvmAddress, GenericAddress} from "../../../../common/types/address.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {MessageParams} from "../../../../common/types/message.js";
+import type {SpokeTokenData} from "../../../../common/types/token.js";
+import type {PoolEpoch as PoolEpochV1} from "../../hub/types/rewards-v1.js";
+import type {PoolEpoch as PoolEpochV2, ReceiveRewardToken} from "../../hub/types/rewards-v2.js";
+import type {Hex} from "viem";
 
 export type PrepareCall = {
   msgValue: bigint;

@@ -1,17 +1,17 @@
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
-import { getFolksChainIdsByNetwork } from "../../../../common/utils/chain.js";
-import { defaultEventParams } from "../../common/constants/contract.js";
-import { extractRevertErrorName } from "../../common/utils/contract.js";
-import { getHubChain } from "../utils/chain.js";
-import { getAccountManagerContract } from "../utils/contract.js";
-import { fetchInvitationByAddress } from "../utils/events.js";
+import {getFolksChainIdsByNetwork} from "../../../../common/utils/chain.js";
+import {defaultEventParams} from "../../common/constants/contract.js";
+import {extractRevertErrorName} from "../../common/utils/contract.js";
+import {getHubChain} from "../utils/chain.js";
+import {getAccountManagerContract} from "../utils/contract.js";
+import {fetchInvitationByAddress} from "../utils/events.js";
 
-import type { GenericAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId } from "../../../../common/types/lending.js";
-import type { AccountIdByAddress, AccountInfo } from "../types/account.js";
-import type { Client } from "viem";
+import type {GenericAddress} from "../../../../common/types/address.js";
+import type {FolksChainId, NetworkType} from "../../../../common/types/chain.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {AccountIdByAddress, AccountInfo} from "../types/account.js";
+import type {Client} from "viem";
 
 export async function getAccountInfo(
   provider: Client,

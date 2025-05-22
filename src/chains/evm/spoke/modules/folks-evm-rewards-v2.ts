@@ -1,16 +1,16 @@
-import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
-import { getSpokeRewardsCommonAddress } from "../../../../common/utils/chain.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getBridgeRouterSpokeContract, getSpokeRewardsV2CommonContract } from "../utils/contract.js";
+import {REWARDS_TYPE} from "../../../../common/constants/reward.js";
+import {getSpokeRewardsCommonAddress} from "../../../../common/utils/chain.js";
+import {GAS_LIMIT_ESTIMATE_INCREASE} from "../../common/constants/contract.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
+import {getBridgeRouterSpokeContract, getSpokeRewardsV2CommonContract} from "../utils/contract.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { SpokeChain } from "../../../../common/types/chain.js";
-import type { AccountId } from "../../../../common/types/lending.js";
-import type { MessageToSend } from "../../../../common/types/message.js";
-import type { PrepareClaimRewardsV2Call } from "../../../../common/types/module.js";
-import type { PoolEpoch, ReceiveRewardToken } from "../../hub/types/rewards-v2.js";
-import type { Client, EstimateGasParameters, WalletClient } from "viem";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {SpokeChain} from "../../../../common/types/chain.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {MessageToSend} from "../../../../common/types/message.js";
+import type {PrepareClaimRewardsV2Call} from "../../../../common/types/module.js";
+import type {PoolEpoch, ReceiveRewardToken} from "../../hub/types/rewards-v2.js";
+import type {Client, EstimateGasParameters, WalletClient} from "viem";
 
 export const prepare = {
   async claimRewards(

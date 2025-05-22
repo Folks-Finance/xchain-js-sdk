@@ -1,4 +1,4 @@
-import type { Abi, GetContractReturnType, Client, GetContractEventsParameters } from "viem";
+import type {Abi, Client, GetContractEventsParameters, GetContractReturnType} from "viem";
 
 type OmitWrite<T> = Omit<T, "write">;
 export type GetReadContractReturnType<TAbi extends Abi> = OmitWrite<GetContractReturnType<TAbi, Client>>;

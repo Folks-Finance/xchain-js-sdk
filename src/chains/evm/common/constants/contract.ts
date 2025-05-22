@@ -1,4 +1,4 @@
-import type { EventParams } from "../types/contract.js";
+import type {EventParams} from "../types/contract.js";
 
 export const defaultEventParams: EventParams = {
   fromBlock: "earliest",

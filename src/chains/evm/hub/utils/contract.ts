@@ -1,20 +1,20 @@
-import { getContract } from "viem";
+import type {Client, GetContractReturnType, WalletClient} from "viem";
+import {getContract} from "viem";
 
-import { ChainType } from "../../../../common/types/chain.js";
-import { convertFromGenericAddress } from "../../../../common/utils/address.js";
-import { AccountManagerAbi } from "../constants/abi/account-manager-abi.js";
-import { BridgeRouterHubAbi } from "../constants/abi/bridge-router-hub-abi.js";
-import { HubAbi } from "../constants/abi/hub-abi.js";
-import { HubPoolAbi } from "../constants/abi/hub-pool-abi.js";
-import { HubRewardsV1Abi } from "../constants/abi/hub-rewards-v1-abi.js";
-import { HubRewardsV2Abi } from "../constants/abi/hub-rewards-v2-abi.js";
-import { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
-import { NodeManagerAbi } from "../constants/abi/node-manager-abi.js";
-import { OracleManagerAbi } from "../constants/abi/oracle-manager-abi.js";
+import {ChainType} from "../../../../common/types/chain.js";
+import {convertFromGenericAddress} from "../../../../common/utils/address.js";
+import {AccountManagerAbi} from "../constants/abi/account-manager-abi.js";
+import {BridgeRouterHubAbi} from "../constants/abi/bridge-router-hub-abi.js";
+import {HubAbi} from "../constants/abi/hub-abi.js";
+import {HubPoolAbi} from "../constants/abi/hub-pool-abi.js";
+import {HubRewardsV1Abi} from "../constants/abi/hub-rewards-v1-abi.js";
+import {HubRewardsV2Abi} from "../constants/abi/hub-rewards-v2-abi.js";
+import {LoanManagerAbi} from "../constants/abi/loan-manager-abi.js";
+import {NodeManagerAbi} from "../constants/abi/node-manager-abi.js";
+import {OracleManagerAbi} from "../constants/abi/oracle-manager-abi.js";
 
-import type { GenericAddress } from "../../../../common/types/address.js";
-import type { GetReadContractReturnType } from "../../common/types/contract.js";
-import type { Client, GetContractReturnType, WalletClient } from "viem";
+import type {GenericAddress} from "../../../../common/types/address.js";
+import type {GetReadContractReturnType} from "../../common/types/contract.js";
 
 export function getAccountManagerContract(
   provider: Client,

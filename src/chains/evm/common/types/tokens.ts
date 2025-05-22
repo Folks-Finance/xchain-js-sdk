@@ -1,7 +1,7 @@
-import type { EvmFolksChainId } from "./chain.js";
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { RewardsTokenId } from "../../../../common/types/rewards.js";
-import type { FolksTokenId as LendingTokenId, TokenType } from "../../../../common/types/token.js";
+import type {EvmFolksChainId} from "./chain.js";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {RewardsTokenId} from "../../../../common/types/rewards.js";
+import type {FolksTokenId as LendingTokenId, TokenType} from "../../../../common/types/token.js";
 
 export type Erc20ContractSlot = {
   balanceOf: bigint;

@@ -1,11 +1,11 @@
-import { getAddress, pad, sliceHex } from "viem";
-import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+import {getAddress, pad, sliceHex} from "viem";
+import {generatePrivateKey, privateKeyToAccount} from "viem/accounts";
 
-import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
-import { BYTES32_LENGTH, EVM_ADDRESS_BYTES_LENGTH } from "../constants/bytes.js";
-import { ChainType } from "../types/chain.js";
+import {exhaustiveCheck} from "../../utils/exhaustive-check.js";
+import {BYTES32_LENGTH, EVM_ADDRESS_BYTES_LENGTH} from "../constants/bytes.js";
+import {ChainType} from "../types/chain.js";
 
-import type { AddressType, EvmAddress, GenericAddress } from "../types/address.js";
+import type {AddressType, EvmAddress, GenericAddress} from "../types/address.js";
 
 export function getRandomGenericAddress(): GenericAddress {
   return pad(privateKeyToAccount(generatePrivateKey()).address, {

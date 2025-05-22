@@ -1,61 +1,61 @@
 // New implementation for V2
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
-import { UINT256_LENGTH } from "../../../../common/constants/bytes.js";
-import { FINALITY } from "../../../../common/constants/message.js";
-import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
-import { Action } from "../../../../common/types/message.js";
-import { getRandomGenericAddress } from "../../../../common/utils/address.js";
-import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
-import { getSpokeChain, getSpokeRewardsCommonAddress } from "../../../../common/utils/chain.js";
-import { increaseByPercent, unixTime } from "../../../../common/utils/math-lib.js";
+import {UINT256_LENGTH} from "../../../../common/constants/bytes.js";
+import {FINALITY} from "../../../../common/constants/message.js";
+import {REWARDS_TYPE} from "../../../../common/constants/reward.js";
+import type {
+    AdapterType,
+    MessageAdapters,
+    MessageToSend,
+    OptionalFeeParams,
+} from "../../../../common/types/message.js";
+import {Action} from "../../../../common/types/message.js";
+import {getRandomGenericAddress} from "../../../../common/utils/address.js";
+import {convertNumberToBytes} from "../../../../common/utils/bytes.js";
+import {getSpokeChain, getSpokeRewardsCommonAddress} from "../../../../common/utils/chain.js";
+import {increaseByPercent, unixTime} from "../../../../common/utils/math-lib.js";
 import {
-  RECEIVER_VALUE_SLIPPAGE,
-  UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
+    RECEIVER_VALUE_SLIPPAGE,
+    UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
 import {
-  buildMessageParams,
-  buildMessagePayload,
-  buildSendTokenExtraArgsWhenRemoving,
+    buildMessageParams,
+    buildMessagePayload,
+    buildSendTokenExtraArgsWhenRemoving,
 } from "../../common/utils/message.js";
 import {
-  getHubChain,
-  getHubRewardAddress,
-  getHubRewardsV2TokenData,
-  getHubRewardsV2TokensData,
+    getHubChain,
+    getHubRewardAddress,
+    getHubRewardsV2TokenData,
+    getHubRewardsV2TokensData,
 } from "../utils/chain.js";
-import { getBridgeRouterHubContract, getHubRewardsV2Contract } from "../utils/contract.js";
+import {getBridgeRouterHubContract, getHubRewardsV2Contract} from "../utils/contract.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId } from "../../../../common/types/lending.js";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {FolksChainId, NetworkType} from "../../../../common/types/chain.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {RewardsTokenId} from "../../../../common/types/rewards.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {PrepareUpdateAccountsPointsForRewardsV2Call} from "../../common/types/module.js";
+import type {HubRewardsV2Abi} from "../constants/abi/hub-rewards-v2-abi.js";
+import type {HubChain} from "../types/chain.js";
 import type {
-  AdapterType,
-  MessageAdapters,
-  MessageToSend,
-  OptionalFeeParams,
-} from "../../../../common/types/message.js";
-import type { RewardsTokenId } from "../../../../common/types/rewards.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { PrepareUpdateAccountsPointsForRewardsV2Call } from "../../common/types/module.js";
-import type { HubRewardsV2Abi } from "../constants/abi/hub-rewards-v2-abi.js";
-import type { HubChain } from "../types/chain.js";
-import type {
-  ActiveEpochs,
-  Epochs,
-  Epoch,
-  LastUpdatedPointsForRewards,
-  PoolEpoch,
-  UnclaimedRewards,
+    ActiveEpochs,
+    Epoch,
+    Epochs,
+    LastUpdatedPointsForRewards,
+    PoolEpoch,
+    UnclaimedRewards,
 } from "../types/rewards-v2.js";
-import type { HubTokenData } from "../types/token.js";
+import type {HubTokenData} from "../types/token.js";
 import type {
-  Client,
-  ContractFunctionParameters,
-  EstimateGasParameters,
-  ReadContractReturnType,
-  WalletClient,
+    Client,
+    ContractFunctionParameters,
+    EstimateGasParameters,
+    ReadContractReturnType,
+    WalletClient,
 } from "viem";
 
 export function getActivePoolEpochs(activeEpochs: ActiveEpochs): Array<PoolEpoch> {

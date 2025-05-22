@@ -1,25 +1,25 @@
+import type {Client, GetContractReturnType, Hex, WalletClient} from "viem";
 import {
-  BaseError,
-  ContractFunctionRevertedError,
-  encodeAbiParameters,
-  getContract,
-  keccak256,
-  padHex,
-  toHex,
+    BaseError,
+    ContractFunctionRevertedError,
+    encodeAbiParameters,
+    getContract,
+    keccak256,
+    padHex,
+    toHex,
 } from "viem";
 
-import { ChainType } from "../../../../common/types/chain.js";
-import { convertFromGenericAddress } from "../../../../common/utils/address.js";
-import { CCIPDataAdapterAbi } from "../constants/abi/ccip-data-adapter-abi.js";
-import { ERC20Abi } from "../constants/abi/erc-20-abi.js";
-import { WormholeDataAdapterAbi } from "../constants/abi/wormhole-data-adapter-abi.js";
-import { IWormholeRelayerAbi } from "../constants/abi/wormhole-relayer-abi.js";
+import {ChainType} from "../../../../common/types/chain.js";
+import {convertFromGenericAddress} from "../../../../common/utils/address.js";
+import {CCIPDataAdapterAbi} from "../constants/abi/ccip-data-adapter-abi.js";
+import {ERC20Abi} from "../constants/abi/erc-20-abi.js";
+import {WormholeDataAdapterAbi} from "../constants/abi/wormhole-data-adapter-abi.js";
+import {IWormholeRelayerAbi} from "../constants/abi/wormhole-relayer-abi.js";
 
-import { getEvmSignerAccount, getEvmSignerAddress } from "./chain.js";
+import {getEvmSignerAccount, getEvmSignerAddress} from "./chain.js";
 
-import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { GetReadContractReturnType } from "../types/contract.js";
-import type { Client, GetContractReturnType, Hex, WalletClient } from "viem";
+import type {EvmAddress, GenericAddress} from "../../../../common/types/address.js";
+import type {GetReadContractReturnType} from "../types/contract.js";
 
 export function getERC20Contract(provider: Client, address: GenericAddress, signer: WalletClient) {
   return getContract({
