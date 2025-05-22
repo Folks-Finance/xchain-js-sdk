@@ -1,7 +1,7 @@
-import type { FolksChainId } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
-import type { AcceptInviteAddressEventParams, InviteAddressEventParams } from "../types/account.js";
-import type { CreateUserLoanEventParams, DeleteUserLoanEventParams } from "../types/loan.js";
+import type {FolksChainId} from "../../../../common/types/chain.js";
+import type {AccountId, LoanId, LoanTypeId} from "../../../../common/types/lending.js";
+import type {AcceptInviteAddressEventParams, InviteAddressEventParams} from "../types/account.js";
+import type {CreateUserLoanEventParams, DeleteUserLoanEventParams} from "../types/loan.js";
 
 export async function fetchCreateUserLoanEvents(params: CreateUserLoanEventParams) {
   const { loanManager, accountId, loanTypeIds, eventParams } = params;

@@ -1,10 +1,10 @@
-import { waitForTransactionReceipt } from "viem/actions";
+import {waitForTransactionReceipt} from "viem/actions";
 
-import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
-import { ChainType } from "../types/chain.js";
+import {exhaustiveCheck} from "../../utils/exhaustive-check.js";
+import {ChainType} from "../types/chain.js";
 
-import type { FolksProvider } from "../types/core.js";
-import type { Hex, TransactionReceipt } from "viem";
+import type {FolksProvider} from "../types/core.js";
+import type {Hex, TransactionReceipt} from "viem";
 
 export async function waitTransaction(
   chainType: ChainType,

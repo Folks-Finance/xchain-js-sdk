@@ -1,33 +1,33 @@
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
-import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
-import { increaseByPercent, unixTime } from "../../../../common/utils/math-lib.js";
+import {REWARDS_TYPE} from "../../../../common/constants/reward.js";
+import {increaseByPercent, unixTime} from "../../../../common/utils/math-lib.js";
 import {
-  CLAIM_REWARDS_GAS_LIMIT_SLIPPAGE,
-  UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
+    CLAIM_REWARDS_GAS_LIMIT_SLIPPAGE,
+    UPDATE_ACCOUNT_POINTS_FOR_REWARDS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getHubRewardAddress } from "../utils/chain.js";
-import { getHubRewardsV1Contract } from "../utils/contract.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
+import {getHubRewardAddress} from "../utils/chain.js";
+import {getHubRewardsV1Contract} from "../utils/contract.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId } from "../../../../common/types/lending.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {NetworkType} from "../../../../common/types/chain.js";
+import type {AccountId} from "../../../../common/types/lending.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
 import type {
-  PrepareClaimRewardsV1Call,
-  PrepareUpdateAccountsPointsForRewardsV1Call,
+    PrepareClaimRewardsV1Call,
+    PrepareUpdateAccountsPointsForRewardsV1Call,
 } from "../../common/types/module.js";
-import type { HubRewardsV1Abi } from "../constants/abi/hub-rewards-v1-abi.js";
-import type { HubChain } from "../types/chain.js";
-import type { ActiveEpochs, Epochs, Epoch, LastUpdatedPointsForRewards, PoolEpoch } from "../types/rewards-v1.js";
-import type { HubTokenData } from "../types/token.js";
+import type {HubRewardsV1Abi} from "../constants/abi/hub-rewards-v1-abi.js";
+import type {HubChain} from "../types/chain.js";
+import type {ActiveEpochs, Epoch, Epochs, LastUpdatedPointsForRewards, PoolEpoch} from "../types/rewards-v1.js";
+import type {HubTokenData} from "../types/token.js";
 import type {
-  Client,
-  ContractFunctionParameters,
-  EstimateGasParameters,
-  ReadContractReturnType,
-  WalletClient,
+    Client,
+    ContractFunctionParameters,
+    EstimateGasParameters,
+    ReadContractReturnType,
+    WalletClient,
 } from "viem";
 
 export function getActivePoolEpochs(activeEpochs: ActiveEpochs): Array<PoolEpoch> {

@@ -1,6 +1,5 @@
+import type {Dnum} from "dnum";
 import * as dn from "dnum";
-
-import type { Dnum } from "dnum";
 
 export const SECONDS_IN_YEAR = BigInt(365 * 24 * 60 * 60);
 export const HOURS_IN_YEAR = BigInt(365 * 24);

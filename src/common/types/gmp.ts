@@ -1,5 +1,5 @@
-import type { GenericAddress } from "./address.js";
-import type { Branded } from "./brand.js";
+import type {GenericAddress} from "./address.js";
+import type {Branded} from "./brand.js";
 
 export enum MessageDirection {
   SpokeToHub,

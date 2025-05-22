@@ -1,18 +1,18 @@
-import { getEvmSignerAddress } from "../../chains/evm/common/utils/chain.js";
-import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
-import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
-import { FOLKS_CHAIN, SPOKE_CHAIN } from "../constants/chain.js";
-import { ChainType } from "../types/chain.js";
+import {getEvmSignerAddress} from "../../chains/evm/common/utils/chain.js";
+import {getHubChainAdapterAddress, isHubChain} from "../../chains/evm/hub/utils/chain.js";
+import {exhaustiveCheck} from "../../utils/exhaustive-check.js";
+import {FOLKS_CHAIN, SPOKE_CHAIN} from "../constants/chain.js";
+import type {FolksChain, FolksChainId, NetworkType, SpokeChain} from "../types/chain.js";
+import {ChainType} from "../types/chain.js";
 
-import { convertToGenericAddress } from "./address.js";
+import {convertToGenericAddress} from "./address.js";
 
-import type { GenericAddress } from "../types/address.js";
-import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
-import type { FolksChainSigner } from "../types/core.js";
-import type { AdapterType } from "../types/message.js";
-import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
-import type { RewardsTokenId, RewardsType } from "../types/rewards.js";
-import type { FolksTokenId, SpokeTokenData } from "../types/token.js";
+import type {GenericAddress} from "../types/address.js";
+import type {FolksChainSigner} from "../types/core.js";
+import type {AdapterType} from "../types/message.js";
+import type {SpokeRewardTokenData} from "../types/rewards-v2.js";
+import type {RewardsTokenId, RewardsType} from "../types/rewards.js";
+import type {FolksTokenId, SpokeTokenData} from "../types/token.js";
 
 export function getFolksChain(folksChainId: FolksChainId, network: NetworkType): FolksChain {
   const folksChain = FOLKS_CHAIN[network][folksChainId];

@@ -1,4 +1,4 @@
-import type { NonEmptyArray } from "../types/generics.js";
+import type {NonEmptyArray} from "../types/generics.js";
 
 export const intersect =
   <T>(arr: Array<T>) =>

@@ -1,12 +1,12 @@
-import { createClient, fallback, http } from "viem";
+import type {Client} from "viem";
+import {createClient, fallback, http} from "viem";
 
-import { CHAIN_VIEM, CHAIN_NODE, EVM_FOLKS_CHAIN_ID } from "../constants/chain.js";
+import {CHAIN_NODE, CHAIN_VIEM, EVM_FOLKS_CHAIN_ID} from "../constants/chain.js";
 
-import { isEvmChainId } from "./chain.js";
+import {isEvmChainId} from "./chain.js";
 
-import type { FolksChainId } from "../../../../common/types/chain.js";
-import type { EvmChainId } from "../types/chain.js";
-import type { Client } from "viem";
+import type {FolksChainId} from "../../../../common/types/chain.js";
+import type {EvmChainId} from "../types/chain.js";
 
 export function initProviders(customProvider: Partial<Record<FolksChainId, Client>>): Record<FolksChainId, Client> {
   return Object.fromEntries(

@@ -1,19 +1,19 @@
-import { encodeAbiParameters } from "viem";
+import type {StateOverride} from "viem";
+import {encodeAbiParameters} from "viem";
 
-import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
-import { NetworkType } from "../../../../common/types/chain.js";
-import { MAINNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
-import { getSpokeEvmTokenAddress } from "../../spoke/utils/contract.js";
-import { CONTRACT_SLOT } from "../constants/tokens.js";
+import {FOLKS_CHAIN_ID} from "../../../../common/constants/chain.js";
+import {NetworkType} from "../../../../common/types/chain.js";
+import type {FolksTokenId as LendingTokenId} from "../../../../common/types/token.js";
+import {MAINNET_FOLKS_TOKEN_ID} from "../../../../common/types/token.js";
+import {getSpokeEvmTokenAddress} from "../../spoke/utils/contract.js";
+import {CONTRACT_SLOT} from "../constants/tokens.js";
 
-import { encodeErc20AccountData, getAllowanceSlotHash, getBalanceOfSlotHash } from "./contract.js";
+import {encodeErc20AccountData, getAllowanceSlotHash, getBalanceOfSlotHash} from "./contract.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { RewardsTokenId } from "../../../../common/types/rewards.js";
-import type { FolksTokenId as LendingTokenId } from "../../../../common/types/token.js";
-import type { EvmFolksChainId } from "../types/chain.js";
-import type { AllowanceStateOverride, BalanceOfStateOverride } from "../types/tokens.js";
-import type { StateOverride } from "viem";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {RewardsTokenId} from "../../../../common/types/rewards.js";
+import type {EvmFolksChainId} from "../types/chain.js";
+import type {AllowanceStateOverride, BalanceOfStateOverride} from "../types/tokens.js";
 
 export function getContractSlot(folksChainId: EvmFolksChainId) {
   const contractSlot = CONTRACT_SLOT[folksChainId];

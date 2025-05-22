@@ -1,5 +1,5 @@
-import type { GenericAddress } from "./address.js";
-import type { AdapterType } from "./message.js";
+import type {GenericAddress} from "./address.js";
+import type {AdapterType} from "./message.js";
 
 export const MAINNET_FOLKS_TOKEN_ID = {
   USDC: "USDC",

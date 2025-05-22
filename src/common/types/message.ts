@@ -1,19 +1,19 @@
-import type { MessageAdapterParamsType } from "./adapter.js";
-import type { GenericAddress } from "./address.js";
-import type { FolksChainId } from "./chain.js";
-import type { AccountId, LoanId, LoanName, LoanTypeId, Nonce } from "./lending.js";
-import type { RewardsTokenId } from "./rewards.js";
-import type { FolksTokenId as LendingTokenId, FolksSpokeTokenType, FolksHubTokenType } from "./token.js";
-import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
-import type { NonEmptyArray } from "../../types/generics.js";
+import type {MessageAdapterParamsType} from "./adapter.js";
+import type {GenericAddress} from "./address.js";
+import type {FolksChainId} from "./chain.js";
+import type {AccountId, LoanId, LoanName, LoanTypeId, Nonce} from "./lending.js";
+import type {RewardsTokenId} from "./rewards.js";
+import type {FolksHubTokenType, FolksSpokeTokenType, FolksTokenId as LendingTokenId} from "./token.js";
+import type {PoolEpoch, ReceiveRewardToken} from "../../chains/evm/hub/types/rewards-v2.js";
+import type {NonEmptyArray} from "../../types/generics.js";
 import type {
-  FINALITY,
-  HUB_ACTIONS,
-  RECEIVE_TOKEN_ACTIONS,
-  REVERSIBLE_HUB_ACTIONS,
-  SEND_TOKEN_ACTIONS,
+    FINALITY,
+    HUB_ACTIONS,
+    RECEIVE_TOKEN_ACTIONS,
+    REVERSIBLE_HUB_ACTIONS,
+    SEND_TOKEN_ACTIONS,
 } from "../constants/message.js";
-import type { Hex } from "viem";
+import type {Hex} from "viem";
 
 export enum AdapterType {
   HUB = 1,

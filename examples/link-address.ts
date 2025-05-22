@@ -1,20 +1,19 @@
-import { createWalletClient, http } from "viem";
-import { mnemonicToAccount } from "viem/accounts";
+import {createWalletClient, http} from "viem";
+import {mnemonicToAccount} from "viem/accounts";
 
+import type {AccountId, EvmAddress, FolksCoreConfig, MessageAdapters} from "../src/index.js";
 import {
-  Action,
-  CHAIN_VIEM,
-  ChainType,
-  convertToGenericAddress,
-  FOLKS_CHAIN_ID,
-  FolksAccount,
-  FolksCore,
-  getSupportedMessageAdapters,
-  MessageAdapterParamsType,
-  NetworkType,
+    Action,
+    CHAIN_VIEM,
+    ChainType,
+    convertToGenericAddress,
+    FOLKS_CHAIN_ID,
+    FolksAccount,
+    FolksCore,
+    getSupportedMessageAdapters,
+    MessageAdapterParamsType,
+    NetworkType,
 } from "../src/index.js";
-
-import type { AccountId, EvmAddress, FolksCoreConfig, MessageAdapters } from "../src/index.js";
 
 async function main() {
   const network = NetworkType.TESTNET;

@@ -1,86 +1,86 @@
+import type {Dnum} from "dnum";
 import * as dn from "dnum";
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
-import { UINT256_LENGTH } from "../../../../common/constants/bytes.js";
-import { FINALITY } from "../../../../common/constants/message.js";
-import { Action } from "../../../../common/types/message.js";
-import { getRandomGenericAddress } from "../../../../common/utils/address.js";
-import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
-import { getSpokeChain, getSpokeTokenData } from "../../../../common/utils/chain.js";
-import {
-  calcAccruedRewards,
-  calcBorrowAssetLoanValue,
-  calcBorrowBalance,
-  calcBorrowInterestIndex,
-  calcBorrowUtilisationRatio,
-  calcCollateralAssetLoanValue,
-  calcLiquidationMargin,
-  calcLtvRatio,
-  calcRewardIndex,
-  toFAmount,
-  toUnderlyingAmount,
-} from "../../../../common/utils/formulae.js";
-import { bigIntMin, compoundEverySecond, increaseByPercent } from "../../../../common/utils/math-lib.js";
-import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
-import {
-  defaultEventParams,
-  GAS_LIMIT_ESTIMATE_INCREASE,
-  RECEIVER_VALUE_SLIPPAGE,
-  UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE,
-} from "../../common/constants/contract.js";
-import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { extractRevertErrorName } from "../../common/utils/contract.js";
-import {
-  buildEvmMessageData,
-  buildMessageParams,
-  buildMessagePayload,
-  buildSendTokenExtraArgsWhenRemoving,
-} from "../../common/utils/message.js";
-import { LoanChangeType } from "../types/loan.js";
-import { getHubChain, getHubTokenData } from "../utils/chain.js";
-import { getBridgeRouterHubContract, getHubContract, getLoanManagerContract } from "../utils/contract.js";
-import { fetchUserLoanIds } from "../utils/events.js";
-import { initLoanBorrowInterests, updateLoanBorrowInterests } from "../utils/loan.js";
-
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
-import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
+import {UINT256_LENGTH} from "../../../../common/constants/bytes.js";
+import {FINALITY} from "../../../../common/constants/message.js";
 import type {
-  MessageAdapters,
-  MessageToSend,
-  OptionalFeeParams,
-  AdapterType,
-  LiquidateMessageData,
-  LiquidateMessageDataParams,
+    AdapterType,
+    LiquidateMessageData,
+    LiquidateMessageDataParams,
+    MessageAdapters,
+    MessageToSend,
+    OptionalFeeParams,
 } from "../../../../common/types/message.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { PrepareLiquidateCall, PrepareUpdateUserPointsInLoansCall } from "../../common/types/module.js";
-import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
-import type { HubChain } from "../types/chain.js";
+import {Action} from "../../../../common/types/message.js";
+import {getRandomGenericAddress} from "../../../../common/utils/address.js";
+import {convertNumberToBytes} from "../../../../common/utils/bytes.js";
+import {getSpokeChain, getSpokeTokenData} from "../../../../common/utils/chain.js";
+import {
+    calcAccruedRewards,
+    calcBorrowAssetLoanValue,
+    calcBorrowBalance,
+    calcBorrowInterestIndex,
+    calcBorrowUtilisationRatio,
+    calcCollateralAssetLoanValue,
+    calcLiquidationMargin,
+    calcLtvRatio,
+    calcRewardIndex,
+    toFAmount,
+    toUnderlyingAmount,
+} from "../../../../common/utils/formulae.js";
+import {bigIntMin, compoundEverySecond, increaseByPercent} from "../../../../common/utils/math-lib.js";
+import {exhaustiveCheck} from "../../../../utils/exhaustive-check.js";
+import {
+    defaultEventParams,
+    GAS_LIMIT_ESTIMATE_INCREASE,
+    RECEIVER_VALUE_SLIPPAGE,
+    UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE,
+} from "../../common/constants/contract.js";
+import {getEvmSignerAccount} from "../../common/utils/chain.js";
+import {extractRevertErrorName} from "../../common/utils/contract.js";
+import {
+    buildEvmMessageData,
+    buildMessageParams,
+    buildMessagePayload,
+    buildSendTokenExtraArgsWhenRemoving,
+} from "../../common/utils/message.js";
 import type {
-  AssetsAdditionalInterest,
-  LoanChange,
-  LoanManagerUserLoan,
-  LoanManagerUserLoanAbi,
-  LoanPoolInfo,
-  LoanTypeInfo,
-  PoolsPoints,
-  UserLoanInfo,
-  UserLoanInfoBorrow,
-  UserLoanInfoCollateral,
-  UserPoints,
+    AssetsAdditionalInterest,
+    LoanChange,
+    LoanManagerUserLoan,
+    LoanManagerUserLoanAbi,
+    LoanPoolInfo,
+    LoanTypeInfo,
+    PoolsPoints,
+    UserLoanInfo,
+    UserLoanInfoBorrow,
+    UserLoanInfoCollateral,
+    UserPoints,
 } from "../types/loan.js";
-import type { OraclePrice, OraclePrices } from "../types/oracle.js";
-import type { PoolInfo } from "../types/pool.js";
-import type { ActiveEpochsInfo } from "../types/rewards-v2.js";
-import type { HubTokenData } from "../types/token.js";
-import type { Dnum } from "dnum";
+import {LoanChangeType} from "../types/loan.js";
+import {getHubChain, getHubTokenData} from "../utils/chain.js";
+import {getBridgeRouterHubContract, getHubContract, getLoanManagerContract} from "../utils/contract.js";
+import {fetchUserLoanIds} from "../utils/events.js";
+import {initLoanBorrowInterests, updateLoanBorrowInterests} from "../utils/loan.js";
+
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {FolksChainId, NetworkType} from "../../../../common/types/chain.js";
+import type {AccountId, LoanId, LoanTypeId} from "../../../../common/types/lending.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {PrepareLiquidateCall, PrepareUpdateUserPointsInLoansCall} from "../../common/types/module.js";
+import type {LoanManagerAbi} from "../constants/abi/loan-manager-abi.js";
+import type {HubChain} from "../types/chain.js";
+import type {OraclePrice, OraclePrices} from "../types/oracle.js";
+import type {PoolInfo} from "../types/pool.js";
+import type {ActiveEpochsInfo} from "../types/rewards-v2.js";
+import type {HubTokenData} from "../types/token.js";
 import type {
-  Client,
-  ContractFunctionParameters,
-  EstimateGasParameters,
-  ReadContractReturnType,
-  WalletClient,
+    Client,
+    ContractFunctionParameters,
+    EstimateGasParameters,
+    ReadContractReturnType,
+    WalletClient,
 } from "viem";
 
 export const prepare = {

@@ -1,12 +1,12 @@
 import {
-  calcBorrowBalance,
-  calcBorrowInterestIndex,
-  calcStableInterestRate,
+    calcBorrowBalance,
+    calcBorrowInterestIndex,
+    calcStableInterestRate,
 } from "../../../../common/utils/formulae.js";
-import { unixTime } from "../../../../common/utils/math-lib.js";
+import {unixTime} from "../../../../common/utils/math-lib.js";
 
-import type { LoanManagerUserLoanBorrow } from "../types/loan.js";
-import type { PoolInfo } from "../types/pool.js";
+import type {LoanManagerUserLoanBorrow} from "../types/loan.js";
+import type {PoolInfo} from "../types/pool.js";
 
 export function initLoanBorrowInterests(isStable: boolean, poolInfo: PoolInfo): LoanManagerUserLoanBorrow {
   const lastInterestIndex = isStable ? BigInt(1e18) : poolInfo.variableBorrowData.interestIndex[0];

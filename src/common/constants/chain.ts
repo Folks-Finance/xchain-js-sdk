@@ -1,36 +1,36 @@
 import {
-  arbitrum,
-  arbitrumSepolia,
-  avalanche,
-  avalancheFuji,
-  base,
-  baseSepolia,
-  bsc,
-  bscTestnet,
-  mainnet,
-  monadTestnet,
-  polygon,
-  sepolia,
+    arbitrum,
+    arbitrumSepolia,
+    avalanche,
+    avalancheFuji,
+    base,
+    baseSepolia,
+    bsc,
+    bscTestnet,
+    mainnet,
+    monadTestnet,
+    polygon,
+    sepolia,
 } from "viem/chains";
 
-import { MAINNET_EVM_FOLKS_CHAIN_ID, TESTNET_EVM_FOLKS_CHAIN_ID } from "../../chains/evm/common/constants/chain.js";
-import { NetworkType, ChainType } from "../types/chain.js";
-import { AdapterType } from "../types/message.js";
-import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../types/token.js";
-import { convertToGenericAddress } from "../utils/address.js";
-
-import { MAINNET_POOLS, TESTNET_POOLS } from "./pool.js";
-import { MAINNET_REWARDS_TOKEN_ID, REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID } from "./reward.js";
-
-import type { EvmAddress } from "../types/address.js";
+import {MAINNET_EVM_FOLKS_CHAIN_ID, TESTNET_EVM_FOLKS_CHAIN_ID} from "../../chains/evm/common/constants/chain.js";
 import type {
-  FolksChainId,
-  FolksChain,
-  SpokeChain,
-  FolksChainName,
-  MainnetFolksChainId,
-  TestnetFolksChainId,
+    FolksChain,
+    FolksChainId,
+    FolksChainName,
+    MainnetFolksChainId,
+    SpokeChain,
+    TestnetFolksChainId,
 } from "../types/chain.js";
+import {ChainType, NetworkType} from "../types/chain.js";
+import {AdapterType} from "../types/message.js";
+import {MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType} from "../types/token.js";
+import {convertToGenericAddress} from "../utils/address.js";
+
+import {MAINNET_POOLS, TESTNET_POOLS} from "./pool.js";
+import {MAINNET_REWARDS_TOKEN_ID, REWARDS_TYPE, TESTNET_REWARDS_TOKEN_ID} from "./reward.js";
+
+import type {EvmAddress} from "../types/address.js";
 
 export const MAINNET_FOLKS_CHAIN_ID = {
   ...MAINNET_EVM_FOLKS_CHAIN_ID,

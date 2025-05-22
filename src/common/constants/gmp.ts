@@ -1,11 +1,11 @@
-import { ChainType } from "../types/chain.js";
-import { convertToGenericAddress } from "../utils/address.js";
+import type {FolksChainId} from "../types/chain.js";
+import {ChainType} from "../types/chain.js";
+import {convertToGenericAddress} from "../utils/address.js";
 
-import { FOLKS_CHAIN_ID } from "./chain.js";
+import {FOLKS_CHAIN_ID} from "./chain.js";
 
-import type { EvmAddress } from "../types/address.js";
-import type { FolksChainId } from "../types/chain.js";
-import type { CCIPData, WormholeData } from "../types/gmp.js";
+import type {EvmAddress} from "../types/address.js";
+import type {CCIPData, WormholeData} from "../types/gmp.js";
 
 export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
   [FOLKS_CHAIN_ID.AVALANCHE]: {

@@ -1,4 +1,4 @@
-import { Action } from "../types/message.js";
+import {Action} from "../types/message.js";
 
 export const FINALITY = {
   IMMEDIATE: BigInt(0),

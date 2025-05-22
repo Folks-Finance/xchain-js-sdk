@@ -1,11 +1,11 @@
-import type { HubRewardTokenData as RewardTokenDataV2 } from "./rewards-v2.js";
-import type { HubTokenData } from "./token.js";
-import type { REWARDS_TYPE } from "../../../../common/constants/reward.js";
-import type { GenericAddress } from "../../../../common/types/address.js";
-import type { IFolksChain } from "../../../../common/types/chain.js";
-import type { AdapterType } from "../../../../common/types/message.js";
-import type { RewardsTokenId } from "../../../../common/types/rewards.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
+import type {HubRewardTokenData as RewardTokenDataV2} from "./rewards-v2.js";
+import type {HubTokenData} from "./token.js";
+import type {REWARDS_TYPE} from "../../../../common/constants/reward.js";
+import type {GenericAddress} from "../../../../common/types/address.js";
+import type {IFolksChain} from "../../../../common/types/chain.js";
+import type {AdapterType} from "../../../../common/types/message.js";
+import type {RewardsTokenId} from "../../../../common/types/rewards.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
 
 type HubRewardsV1 = {
   hubAddress: GenericAddress;

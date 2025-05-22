@@ -1,23 +1,23 @@
-import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
-import { MAINNET_POOLS, TESTNET_POOLS } from "../../../../common/constants/pool.js";
+import {FOLKS_CHAIN_ID} from "../../../../common/constants/chain.js";
+import {MAINNET_POOLS, TESTNET_POOLS} from "../../../../common/constants/pool.js";
 import {
-  MAINNET_REWARDS_TOKEN_ID,
-  REWARDS_TYPE,
-  TESTNET_REWARDS_TOKEN_ID,
+    MAINNET_REWARDS_TOKEN_ID,
+    REWARDS_TYPE,
+    TESTNET_REWARDS_TOKEN_ID,
 } from "../../../../common/constants/reward.js";
-import { ChainType, NetworkType } from "../../../../common/types/chain.js";
-import { MAINNET_LOAN_TYPE_ID, TESTNET_LOAN_TYPE_ID } from "../../../../common/types/lending.js";
-import { AdapterType } from "../../../../common/types/message.js";
-import { MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType } from "../../../../common/types/token.js";
-import { convertToGenericAddress } from "../../../../common/utils/address.js";
+import {ChainType, NetworkType} from "../../../../common/types/chain.js";
+import {MAINNET_LOAN_TYPE_ID, TESTNET_LOAN_TYPE_ID} from "../../../../common/types/lending.js";
+import {AdapterType} from "../../../../common/types/message.js";
+import type {MainnetFolksTokenId, TestnetFolksTokenId} from "../../../../common/types/token.js";
+import {MAINNET_FOLKS_TOKEN_ID, TESTNET_FOLKS_TOKEN_ID, TokenType} from "../../../../common/types/token.js";
+import {convertToGenericAddress} from "../../../../common/utils/address.js";
 
-import type { EvmAddress } from "../../../../common/types/address.js";
-import type { MainnetRewardsTokenId, TestnetRewardsTokenId } from "../../../../common/types/rewards.js";
-import type { MainnetFolksTokenId, TestnetFolksTokenId } from "../../../../common/types/token.js";
-import type { HubChain } from "../types/chain.js";
-import type { NodeId } from "../types/oracle.js";
-import type { HubRewardTokenData } from "../types/rewards-v2.js";
-import type { HubTokenData } from "../types/token.js";
+import type {EvmAddress} from "../../../../common/types/address.js";
+import type {MainnetRewardsTokenId, TestnetRewardsTokenId} from "../../../../common/types/rewards.js";
+import type {HubChain} from "../types/chain.js";
+import type {NodeId} from "../types/oracle.js";
+import type {HubRewardTokenData} from "../types/rewards-v2.js";
+import type {HubTokenData} from "../types/token.js";
 
 export const HUB_CHAIN: Record<NetworkType, HubChain> = {
   [NetworkType.MAINNET]: {

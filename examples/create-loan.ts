@@ -1,22 +1,21 @@
-import { createWalletClient, http } from "viem";
-import { mnemonicToAccount } from "viem/accounts";
+import {createWalletClient, http} from "viem";
+import {mnemonicToAccount} from "viem/accounts";
 
-import { convertStringToLoanName } from "../src/common/utils/lending.js";
+import {convertStringToLoanName} from "../src/common/utils/lending.js";
+import type {AccountId, FolksCoreConfig, MessageAdapters, Nonce} from "../src/index.js";
 import {
-  NetworkType,
-  FolksCore,
-  getRandomBytes,
-  FolksLoan,
-  FOLKS_CHAIN_ID,
-  BYTES4_LENGTH,
-  getSupportedMessageAdapters,
-  Action,
-  MessageAdapterParamsType,
-  CHAIN_VIEM,
-  TESTNET_LOAN_TYPE_ID,
+    Action,
+    BYTES4_LENGTH,
+    CHAIN_VIEM,
+    FOLKS_CHAIN_ID,
+    FolksCore,
+    FolksLoan,
+    getRandomBytes,
+    getSupportedMessageAdapters,
+    MessageAdapterParamsType,
+    NetworkType,
+    TESTNET_LOAN_TYPE_ID,
 } from "../src/index.js";
-
-import type { FolksCoreConfig, MessageAdapters, Nonce, AccountId } from "../src/index.js";
 
 async function main() {
   const network = NetworkType.TESTNET;

@@ -1,11 +1,11 @@
-import type { OraclePrice } from "./oracle.js";
-import type { PoolInfo } from "./pool.js";
-import type { AccountId, LoanId, LoanTypeId } from "../../../../common/types/lending.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { GetEventParams, GetReadContractReturnType } from "../../common/types/contract.js";
-import type { LoanManagerAbi } from "../constants/abi/loan-manager-abi.js";
-import type { Dnum } from "dnum";
-import type { ReadContractReturnType } from "viem";
+import type {OraclePrice} from "./oracle.js";
+import type {PoolInfo} from "./pool.js";
+import type {AccountId, LoanId, LoanTypeId} from "../../../../common/types/lending.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {GetEventParams, GetReadContractReturnType} from "../../common/types/contract.js";
+import type {LoanManagerAbi} from "../constants/abi/loan-manager-abi.js";
+import type {Dnum} from "dnum";
+import type {ReadContractReturnType} from "viem";
 
 export type LoanPoolInfo = {
   folksTokenId: FolksTokenId;

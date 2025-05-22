@@ -1,15 +1,15 @@
-import { FolksHubOracle } from "../../chains/evm/hub/modules/index.js";
-import { getHubTokenData, getHubTokensData, getHubRewardsV2TokensData } from "../../chains/evm/hub/utils/chain.js";
-import { FolksCore } from "../core/folks-core.js";
+import {FolksHubOracle} from "../../chains/evm/hub/modules/index.js";
+import {getHubRewardsV2TokensData, getHubTokenData, getHubTokensData} from "../../chains/evm/hub/utils/chain.js";
+import {FolksCore} from "../core/folks-core.js";
 
 import type {
-  OraclePrice,
-  OraclePrices,
-  OracleNodePrice,
-  OracleNodePrices,
-  OracleNode,
+    OracleNode,
+    OracleNodePrice,
+    OracleNodePrices,
+    OraclePrice,
+    OraclePrices,
 } from "../../chains/evm/hub/types/oracle.js";
-import type { FolksTokenId } from "../../common/types/token.js";
+import type {FolksTokenId} from "../../common/types/token.js";
 
 export const read = {
   async oraclePrice(folksTokenId: FolksTokenId, blockNumber?: bigint): Promise<OraclePrice> {

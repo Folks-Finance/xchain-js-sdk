@@ -1,14 +1,14 @@
-import { multicall } from "viem/actions";
+import {multicall} from "viem/actions";
 
-import { getHubChain } from "../utils/chain.js";
-import { getNodeManagerContract, getOracleManagerContract } from "../utils/contract.js";
+import {getHubChain} from "../utils/chain.js";
+import {getNodeManagerContract, getOracleManagerContract} from "../utils/contract.js";
 
-import type { NetworkType } from "../../../../common/types/chain.js";
-import type { NodeManagerAbi } from "../constants/abi/node-manager-abi.js";
-import type { OracleManagerAbi } from "../constants/abi/oracle-manager-abi.js";
-import type { OracleNode, OracleNodePrice, OracleNodePrices, OraclePrice, OraclePrices } from "../types/oracle.js";
-import type { HubTokenData } from "../types/token.js";
-import type { Client, ContractFunctionParameters, ReadContractReturnType } from "viem";
+import type {NetworkType} from "../../../../common/types/chain.js";
+import type {NodeManagerAbi} from "../constants/abi/node-manager-abi.js";
+import type {OracleManagerAbi} from "../constants/abi/oracle-manager-abi.js";
+import type {OracleNode, OracleNodePrice, OracleNodePrices, OraclePrice, OraclePrices} from "../types/oracle.js";
+import type {HubTokenData} from "../types/token.js";
+import type {Client, ContractFunctionParameters, ReadContractReturnType} from "viem";
 
 export async function getOraclePrice(
   provider: Client,

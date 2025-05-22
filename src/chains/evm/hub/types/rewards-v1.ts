@@ -1,5 +1,5 @@
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { Dnum } from "dnum";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import type {Dnum} from "dnum";
 
 export type Epoch = {
   poolId: number;

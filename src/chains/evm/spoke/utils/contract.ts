@@ -1,19 +1,19 @@
-import { getContract } from "viem";
+import type {Client, GetContractReturnType, WalletClient} from "viem";
+import {getContract} from "viem";
 
-import { SPOKE_CHAIN } from "../../../../common/constants/chain.js";
-import { ChainType } from "../../../../common/types/chain.js";
-import { TokenType } from "../../../../common/types/token.js";
-import { convertFromGenericAddress } from "../../../../common/utils/address.js";
-import { BridgeRouterSpokeAbi } from "../constants/abi/bridge-router-spoke-abi.js";
-import { SpokeCommonAbi } from "../constants/abi/spoke-common-abi.js";
-import { SpokeRewardsV2CommonAbi } from "../constants/abi/spoke-rewards-v2-common-abi.js";
-import { SpokeTokenAbi } from "../constants/abi/spoke-token-abi.js";
+import {SPOKE_CHAIN} from "../../../../common/constants/chain.js";
+import type {FolksChainId, NetworkType} from "../../../../common/types/chain.js";
+import {ChainType} from "../../../../common/types/chain.js";
+import type {FolksTokenId} from "../../../../common/types/token.js";
+import {TokenType} from "../../../../common/types/token.js";
+import {convertFromGenericAddress} from "../../../../common/utils/address.js";
+import {BridgeRouterSpokeAbi} from "../constants/abi/bridge-router-spoke-abi.js";
+import {SpokeCommonAbi} from "../constants/abi/spoke-common-abi.js";
+import {SpokeRewardsV2CommonAbi} from "../constants/abi/spoke-rewards-v2-common-abi.js";
+import {SpokeTokenAbi} from "../constants/abi/spoke-token-abi.js";
 
-import type { GenericAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, NetworkType } from "../../../../common/types/chain.js";
-import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { GetReadContractReturnType } from "../../common/types/contract.js";
-import type { Client, GetContractReturnType, WalletClient } from "viem";
+import type {GenericAddress} from "../../../../common/types/address.js";
+import type {GetReadContractReturnType} from "../../common/types/contract.js";
 
 export function getSpokeCommonContract(
   provider: Client,

@@ -1,4 +1,4 @@
-import type { Branded } from "./brand.js";
+import type {Branded} from "./brand.js";
 
 export type Nonce = Branded<`0x${string}`, "Nonce">;
 export type AccountId = Branded<`0x${string}`, "AccountId">;
