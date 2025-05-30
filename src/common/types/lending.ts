@@ -10,6 +10,9 @@ export const MAINNET_LOAN_TYPE_ID = {
   GENERAL: 2,
   AVAX_EFFICIENCY: 3,
   ETH_EFFICIENCY: 4,
+  STABLECOIN_EFFICIENCY: 5,
+  POL_EFFICIENCY: 6,
+  BTC_EFFICIENCY: 7,
 } as const;
 export type MainnetLoanTypeId = (typeof MAINNET_LOAN_TYPE_ID)[keyof typeof MAINNET_LOAN_TYPE_ID];
 
