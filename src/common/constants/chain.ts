@@ -416,6 +416,71 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.ATH_eth]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xbe0Ed4138121EcFC5c0E56B40517da27E6c5226B" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.ATH_eth,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.ATH_eth],
+          spokeAddress: convertToGenericAddress(
+            "0x91461B9117B3644609EeB0889ecc89Cab4644bb2" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.pyUSD_eth]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x6c3ea9036406852006290770BEdFcAbA0e23A0e8" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.pyUSD_eth,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.pyUSD_eth],
+          spokeAddress: convertToGenericAddress(
+            "0xff785fb7BfBbe03eD09089f73151AE563B211723" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.rlUSD_eth]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x8292bb45bf1ee4d140127049757c2e0ff06317ed" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.rlUSD_eth,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.rlUSD_eth],
+          spokeAddress: convertToGenericAddress(
+            "0x7967B0fe720E676f41640855a203B409cEcc8f92" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wstETH_eth]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstETH_eth,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstETH_eth],
+          spokeAddress: convertToGenericAddress(
+            "0xB3ABD8cc35619b907F3f2E974Fe3d43956AA7cda" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.weETH_eth]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.weETH_eth,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.weETH_eth],
+          spokeAddress: convertToGenericAddress(
+            "0x63BCB60165E7EC30F03883Fcb800AEf304EE7eEa" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -520,6 +585,84 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SolvBTC],
           spokeAddress: convertToGenericAddress(
             "0xe0C45Ab4295E96eC1259D787E2eD22C16a3D0d8f" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.AERO_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x940181a94a35a4569e4529a3cdfb74e38fd98631" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.AERO_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.AERO_base],
+          spokeAddress: convertToGenericAddress(
+            "0x7Ace2Bc1C79954B56C65C7B326035C4468ac12BB" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.cbETH_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.cbETH_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.cbETH_base],
+          spokeAddress: convertToGenericAddress(
+            "0x31A324D233AB3E73A6e1039D64907bBb2742606C" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wstETH_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstETH_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstETH_base],
+          spokeAddress: convertToGenericAddress(
+            "0x7c7961E590B7e005540B72238b739ae513B605fB" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.weETH_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x04c0599ae5a44757c0af6f9ec3b93da8976c150a" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstETH_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstETH_base],
+          spokeAddress: convertToGenericAddress(
+            "0x8D9aad601f384C596B9e2b9124a73b278DB4C51C" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.VIRTUAL_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x0b3e328455c4059EEb9e3f84b5543F74E24e7E1b" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.VIRTUAL_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.VIRTUAL_base],
+          spokeAddress: convertToGenericAddress(
+            "0x9009c929873f0e68dbc253b16aC4c3E4426E6E35" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.KAITO_base]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x98d0baa52b2D063E780DE12F615f963Fe8537553" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.KAITO_base,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.KAITO_base],
+          spokeAddress: convertToGenericAddress(
+            "0x123f831a762A165107EE2e07416f4AA713dA9bFD" as EvmAddress,
             ChainType.EVM,
           ),
         },
@@ -955,6 +1098,19 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.MaticX],
           spokeAddress: convertToGenericAddress(
             "0xCB66564d0cF3D28B26a1b6D4eCb830D6E216a75a" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.aUSD_pol]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD_pol,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD_pol],
+          spokeAddress: convertToGenericAddress(
+            "0xaB07AfCf16fecdCC3D83dB7513c7839aEd626322" as EvmAddress,
             ChainType.EVM,
           ),
         },
