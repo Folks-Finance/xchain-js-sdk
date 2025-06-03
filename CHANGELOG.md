@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.80
+
+### Patch Changes
+
+- [#280](https://github.com/Folks-Finance/xchain-js-sdk/pull/280) [`b9d9ef5`](https://github.com/Folks-Finance/xchain-js-sdk/commit/b9d9ef59613cc8de113241faaf174499bdb233b7) Thanks [@palace22](https://github.com/palace22)! - Added stablecoin, pol and btc efficiency loan types
+
 ## 0.0.79
 
 ### Patch Changes
