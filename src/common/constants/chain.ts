@@ -979,7 +979,19 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x6BC1439b7663820daCeBc8E8B9a5BA29201ed352" as EvmAddress,
             ChainType.EVM,
           ),
-          tokens: {},
+          tokens: {
+            [MAINNET_REWARDS_TOKEN_ID.POL]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.POL,
+              spokeAddress: convertToGenericAddress(
+                "0xCD7eE494fa616FDbE38Aa0A9355E20b7215108Bf" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.NATIVE,
+                decimals: 18,
+              },
+            },
+          },
         },
       },
     },
