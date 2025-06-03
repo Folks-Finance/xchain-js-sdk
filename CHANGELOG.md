@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.78
+
+### Patch Changes
+
+- [#279](https://github.com/Folks-Finance/xchain-js-sdk/pull/279) [`9771fa1`](https://github.com/Folks-Finance/xchain-js-sdk/commit/9771fa188f6a78b90f76c814c6fb3c4a948cd44f) Thanks [@palace22](https://github.com/palace22)! - Added POL reward token
+
 ## 0.0.77
 
 ### Patch Changes
