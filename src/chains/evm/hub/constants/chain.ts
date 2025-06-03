@@ -483,7 +483,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           },
           [MAINNET_REWARDS_TOKEN_ID.POL]: {
             rewardTokenId: MAINNET_REWARDS_TOKEN_ID.POL,
-            nodeId: "0xd6102fbcc0b34ac4f5af7f2e99ee6002907ebc69b3d33e66a7e60c0707b03362" as NodeId,
+            nodeId: "0x5ffc96dd95bbfe846c600fdd21d33f36e7236fee9344bb8b3f4edada887d26d4" as NodeId,
             token: {
               type: TokenType.NATIVE,
               decimals: 18,
