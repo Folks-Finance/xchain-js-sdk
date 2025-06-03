@@ -23,7 +23,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   POL: "POL",
   wBTC_pol: "wBTC_pol",
   wETH_pol: "wETH_pol",
-  aUSD: "aUSD",
+  aUSD_ava: "aUSD_ava",
   savUSD: "savUSD",
   wBTC_arb: "wBTC_arb",
   tBTC_arb: "tBTC_arb",
@@ -46,6 +46,10 @@ export const TESTNET_FOLKS_TOKEN_ID = {
   BNB: "BNB",
   CCIP_BnM: "CCIP_BnM",
   MON: "MON",
+  sMON: "sMON",
+  aprMON: "aprMON",
+  gMON: "gMON",
+  shMON: "shMON",
 } as const;
 export type TestnetFolksTokenId = (typeof TESTNET_FOLKS_TOKEN_ID)[keyof typeof TESTNET_FOLKS_TOKEN_ID];
 

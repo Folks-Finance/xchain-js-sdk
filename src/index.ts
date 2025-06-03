@@ -40,7 +40,7 @@ export { toFAmount, toUnderlyingAmount, calcAssetDollarValue } from "./common/ut
 export { getCcipData, getWormholeData } from "./common/utils/gmp.js";
 export { buildAccountId, buildLoanId } from "./common/utils/lending.js";
 export { getOperationIdsByTransaction, waitOperationIds } from "./common/utils/messages.js";
-export { isCrossChainToken } from "./common/utils/token.js";
+export { isCrossChainToken, getFolksTokenIdsByLoanType } from "./common/utils/token.js";
 export { waitTransaction } from "./common/utils/transaction.js";
 
 // === HUB ===

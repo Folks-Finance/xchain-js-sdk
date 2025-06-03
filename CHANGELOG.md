@@ -1,5 +1,43 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.80
+
+### Patch Changes
+
+- [#280](https://github.com/Folks-Finance/xchain-js-sdk/pull/280) [`b9d9ef5`](https://github.com/Folks-Finance/xchain-js-sdk/commit/b9d9ef59613cc8de113241faaf174499bdb233b7) Thanks [@palace22](https://github.com/palace22)! - Added stablecoin, pol and btc efficiency loan types
+
+## 0.0.79
+
+### Patch Changes
+
+- [#283](https://github.com/Folks-Finance/xchain-js-sdk/pull/283) [`fe9bbe5`](https://github.com/Folks-Finance/xchain-js-sdk/commit/fe9bbe5e8cb600af65fc277d97c7eec9f597d79a) Thanks [@palace22](https://github.com/palace22)! - Fix pol node id
+
+## 0.0.78
+
+### Patch Changes
+
+- [#279](https://github.com/Folks-Finance/xchain-js-sdk/pull/279) [`9771fa1`](https://github.com/Folks-Finance/xchain-js-sdk/commit/9771fa188f6a78b90f76c814c6fb3c4a948cd44f) Thanks [@palace22](https://github.com/palace22)! - Added POL reward token
+
+## 0.0.77
+
+### Patch Changes
+
+- [#274](https://github.com/Folks-Finance/xchain-js-sdk/pull/274) [`427c20a`](https://github.com/Folks-Finance/xchain-js-sdk/commit/427c20adb9b60d9d04a3c1f26b330efca224325a) Thanks [@palace22](https://github.com/palace22)! - Added sMON, aprMON, gMON, shMON
+
+## 0.0.76
+
+### Patch Changes
+
+- [#275](https://github.com/Folks-Finance/xchain-js-sdk/pull/275) [`9fbee15`](https://github.com/Folks-Finance/xchain-js-sdk/commit/9fbee157e79091a8e621b0f8f43ac5c390bccfeb) Thanks [@gidonkatten](https://github.com/gidonkatten)! - fix name for max amount you can wihtdraw from loan
+
+## 0.0.75
+
+### Patch Changes
+
+- [#271](https://github.com/Folks-Finance/xchain-js-sdk/pull/271) [`bc3e37b`](https://github.com/Folks-Finance/xchain-js-sdk/commit/bc3e37bcaee73b92f36f1e3569b48503ccac0e20) Thanks [@gidonkatten](https://github.com/gidonkatten)! - consider additional interests in net rate and yield loan calculations
+
+- [#272](https://github.com/Folks-Finance/xchain-js-sdk/pull/272) [`494bd77`](https://github.com/Folks-Finance/xchain-js-sdk/commit/494bd77d85b86161ae2ebfe7e439326d5537e489) Thanks [@gidonkatten](https://github.com/gidonkatten)! - add support for ccip on monad
+
 ## 0.0.74
 
 ### Patch Changes

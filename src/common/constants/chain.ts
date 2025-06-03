@@ -274,14 +274,14 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
-        [MAINNET_FOLKS_TOKEN_ID.aUSD]: {
+        [MAINNET_FOLKS_TOKEN_ID.aUSD_ava]: {
           token: {
             type: TokenType.ERC20,
             address: convertToGenericAddress("0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a" as EvmAddress, ChainType.EVM),
             decimals: 6,
           },
-          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD,
-          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD],
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD_ava,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD_ava],
           spokeAddress: convertToGenericAddress(
             "0x666aea026bC606220ec6eb83a83D81881fA48e0f" as EvmAddress,
             ChainType.EVM,
@@ -1049,7 +1049,19 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x6BC1439b7663820daCeBc8E8B9a5BA29201ed352" as EvmAddress,
             ChainType.EVM,
           ),
-          tokens: {},
+          tokens: {
+            [MAINNET_REWARDS_TOKEN_ID.POL]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.POL,
+              spokeAddress: convertToGenericAddress(
+                "0xCD7eE494fa616FDbE38Aa0A9355E20b7215108Bf" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.NATIVE,
+                decimals: 18,
+              },
+            },
+          },
         },
       },
     },
@@ -1547,11 +1559,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           "0x0e78A4EE07e3f20ef7a21C0f61eb58FCa26d4d1f" as EvmAddress,
           ChainType.EVM,
         ),
-        // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
-        // [AdapterType.CCIP_DATA]: convertToGenericAddress(
-        //   "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
-        //   ChainType.EVM,
-        // ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0x7B9A4001e555a6F84F80025163D7127e357E1D77" as EvmAddress,
+          ChainType.EVM,
+        ),
       },
       tokens: {
         [TESTNET_FOLKS_TOKEN_ID.MON]: {
@@ -1566,6 +1577,58 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [TESTNET_FOLKS_TOKEN_ID.sMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xe1d2439b75fb9746E7Bc6cB777Ae10AA7f7ef9c5" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.sMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.sMON],
+          spokeAddress: convertToGenericAddress(
+            "0xf5C2cbC3aE42d9a3a45F5eD53AB4C2cfF1ca2e06" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.aprMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xb2f82D0f38dc453D596Ad40A37799446Cc89274A" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.aprMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.aprMON],
+          spokeAddress: convertToGenericAddress(
+            "0x0093eB5058250f60F109f74991E1B78346DEd996" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.gMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xaEef2f6B429Cb59C9B2D7bB2141ADa993E8571c3" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.gMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.gMON],
+          spokeAddress: convertToGenericAddress(
+            "0x6dEee8955334a3608e536bc9ACcF710Fc0251166" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [TESTNET_FOLKS_TOKEN_ID.shMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x3a98250f98dd388c211206983453837c8365bdc1" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.shMON,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.shMON],
+          spokeAddress: convertToGenericAddress(
+            "0x728983074ab96AC83E972905C1C55C50A1997298" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -1577,11 +1640,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0xc9B5f7c38C6D7B11e45931BDEf92EDBeA84D3EDa" as EvmAddress,
             ChainType.EVM,
           ),
-          // TODO: uncomment when lane enabled between monad testnet and avalanche fuji
-          // [AdapterType.CCIP_DATA]: convertToGenericAddress(
-          //   "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
-          //   ChainType.EVM,
-          // ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0xb8e9C28Ac83Adf04b877c4F6a0d0302d42D1ACDa" as EvmAddress,
+            ChainType.EVM,
+          ),
         },
         [REWARDS_TYPE.V2]: {
           spokeRewardsCommonAddress: convertToGenericAddress(
