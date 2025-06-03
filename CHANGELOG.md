@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.79
+
+### Patch Changes
+
+- [#283](https://github.com/Folks-Finance/xchain-js-sdk/pull/283) [`fe9bbe5`](https://github.com/Folks-Finance/xchain-js-sdk/commit/fe9bbe5e8cb600af65fc277d97c7eec9f597d79a) Thanks [@palace22](https://github.com/palace22)! - Fix pol node id
+
 ## 0.0.78
 
 ### Patch Changes
