@@ -260,14 +260,14 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
-        [MAINNET_FOLKS_TOKEN_ID.aUSD]: {
+        [MAINNET_FOLKS_TOKEN_ID.aUSD_ava]: {
           token: {
             type: TokenType.ERC20,
             address: convertToGenericAddress("0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a" as EvmAddress, ChainType.EVM),
             decimals: 6,
           },
-          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD,
-          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD],
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD_ava,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD_ava],
           spokeAddress: convertToGenericAddress(
             "0x666aea026bC606220ec6eb83a83D81881fA48e0f" as EvmAddress,
             ChainType.EVM,

@@ -54,7 +54,8 @@ function encodeBalanceOfValue(amount: bigint, erc20Address?: EvmAddress) {
   // aUSD_ava
   if (
     erc20Address &&
-    erc20Address === getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.AVALANCHE, MAINNET_FOLKS_TOKEN_ID.aUSD)
+    erc20Address ===
+      getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.AVALANCHE, MAINNET_FOLKS_TOKEN_ID.aUSD_ava)
   )
     return encodeErc20AccountData({ isFrozen: false, amount });
   return encodeAbiParameters([{ type: "uint256" }], [amount]);

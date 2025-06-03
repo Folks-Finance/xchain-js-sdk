@@ -22,7 +22,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   POL: "POL",
   wBTC_pol: "wBTC_pol",
   wETH_pol: "wETH_pol",
-  aUSD: "aUSD",
+  aUSD_ava: "aUSD_ava",
   savUSD: "savUSD",
   wBTC_arb: "wBTC_arb",
   tBTC_arb: "tBTC_arb",
