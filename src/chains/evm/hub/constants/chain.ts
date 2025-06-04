@@ -685,6 +685,14 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
               decimals: 6,
             },
           },
+          [MAINNET_REWARDS_TOKEN_ID.POL]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.POL,
+            nodeId: "0x5ffc96dd95bbfe846c600fdd21d33f36e7236fee9344bb8b3f4edada887d26d4" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
+            },
+          },
         } satisfies Record<MainnetRewardsTokenId, HubRewardTokenData>,
       },
     },
