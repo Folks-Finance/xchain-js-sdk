@@ -51,11 +51,13 @@ export function getAllowanceStateOverride(allowanceStatesOverride: Array<Allowan
 }
 
 function encodeBalanceOfValue(amount: bigint, erc20Address?: EvmAddress) {
-  // aUSD_ava
+  // aUSD_ava or aUSD_pol
   if (
     erc20Address &&
-    erc20Address ===
-      getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.AVALANCHE, MAINNET_FOLKS_TOKEN_ID.aUSD_ava)
+    (erc20Address ===
+      getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.AVALANCHE, MAINNET_FOLKS_TOKEN_ID.aUSD_ava) ||
+      erc20Address ===
+        getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.POLYGON, MAINNET_FOLKS_TOKEN_ID.aUSD_pol))
   )
     return encodeErc20AccountData({ isFrozen: false, amount });
   return encodeAbiParameters([{ type: "uint256" }], [amount]);
