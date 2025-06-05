@@ -32,6 +32,18 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   wstETH_pol: "wstETH_pol",
   LINK_pol: "LINK_pol",
   MaticX: "MaticX",
+  ATH_eth: "ATH_eth",
+  pyUSD_eth: "pyUSD_eth",
+  rlUSD_eth: "rlUSD_eth",
+  wstETH_eth: "wstETH_eth",
+  weETH_eth: "weETH_eth",
+  AERO_base: "AERO_base",
+  cbETH_base: "cbETH_base",
+  wstETH_base: "wstETH_base",
+  weETH_base: "weETH_base",
+  VIRTUAL_base: "VIRTUAL_base",
+  KAITO_base: "KAITO_base",
+  aUSD_pol: "aUSD_pol",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
