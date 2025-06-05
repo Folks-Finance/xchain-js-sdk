@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.82
+
+### Patch Changes
+
+- [#281](https://github.com/Folks-Finance/xchain-js-sdk/pull/281) [`9735072`](https://github.com/Folks-Finance/xchain-js-sdk/commit/97350721c4e744290b50edb2099024a4d574cd0f) Thanks [@palace22](https://github.com/palace22)! - Added ATH_eth, pyUSD_eth, rlUSD_eth, wstETH_eth, weETH_eth, AERO_base, cbETH_base, wstETH_base, weETH_base, VIRTUAL_base, KAITO_base and aUSD_pol
+
 ## 0.0.81
 
 ### Patch Changes
