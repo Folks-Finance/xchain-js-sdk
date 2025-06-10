@@ -1,6 +1,6 @@
 import { REWARDS_TYPE } from "../../../../common/constants/reward.js";
 import { getSpokeRewardsCommonAddress } from "../../../../common/utils/chain.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
+import { getGasLimitEstimateIncrease } from "../../../../common/utils/messages.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
 import { getBridgeRouterSpokeContract, getSpokeRewardsV2CommonContract } from "../utils/contract.js";
 
@@ -41,7 +41,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: gasLimit + getGasLimitEstimateIncrease(spokeChain.folksChainId),
       messageParams: messageToSend.params,
       poolEpochs: poolEpochsToClaim,
       rewardTokens: rewardTokensToReceive,
