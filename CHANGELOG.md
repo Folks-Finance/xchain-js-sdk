@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.83
+
+### Patch Changes
+
+- [#290](https://github.com/Folks-Finance/xchain-js-sdk/pull/290) [`8758db7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8758db770114989521e8b7a859daa7d5a62e2029) Thanks [@gidonkatten](https://github.com/gidonkatten)! - only pass in epochs which have unclaimed rewards
+
 ## 0.0.82
 
 ### Patch Changes
