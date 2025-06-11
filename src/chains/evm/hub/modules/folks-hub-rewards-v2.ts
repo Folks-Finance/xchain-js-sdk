@@ -235,6 +235,47 @@ export async function getActiveEpochs(
   return activeEpochs;
 }
 
+export async function filterHistoricalEpochsForUnclaimed(
+  provider: Client,
+  network: NetworkType,
+  historicalEpochs: Epochs,
+  accountId: AccountId,
+): Promise<Epochs> {
+  const rewardsV2Address = getHubRewardAddress(network, REWARDS_TYPE.V2);
+  const rewardsV2 = getHubRewardsV2Contract(provider, rewardsV2Address);
+
+  // get account epoch points
+  const getAccountEpochPoints: Array<ContractFunctionParameters> = [];
+  for (const epochs of Object.values(historicalEpochs)) {
+    for (const { poolId, epochIndex } of epochs) {
+      getAccountEpochPoints.push({
+        address: rewardsV2.address,
+        abi: rewardsV2.abi,
+        functionName: "accountEpochPoints",
+        args: [accountId, poolId, epochIndex],
+      });
+    }
+  }
+  const accountEpochPoints = (await multicall(provider, {
+    contracts: getAccountEpochPoints,
+    allowFailure: false,
+  })) as Array<ReadContractReturnType<typeof HubRewardsV2Abi, "accountEpochPoints">>;
+
+  // build filtered epochs
+  const filteredEpochs: Epochs = {};
+  let i = 0;
+  for (const [folksTokenId, unfiltered] of Object.entries(historicalEpochs)) {
+    const filtered: Array<Epoch> = [];
+    for (const epoch of unfiltered) {
+      if (accountEpochPoints[i] > 0) filtered.push(epoch);
+      i++;
+    }
+    filteredEpochs[folksTokenId as FolksTokenId] = filtered;
+  }
+
+  return filteredEpochs;
+}
+
 export async function getUnclaimedRewards(
   provider: Client,
   network: NetworkType,
