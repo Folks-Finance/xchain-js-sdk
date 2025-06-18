@@ -24,7 +24,7 @@ import { bigIntMin, compoundEverySecond, increaseByPercent } from "../../../../c
 import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
 import {
   defaultEventParams,
-  GAS_LIMIT_ESTIMATE_INCREASE,
+  HUB_GAS_LIMIT_SLIPPAGE,
   RECEIVER_VALUE_SLIPPAGE,
   UPDATE_USER_POINTS_IN_LOANS_GAS_LIMIT_SLIPPAGE,
 } from "../../common/constants/contract.js";
@@ -110,7 +110,7 @@ export const prepare = {
     });
 
     return {
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: increaseByPercent(gasLimit, HUB_GAS_LIMIT_SLIPPAGE),
       hubAddress: hubChain.hubAddress,
       messageData,
     };
