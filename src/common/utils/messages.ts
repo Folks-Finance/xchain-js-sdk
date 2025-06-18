@@ -140,7 +140,7 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
             stateOverride,
           );
-          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation);
+          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
         }
         case AdapterType.WORMHOLE_CCTP: {
           const { sourceAdapterAddress, destAdapterAddress } = getAdaptersAddresses(
@@ -172,7 +172,7 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
             stateOverride,
           );
-          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
+          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
         }
         case AdapterType.CCIP_DATA: {
           const sourceCcipChainId = getCcipData(sourceFolksChainId).ccipChainId;
@@ -188,7 +188,7 @@ export async function estimateAdapterReceiveGasLimit(
             destAdapterAddress,
             sourceAdapterAddress,
           );
-          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation);
+          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
         }
         case AdapterType.CCIP_TOKEN: {
           const { sourceAdapterAddress, destAdapterAddress } = getAdaptersAddresses(
@@ -215,7 +215,7 @@ export async function estimateAdapterReceiveGasLimit(
             destAdapterAddress,
             sourceAdapterAddress,
           );
-          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
+          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
         }
         default:
           return exhaustiveCheck(adapterId);
@@ -455,11 +455,11 @@ export function decodeMessagePayloadData<A extends Action>(action: A, data: Hex)
   }
 }
 
-export function getGasLimitEstimateIncrease(
+export function getGasLimitAfterIncrease(
   folksChainId: FolksChainId,
   gasLimit: bigint,
   network: NetworkType = getNetworkFromFolksChainId(folksChainId),
 ): bigint {
   if (isHubChain(folksChainId, network)) return increaseByPercent(gasLimit, HUB_GAS_LIMIT_SLIPPAGE);
-  return GAS_LIMIT_ESTIMATE_INCREASE;
+  return gasLimit + GAS_LIMIT_ESTIMATE_INCREASE;
 }
