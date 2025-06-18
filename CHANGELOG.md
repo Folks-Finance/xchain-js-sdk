@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.84
+
+### Patch Changes
+
+- [#289](https://github.com/Folks-Finance/xchain-js-sdk/pull/289) [`85d77cc`](https://github.com/Folks-Finance/xchain-js-sdk/commit/85d77cc2ff7f1a5843b552fc2ff82ce7a87b26e3) Thanks [@palace22](https://github.com/palace22)! - Update gas limit estimation increase
+
 ## 0.0.83
 
 ### Patch Changes
