@@ -11,10 +11,7 @@ import {
 import { getTransactionReceipt } from "viem/actions";
 
 import { WormholeDataAdapterAbi } from "../../chains/evm/common/constants/abi/wormhole-data-adapter-abi.js";
-import {
-  GAS_LIMIT_ESTIMATE_HUB_INCREASE,
-  GAS_LIMIT_ESTIMATE_INCREASE,
-} from "../../chains/evm/common/constants/contract.js";
+import { GAS_LIMIT_ESTIMATE_INCREASE, HUB_GAS_LIMIT_SLIPPAGE } from "../../chains/evm/common/constants/contract.js";
 import {
   buildEvmMessageToSend,
   estimateEvmCcipDataGasLimit,
@@ -32,6 +29,7 @@ import { Action, AdapterType } from "../types/message.js";
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
 import { getCcipData, getWormholeData } from "./gmp.js";
+import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
 import type { PoolEpoch, ReceiveRewardToken } from "../../chains/evm/hub/types/rewards-v2.js";
@@ -110,7 +108,6 @@ export async function estimateAdapterReceiveGasLimit(
     adapterId,
     isRewards,
   );
-  const gasLimitEstimateIncrease = getGasLimitEstimateIncrease(destFolksChainId);
 
   switch (destFolksChain.chainType) {
     case ChainType.EVM: {
@@ -143,7 +140,7 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
             stateOverride,
           );
-          return gasLimitEstimation + gasLimitEstimateIncrease;
+          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation);
         }
         case AdapterType.WORMHOLE_CCTP: {
           const { sourceAdapterAddress, destAdapterAddress } = getAdaptersAddresses(
@@ -175,7 +172,7 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
             stateOverride,
           );
-          return gasLimitEstimation + ADAPTER_EXTRA_GAS_LIMIT + gasLimitEstimateIncrease;
+          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
         }
         case AdapterType.CCIP_DATA: {
           const sourceCcipChainId = getCcipData(sourceFolksChainId).ccipChainId;
@@ -191,7 +188,7 @@ export async function estimateAdapterReceiveGasLimit(
             destAdapterAddress,
             sourceAdapterAddress,
           );
-          return gasLimitEstimation + gasLimitEstimateIncrease;
+          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation);
         }
         case AdapterType.CCIP_TOKEN: {
           const { sourceAdapterAddress, destAdapterAddress } = getAdaptersAddresses(
@@ -218,7 +215,7 @@ export async function estimateAdapterReceiveGasLimit(
             destAdapterAddress,
             sourceAdapterAddress,
           );
-          return gasLimitEstimation + ADAPTER_EXTRA_GAS_LIMIT + gasLimitEstimateIncrease;
+          return getGasLimitEstimateIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
         }
         default:
           return exhaustiveCheck(adapterId);
@@ -460,8 +457,9 @@ export function decodeMessagePayloadData<A extends Action>(action: A, data: Hex)
 
 export function getGasLimitEstimateIncrease(
   folksChainId: FolksChainId,
+  gasLimit: bigint,
   network: NetworkType = getNetworkFromFolksChainId(folksChainId),
 ): bigint {
-  if (isHubChain(folksChainId, network)) return GAS_LIMIT_ESTIMATE_HUB_INCREASE;
+  if (isHubChain(folksChainId, network)) return increaseByPercent(gasLimit, HUB_GAS_LIMIT_SLIPPAGE);
   return GAS_LIMIT_ESTIMATE_INCREASE;
 }
