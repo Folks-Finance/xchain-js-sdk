@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.85
+
+### Patch Changes
+
+- [#294](https://github.com/Folks-Finance/xchain-js-sdk/pull/294) [`e70a224`](https://github.com/Folks-Finance/xchain-js-sdk/commit/e70a2240ecbc2b8e70f1adc49d4fefd0bdcf5e41) Thanks [@palace22](https://github.com/palace22)! - Added USDT on ava, eth and pol, USDT0 on arb
+
 ## 0.0.84
 
 ### Patch Changes
