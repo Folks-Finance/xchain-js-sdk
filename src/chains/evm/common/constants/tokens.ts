@@ -53,6 +53,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 3n,
         allowance: 4n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.USDT_ava]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -88,6 +92,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.weETH_eth]: {
         balanceOf: 101n,
         allowance: 102n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT_eth]: {
+        balanceOf: 2n,
+        allowance: 5n,
       },
     },
   },
@@ -185,6 +193,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 9n,
         allowance: 10n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.USDT0_arb]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.POLYGON]: {
@@ -216,6 +228,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.aUSD_pol]: {
         balanceOf: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402496"),
         allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT_pol]: {
+        balanceOf: 0n,
+        allowance: 1n,
       },
     },
   },

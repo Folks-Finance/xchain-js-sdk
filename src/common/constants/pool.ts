@@ -46,6 +46,10 @@ export const MAINNET_POOLS = {
   [MAINNET_FOLKS_TOKEN_ID.VIRTUAL_base]: 41,
   [MAINNET_FOLKS_TOKEN_ID.KAITO_base]: 42,
   [MAINNET_FOLKS_TOKEN_ID.aUSD_pol]: 43,
+  [MAINNET_FOLKS_TOKEN_ID.USDT_ava]: 44,
+  [MAINNET_FOLKS_TOKEN_ID.USDT_eth]: 45,
+  [MAINNET_FOLKS_TOKEN_ID.USDT_pol]: 46,
+  [MAINNET_FOLKS_TOKEN_ID.USDT0_arb]: 47,
 } as const satisfies Record<MainnetFolksTokenId, number>;
 
 export const TESTNET_POOLS = {
