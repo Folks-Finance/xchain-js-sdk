@@ -8,10 +8,14 @@ import {
   toHex,
 } from "viem";
 
-import { ChainType } from "../../../../common/types/chain.js";
+import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
+import { ChainType, NetworkType } from "../../../../common/types/chain.js";
+import { MAINNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
 import { convertFromGenericAddress } from "../../../../common/utils/address.js";
+import { getSpokeEvmTokenAddress } from "../../spoke/utils/contract.js";
 import { CCIPDataAdapterAbi } from "../constants/abi/ccip-data-adapter-abi.js";
 import { ERC20Abi } from "../constants/abi/erc-20-abi.js";
+import { USDtEthereumAbi } from "../constants/abi/usdt-eth-abi.js";
 import { WormholeDataAdapterAbi } from "../constants/abi/wormhole-data-adapter-abi.js";
 import { IWormholeRelayerAbi } from "../constants/abi/wormhole-relayer-abi.js";
 
@@ -21,10 +25,20 @@ import type { EvmAddress, GenericAddress } from "../../../../common/types/addres
 import type { GetReadContractReturnType } from "../types/contract.js";
 import type { Client, GetContractReturnType, Hex, WalletClient } from "viem";
 
-export function getERC20Contract(provider: Client, address: GenericAddress, signer: WalletClient) {
+export function getERC20Contract(
+  provider: Client,
+  genericAddress: GenericAddress,
+  signer: WalletClient,
+): GetContractReturnType<typeof ERC20Abi | typeof USDtEthereumAbi, Client> {
+  const address = convertFromGenericAddress<ChainType.EVM>(genericAddress, ChainType.EVM);
+  const abi =
+    address === getSpokeEvmTokenAddress(NetworkType.MAINNET, FOLKS_CHAIN_ID.ETHEREUM, MAINNET_FOLKS_TOKEN_ID.USDT_eth)
+      ? USDtEthereumAbi
+      : ERC20Abi;
+
   return getContract({
-    abi: ERC20Abi,
-    address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
+    abi,
+    address,
     client: { wallet: signer, public: provider },
   });
 }
