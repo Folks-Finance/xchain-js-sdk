@@ -1,5 +1,35 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.85
+
+### Patch Changes
+
+- [#294](https://github.com/Folks-Finance/xchain-js-sdk/pull/294) [`e70a224`](https://github.com/Folks-Finance/xchain-js-sdk/commit/e70a2240ecbc2b8e70f1adc49d4fefd0bdcf5e41) Thanks [@palace22](https://github.com/palace22)! - Added USDT on ava, eth and pol, USDT0 on arb
+
+## 0.0.84
+
+### Patch Changes
+
+- [#289](https://github.com/Folks-Finance/xchain-js-sdk/pull/289) [`85d77cc`](https://github.com/Folks-Finance/xchain-js-sdk/commit/85d77cc2ff7f1a5843b552fc2ff82ce7a87b26e3) Thanks [@palace22](https://github.com/palace22)! - Update gas limit estimation increase
+
+## 0.0.83
+
+### Patch Changes
+
+- [#290](https://github.com/Folks-Finance/xchain-js-sdk/pull/290) [`8758db7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8758db770114989521e8b7a859daa7d5a62e2029) Thanks [@gidonkatten](https://github.com/gidonkatten)! - only pass in epochs which have unclaimed rewards
+
+## 0.0.82
+
+### Patch Changes
+
+- [#281](https://github.com/Folks-Finance/xchain-js-sdk/pull/281) [`9735072`](https://github.com/Folks-Finance/xchain-js-sdk/commit/97350721c4e744290b50edb2099024a4d574cd0f) Thanks [@palace22](https://github.com/palace22)! - Added ATH_eth, pyUSD_eth, rlUSD_eth, wstETH_eth, weETH_eth, AERO_base, cbETH_base, wstETH_base, weETH_base, VIRTUAL_base, KAITO_base and aUSD_pol
+
+## 0.0.81
+
+### Patch Changes
+
+- [#286](https://github.com/Folks-Finance/xchain-js-sdk/pull/286) [`f771d34`](https://github.com/Folks-Finance/xchain-js-sdk/commit/f771d344c32d90b49f748d2f756aa94275c78770) Thanks [@palace22](https://github.com/palace22)! - Increased gas limit estimate
+
 ## 0.0.80
 
 ### Patch Changes

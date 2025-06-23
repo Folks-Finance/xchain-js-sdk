@@ -4,7 +4,7 @@ import { ChainType } from "../../../../common/types/chain.js";
 import { TokenType } from "../../../../common/types/token.js";
 import { convertFromGenericAddress } from "../../../../common/utils/address.js";
 import { calcNextPeriodReset, calcPeriodNumber } from "../../../../common/utils/formulae.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
+import { getGasLimitAfterIncrease } from "../../../../common/utils/messages.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
 import { sendERC20Approve } from "../../common/utils/contract.js";
 import { getAllowanceStateOverride } from "../../common/utils/tokens.js";
@@ -61,7 +61,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };
@@ -92,7 +92,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };
@@ -154,7 +154,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeTokenData: spokeTokenData,
     };
@@ -211,7 +211,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeTokenData: spokeTokenData,
     };
@@ -251,7 +251,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };
@@ -291,7 +291,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };
@@ -352,7 +352,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeTokenData: spokeTokenData,
     };
@@ -391,7 +391,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };
@@ -430,7 +430,7 @@ export const prepare = {
 
     return {
       msgValue,
-      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      gasLimit: getGasLimitAfterIncrease(spokeChain.folksChainId, gasLimit),
       messageParams: messageToSend.params,
       spokeCommonAddress,
     };

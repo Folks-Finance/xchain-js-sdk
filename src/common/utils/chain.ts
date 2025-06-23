@@ -1,13 +1,13 @@
 import { getEvmSignerAddress } from "../../chains/evm/common/utils/chain.js";
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
-import { FOLKS_CHAIN, SPOKE_CHAIN } from "../constants/chain.js";
-import { ChainType } from "../types/chain.js";
+import { FOLKS_CHAIN, MAINNET_FOLKS_CHAIN_ID, SPOKE_CHAIN } from "../constants/chain.js";
+import { ChainType, NetworkType } from "../types/chain.js";
 
 import { convertToGenericAddress } from "./address.js";
 
 import type { GenericAddress } from "../types/address.js";
-import type { FolksChain, FolksChainId, NetworkType, SpokeChain } from "../types/chain.js";
+import type { FolksChain, FolksChainId, SpokeChain } from "../types/chain.js";
 import type { FolksChainSigner } from "../types/core.js";
 import type { AdapterType } from "../types/message.js";
 import type { SpokeRewardTokenData } from "../types/rewards-v2.js";
@@ -27,6 +27,12 @@ export function getFolksChainsByNetwork(network: NetworkType): Array<FolksChain>
 
 export function getFolksChainIdsByNetwork(networkType: NetworkType): Array<FolksChainId> {
   return getFolksChainsByNetwork(networkType).map((folksChain) => folksChain.folksChainId);
+}
+
+export function getNetworkFromFolksChainId(folksChainId: FolksChainId): NetworkType {
+  // @ts-expect-error: ts(2345)
+  if (Object.values(MAINNET_FOLKS_CHAIN_ID).includes(folksChainId)) return NetworkType.MAINNET;
+  return NetworkType.TESTNET;
 }
 
 export function isSpokeChainSupported(folksChainId: FolksChainId, network: NetworkType): boolean {

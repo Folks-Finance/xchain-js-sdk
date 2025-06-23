@@ -27,7 +27,7 @@ The official JavaScript SDK for the Folks Finance Cross-Chain Lending Protocol.
 Before diving into the SDK, we recommend familiarizing yourself with the Folks Finance Cross-Chain Lending Protocol:
 
 - Explore our [comprehensive documentation](https://docs.xapp.folks.finance/?utm_source=github&utm_medium=sdk-readme&utm_campaign=xchain-sdk) for in-depth information about the protocol and its features.
-- Access additional resources and materials in our [Google Drive folder](https://drive.google.com/drive/folders/1P-C_V28JlIJNmoUH6pUKVgVpIfZYQYn5?usp=drive_link).
+- Access additional resources and materials in our [Google Drive folder](https://drive.google.com/drive/folders/1qy_GaKRysXFt0waNhudBM2teEaI5xu8m?usp=drive_link).
 
 ### Installation
 

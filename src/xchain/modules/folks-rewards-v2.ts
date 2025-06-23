@@ -1,6 +1,7 @@
 import * as dn from "dnum";
 
 import {
+  filterHistoricalEpochsForUnclaimed,
   getActiveEpochs,
   getHistoricalEpochs,
   getUnclaimedRewards,
@@ -288,6 +289,15 @@ export const read = {
       ? folksTokenIds.map((folksTokenId) => getHubTokenData(folksTokenId, network))
       : Object.values(getHubTokensData(network));
     return getActiveEpochs(FolksCore.getHubProvider(), FolksCore.getSelectedNetwork(), tokensData);
+  },
+
+  async unclaimedHistoricalEpochs(accountId: AccountId): Promise<Epochs> {
+    return filterHistoricalEpochsForUnclaimed(
+      FolksCore.getHubProvider(),
+      FolksCore.getSelectedNetwork(),
+      await this.historicalEpochs(),
+      accountId,
+    );
   },
 
   unclaimedRewards(accountId: AccountId, historicalEpochs: Epochs): Promise<UnclaimedRewards> {
