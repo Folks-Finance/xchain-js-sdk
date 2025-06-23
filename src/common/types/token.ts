@@ -44,6 +44,10 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   VIRTUAL_base: "VIRTUAL_base",
   KAITO_base: "KAITO_base",
   aUSD_pol: "aUSD_pol",
+  USDT_ava: "USDT_ava",
+  USDT_eth: "USDT_eth",
+  USDT_pol: "USDT_pol",
+  USDT0_arb: "USDT0_arb",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
