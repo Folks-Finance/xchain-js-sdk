@@ -1,5 +1,17 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.87
+
+### Patch Changes
+
+- [#298](https://github.com/Folks-Finance/xchain-js-sdk/pull/298) [`a4c817a`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a4c817aa7d30953923ea19eb673f8d5efa1927b9) Thanks [@palace22](https://github.com/palace22)! - Added USDT0 arb reward token
+
+## 0.0.86
+
+### Patch Changes
+
+- [#296](https://github.com/Folks-Finance/xchain-js-sdk/pull/296) [`fe6d7a7`](https://github.com/Folks-Finance/xchain-js-sdk/commit/fe6d7a74d57e93cd1fd2efd1222b51661fe3903e) Thanks [@palace22](https://github.com/palace22)! - Fixed USDt eth abi
+
 ## 0.0.85
 
 ### Patch Changes
