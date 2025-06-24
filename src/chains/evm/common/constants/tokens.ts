@@ -197,6 +197,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 51n,
         allowance: 52n,
       },
+      [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.POLYGON]: {
