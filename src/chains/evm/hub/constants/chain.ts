@@ -300,6 +300,18 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.AVAX_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
+        token: {
+          type: TokenType.CROSS_CHAIN,
+          adapters: [AdapterType.HUB, AdapterType.CCIP_TOKEN],
+          address: convertToGenericAddress("0x2f643d728926C20269f0A04931dd7b4b6B650204" as EvmAddress, ChainType.EVM),
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.SHIB,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SHIB],
+        poolAddress: convertToGenericAddress("0x9f59642C6733397dF5c2696D3Ac9ceb431b1b573" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
       [MAINNET_FOLKS_TOKEN_ID.POL]: {
         token: {
           type: TokenType.NATIVE,
