@@ -66,6 +66,7 @@ export const TESTNET_POOLS = {
   [TESTNET_FOLKS_TOKEN_ID.aprMON]: 139,
   [TESTNET_FOLKS_TOKEN_ID.gMON]: 140,
   [TESTNET_FOLKS_TOKEN_ID.shMON]: 141,
+  [TESTNET_FOLKS_TOKEN_ID.SEI]: 142,
 } as const satisfies Record<TestnetFolksTokenId, number>;
 
 const MAINNET_FOLKS_TOKEN_IDS_FROM_POOL = Object.fromEntries(
