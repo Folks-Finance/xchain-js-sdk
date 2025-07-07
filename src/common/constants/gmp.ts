@@ -56,6 +56,10 @@ export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
     wormholeChainId: 48,
     wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
   },
+  [FOLKS_CHAIN_ID.SEI_TESTNET]: {
+    wormholeChainId: 40,
+    wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
+  },
 };
 
 export const CCIP_DATA: Record<FolksChainId, CCIPData> = {
@@ -106,5 +110,9 @@ export const CCIP_DATA: Record<FolksChainId, CCIPData> = {
   [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
     ccipChainId: BigInt("2183018362218727504"),
     ccipRouter: convertToGenericAddress("0x5f16e51e3Dcb255480F090157DD01bA962a53E54" as EvmAddress, ChainType.EVM),
+  },
+  [FOLKS_CHAIN_ID.SEI_TESTNET]: {
+    ccipChainId: BigInt("1216300075444106652"),
+    ccipRouter: convertToGenericAddress("0x59F5222c5d77f8D3F56e34Ff7E75A05d2cF3a98A" as EvmAddress, ChainType.EVM),
   },
 };
