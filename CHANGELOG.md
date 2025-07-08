@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.88
+
+### Patch Changes
+
+- [#300](https://github.com/Folks-Finance/xchain-js-sdk/pull/300) [`823c85e`](https://github.com/Folks-Finance/xchain-js-sdk/commit/823c85ea5a981203138bee1213b194f7a5a2adfd) Thanks [@palace22](https://github.com/palace22)! - Added SEI Testnet
+
 ## 0.0.87
 
 ### Patch Changes
