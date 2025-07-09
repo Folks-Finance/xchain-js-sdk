@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.89
+
+### Patch Changes
+
+- [#302](https://github.com/Folks-Finance/xchain-js-sdk/pull/302) [`cfa7449`](https://github.com/Folks-Finance/xchain-js-sdk/commit/cfa7449235e94d8c4b8af813299a3cbe0a34d8f9) Thanks [@palace22](https://github.com/palace22)! - Added multicall address const
+
 ## 0.0.88
 
 ### Patch Changes
