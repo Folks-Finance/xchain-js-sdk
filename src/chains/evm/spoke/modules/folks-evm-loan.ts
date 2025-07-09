@@ -5,6 +5,7 @@ import { TokenType } from "../../../../common/types/token.js";
 import { convertFromGenericAddress } from "../../../../common/utils/address.js";
 import { calcNextPeriodReset, calcPeriodNumber } from "../../../../common/utils/formulae.js";
 import { getGasLimitAfterIncrease } from "../../../../common/utils/messages.js";
+import { MULTICALL_ADDRESS } from "../../common/constants/address.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
 import { sendERC20Approve } from "../../common/utils/contract.js";
 import { getAllowanceStateOverride } from "../../common/utils/tokens.js";
@@ -720,6 +721,7 @@ export const read = {
         },
       ],
       allowFailure: false,
+      multicallAddress: MULTICALL_ADDRESS,
     });
 
     // TODO consider min limit
