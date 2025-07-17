@@ -36,6 +36,17 @@ export function getFolksTokenContractSlot(
   return folksTokenContractSlot;
 }
 
+function getFolksTokenBalanceOfContractSlot(
+  folksChainId: EvmFolksChainId,
+  folksTokenId: LendingTokenId | RewardsTokenId,
+) {
+  const { balanceOf } = getFolksTokenContractSlot(folksChainId, folksTokenId);
+  if (balanceOf === undefined) {
+    throw new Error(`Folks token ${folksTokenId} does not have a balanceOf slot defined for chain ${folksChainId}`);
+  }
+  return balanceOf;
+}
+
 export function getAllowanceStateOverride(allowanceStatesOverride: Array<AllowanceStateOverride>): StateOverride {
   return allowanceStatesOverride.map((aso) => ({
     address: aso.erc20Address,
@@ -67,7 +78,7 @@ export function getBalanceOfStateOverride(balanceOfStatesOverride: Array<Balance
   return balanceOfStatesOverride.map((bso) => ({
     address: bso.erc20Address,
     stateDiff: bso.stateDiff.map((sd) => ({
-      slot: getBalanceOfSlotHash(sd.owner, getFolksTokenContractSlot(sd.folksChainId, sd.folksTokenId).balanceOf),
+      slot: getBalanceOfSlotHash(sd.owner, getFolksTokenBalanceOfContractSlot(sd.folksChainId, sd.folksTokenId)),
       value: encodeBalanceOfValue(sd.amount, bso.erc20Address),
     })),
   }));

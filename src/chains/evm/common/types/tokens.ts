@@ -4,7 +4,7 @@ import type { RewardsTokenId } from "../../../../common/types/rewards.js";
 import type { FolksTokenId as LendingTokenId, TokenType } from "../../../../common/types/token.js";
 
 export type Erc20ContractSlot = {
-  balanceOf: bigint;
+  balanceOf?: bigint;
   allowance: bigint;
 };
 
