@@ -10,6 +10,7 @@ import {
   mainnet,
   monadTestnet,
   polygon,
+  sei,
   seiTestnet,
   sepolia,
 } from "viem/chains";
@@ -60,6 +61,7 @@ export const MAINNET_EVM_FOLKS_CHAIN_ID = {
   BSC: 103,
   ARBITRUM: 104,
   POLYGON: 106,
+  SEI: 107,
 } as const;
 
 export const TESTNET_EVM_FOLKS_CHAIN_ID = {
@@ -84,6 +86,7 @@ export const MAINNET_CHAIN_VIEM = {
   [EVM_FOLKS_CHAIN_ID.BSC]: bsc,
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: arbitrum,
   [EVM_FOLKS_CHAIN_ID.POLYGON]: polygon,
+  [EVM_FOLKS_CHAIN_ID.SEI]: sei,
 } as const;
 export const TESTNET_CHAIN_VIEM = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: avalancheFuji,
@@ -106,6 +109,7 @@ export const MAINNET_CHAIN_NODE = {
   [EVM_FOLKS_CHAIN_ID.BSC]: [...bsc.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: [...arbitrum.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.POLYGON]: [...polygon.rpcUrls.default.http],
+  [EVM_FOLKS_CHAIN_ID.SEI]: [...sei.rpcUrls.default.http],
 };
 export const TESTNET_CHAIN_NODE = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: [...avalancheFuji.rpcUrls.default.http],

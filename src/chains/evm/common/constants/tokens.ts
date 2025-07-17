@@ -18,15 +18,12 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.sAVAX]: {
-        balanceOf: 203n,
         allowance: 204n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wETH_ava]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.BTCb_ava]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
@@ -34,11 +31,9 @@ export const CONTRACT_SLOT: Partial<
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [MAINNET_FOLKS_TOKEN_ID.JOE]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.ggAVAX]: {
-        balanceOf: 5n,
         allowance: 6n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SHIB]: {
@@ -46,19 +41,15 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.aUSD_ava]: {
-        balanceOf: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402496"),
         allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
       },
       [MAINNET_FOLKS_TOKEN_ID.savUSD]: {
-        balanceOf: 4n,
         allowance: 5n,
       },
       [MAINNET_REWARDS_TOKEN_ID.GoGoPool]: {
-        balanceOf: 3n,
         allowance: 4n,
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT_ava]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
     },
@@ -70,7 +61,6 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wBTC_eth]: {
-        balanceOf: 0n,
         allowance: 2n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
@@ -82,27 +72,21 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.ATH_eth]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.pyUSD_eth]: {
-        balanceOf: 1n,
         allowance: 3n,
       },
       [MAINNET_FOLKS_TOKEN_ID.rlUSD_eth]: {
-        balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [MAINNET_FOLKS_TOKEN_ID.wstETH_eth]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.weETH_eth]: {
-        balanceOf: 101n,
         allowance: 102n,
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT_eth]: {
-        balanceOf: 2n,
         allowance: 5n,
       },
     },
@@ -114,7 +98,6 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.cbBTC_base]: {
-        balanceOf: 1n,
         allowance: 2n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
@@ -126,27 +109,21 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.AERO_base]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.cbETH_base]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wstETH_base]: {
-        balanceOf: 1n,
         allowance: 2n,
       },
       [MAINNET_FOLKS_TOKEN_ID.weETH_base]: {
-        balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [MAINNET_FOLKS_TOKEN_ID.VIRTUAL_base]: {
-        balanceOf: 5n,
         allowance: 6n,
       },
       [MAINNET_FOLKS_TOKEN_ID.KAITO_base]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
     },
@@ -154,11 +131,9 @@ export const CONTRACT_SLOT: Partial<
   [EVM_FOLKS_CHAIN_ID.BSC]: {
     erc20: {
       [MAINNET_FOLKS_TOKEN_ID.ETHB_bsc]: {
-        balanceOf: 1n,
         allowance: 2n,
       },
       [MAINNET_FOLKS_TOKEN_ID.BTCB_bsc]: {
-        balanceOf: 9n,
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
@@ -178,7 +153,6 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.ARB]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_FOLKS_TOKEN_ID.SolvBTC]: {
@@ -190,35 +164,27 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wBTC_arb]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wstETH_arb]: {
-        balanceOf: 1n,
         allowance: 2n,
       },
       [MAINNET_FOLKS_TOKEN_ID.weETH_arb]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_FOLKS_TOKEN_ID.rsETH_arb]: {
-        balanceOf: 5n,
         allowance: 6n,
       },
       [MAINNET_FOLKS_TOKEN_ID.tBTC_arb]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_REWARDS_TOKEN_ID.USDC_arb]: {
-        balanceOf: 9n,
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT0_arb]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
       [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
-        balanceOf: 51n,
         allowance: 52n,
       },
     },
@@ -230,32 +196,41 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wBTC_pol]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wETH_pol]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wstETH_pol]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.LINK_pol]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.MaticX]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [MAINNET_FOLKS_TOKEN_ID.aUSD_pol]: {
-        balanceOf: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402496"),
         allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT_pol]: {
-        balanceOf: 0n,
         allowance: 1n,
+      },
+    },
+  },
+  [EVM_FOLKS_CHAIN_ID.SEI]: {
+    erc20: {
+      [MAINNET_FOLKS_TOKEN_ID.iSEI]: {
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT0_sei]: {
+        allowance: 52n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wETH_sei]: {
+        allowance: 2n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_sei]: {
+        allowance: 6n,
       },
     },
   },
@@ -282,7 +257,6 @@ export const CONTRACT_SLOT: Partial<
         allowance: 1n,
       },
       [TESTNET_REWARDS_TOKEN_ID.USDC_base_sep]: {
-        balanceOf: 9n,
         allowance: 10n,
       },
     },
@@ -306,7 +280,6 @@ export const CONTRACT_SLOT: Partial<
         allowance: 10n,
       },
       [TESTNET_FOLKS_TOKEN_ID.LINK_eth_sep]: {
-        balanceOf: 0n,
         allowance: 1n,
       },
       [TESTNET_FOLKS_TOKEN_ID.CCIP_BnM]: {
@@ -326,19 +299,15 @@ export const CONTRACT_SLOT: Partial<
   [EVM_FOLKS_CHAIN_ID.MONAD_TESTNET]: {
     erc20: {
       [TESTNET_FOLKS_TOKEN_ID.sMON]: {
-        balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [TESTNET_FOLKS_TOKEN_ID.aprMON]: {
-        balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [TESTNET_FOLKS_TOKEN_ID.gMON]: {
-        balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [TESTNET_FOLKS_TOKEN_ID.shMON]: {
-        balanceOf: 3n,
         allowance: 4n,
       },
     },
