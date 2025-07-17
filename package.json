@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "dnum": "^2.13.1",
-    "viem": "^2.23.2"
+    "viem": "^2.32.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
