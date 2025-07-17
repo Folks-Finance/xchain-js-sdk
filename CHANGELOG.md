@@ -1,5 +1,15 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.90
+
+### Patch Changes
+
+- [#305](https://github.com/Folks-Finance/xchain-js-sdk/pull/305) [`1bdefdd`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1bdefdd2a2ca60d0f4678dc750a34b07646aefd3) Thanks [@palace22](https://github.com/palace22)! - Updated viem to 2.32.0
+
+- [#304](https://github.com/Folks-Finance/xchain-js-sdk/pull/304) [`526860f`](https://github.com/Folks-Finance/xchain-js-sdk/commit/526860f747b0335de0d87d6967f9396d40ce7ebe) Thanks [@palace22](https://github.com/palace22)! - Added Sei network with SEI, iSEI, USDT0, wETH, wBTC
+
+- [#306](https://github.com/Folks-Finance/xchain-js-sdk/pull/306) [`a25694c`](https://github.com/Folks-Finance/xchain-js-sdk/commit/a25694c76bff866a386a2a744295b812754f21ff) Thanks [@palace22](https://github.com/palace22)! - Refactored balance of override
+
 ## 0.0.89
 
 ### Patch Changes
