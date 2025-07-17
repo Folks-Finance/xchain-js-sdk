@@ -537,7 +537,7 @@ export async function estimateEvmCcipDataGasLimit(
 
 export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs: OverrideTokenData) {
   const { folksTokenId, amount, address, token } = extraArgs;
-  if (token.type === TokenType.CROSS_CHAIN || token.type === TokenType.ERC20) {
+  if (token.type === TokenType.CROSS_CHAIN) {
     const erc20Address = convertFromGenericAddress(token.address, ChainType.EVM);
     return getBalanceOfStateOverride([
       {
