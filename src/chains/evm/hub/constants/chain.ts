@@ -687,6 +687,76 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.SEI]: {
+        token: {
+          type: TokenType.NATIVE,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.SEI,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SEI],
+        poolAddress: convertToGenericAddress("0x63EFdA4bf91Ba13D678C58AF47304e6180dD46DF" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.SEI_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.iSEI]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 6,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.iSEI,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.iSEI],
+        poolAddress: convertToGenericAddress("0x2B7995fd223dCf3A660Cc5a514349E3fa7B16168" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.SEI_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT0_sei]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 6,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.USDT0_sei,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDT0_sei],
+        poolAddress: convertToGenericAddress("0x213299AC40Ce76117C2c4B13945D9d935686BB85" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wETH_sei]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.wETH_sei,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wETH_sei],
+        poolAddress: convertToGenericAddress("0x9A102080970043B96773c15E6520d182565C68Ff" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.ETH_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_sei]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 8,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.wBTC_sei,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wBTC_sei],
+        poolAddress: convertToGenericAddress("0x7Cd4afD7F4DB51A0bF06Bf4630752A5B28e0B6C1" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.BTC_EFFICIENCY,
+        ]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
@@ -755,6 +825,14 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
             token: {
               type: TokenType.ERC20,
               decimals: 6,
+            },
+          },
+          [MAINNET_REWARDS_TOKEN_ID.SEI]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.SEI,
+            nodeId: "0xf7ed066f440ac578f2cf837e716771774372adc372b9c59e461cb92a13f6db38" as NodeId,
+            token: {
+              type: TokenType.NATIVE,
+              decimals: 18,
             },
           },
         } satisfies Record<MainnetRewardsTokenId, HubRewardTokenData>,

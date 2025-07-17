@@ -10,6 +10,7 @@ import {
   mainnet,
   monadTestnet,
   polygon,
+  sei,
   seiTestnet,
   sepolia,
 } from "viem/chains";
@@ -88,6 +89,13 @@ export const FOLKS_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Folks
       folksChainId: FOLKS_CHAIN_ID.POLYGON,
       chainName: polygon.name,
       chainId: polygon.id,
+      network: NetworkType.MAINNET,
+    },
+    [FOLKS_CHAIN_ID.SEI]: {
+      chainType: ChainType.EVM,
+      folksChainId: FOLKS_CHAIN_ID.SEI,
+      chainName: sei.name,
+      chainId: sei.id,
       network: NetworkType.MAINNET,
     },
   } satisfies Record<MainnetFolksChainId, FolksChain>,
@@ -1215,6 +1223,132 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
               rewardTokenId: MAINNET_REWARDS_TOKEN_ID.POL,
               spokeAddress: convertToGenericAddress(
                 "0xCD7eE494fa616FDbE38Aa0A9355E20b7215108Bf" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.NATIVE,
+                decimals: 18,
+              },
+            },
+          },
+        },
+      },
+    },
+    [FOLKS_CHAIN_ID.SEI]: {
+      folksChainId: FOLKS_CHAIN_ID.SEI,
+      spokeCommonAddress: convertToGenericAddress(
+        "0xc7bc4A43384f84B8FC937Ab58173Edab23a4c3cD" as EvmAddress,
+        ChainType.EVM,
+      ),
+      bridgeRouterAddress: convertToGenericAddress(
+        "0xF854AC65A40f1EabFD32E6D4C7d0E1c4B1753Cc5" as EvmAddress,
+        ChainType.EVM,
+      ),
+      adapters: {
+        [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+          "0xCda75578328D0CB0e79dB7797289c44fa02a77ad" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          "0xeB48a1eE43B91959A1686b70B7Cd482c65DE69c9" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.CCIP_TOKEN]: convertToGenericAddress(
+          "0x5C60f12838b8E3EEB525F299cD7C454c989dd04e" as EvmAddress,
+          ChainType.EVM,
+        ),
+      },
+      tokens: {
+        [MAINNET_FOLKS_TOKEN_ID.SEI]: {
+          token: {
+            type: TokenType.NATIVE,
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.SEI,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SEI],
+          spokeAddress: convertToGenericAddress(
+            "0x5f2F4771B7dc7e2F7E9c1308B154E1e8957ecAB0" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.iSEI]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x5Cf6826140C1C56Ff49C808A1A75407Cd1DF9423" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.iSEI,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.iSEI],
+          spokeAddress: convertToGenericAddress(
+            "0x4Db12F554623E4B0b3F5bAcF1c8490D4493380A5" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.USDT0_sei]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x9151434b16b9763660705744891fA906F660EcC5" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.USDT0_sei,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDT0_sei],
+          spokeAddress: convertToGenericAddress(
+            "0x12Db9758c4D9902334C523b94e436258EB54156f" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wETH_sei]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x160345fc359604fc6e70e3c5facbde5f7a9342d8" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wETH_sei,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wETH_sei],
+          spokeAddress: convertToGenericAddress(
+            "0x802063A23E78D0f5D158feaAc605028Ee490b03b" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wBTC_sei]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x0555E30da8f98308EdB960aa94C0Db47230d2B9c" as EvmAddress, ChainType.EVM),
+            decimals: 8,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wBTC_sei,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wBTC_sei],
+          spokeAddress: convertToGenericAddress(
+            "0x7218Bd1050D41A9ECfc517abdd294FB8116aEe81" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+      },
+      rewards: {
+        bridgeRouterAddress: convertToGenericAddress(
+          "0x0700B2cB26688C035bd5dBbdA070Be408c20779c" as EvmAddress,
+          ChainType.EVM,
+        ),
+        adapters: {
+          [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
+            "0x57D77FD37670e22188d1c92D7cEc931bccf074A4" as EvmAddress,
+            ChainType.EVM,
+          ),
+          [AdapterType.CCIP_DATA]: convertToGenericAddress(
+            "0x37d761883a01e9F0B0d7fe59EEC8c21D94393CDD" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [REWARDS_TYPE.V2]: {
+          spokeRewardsCommonAddress: convertToGenericAddress(
+            "0x1b2a8d56967d00700DD5C94E27B1a116a1deF8Df" as EvmAddress,
+            ChainType.EVM,
+          ),
+          tokens: {
+            [MAINNET_REWARDS_TOKEN_ID.SEI]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.SEI,
+              spokeAddress: convertToGenericAddress(
+                "0x531490B7674ef239C9FEC39d2Cf3Cc10645d14d4" as EvmAddress,
                 ChainType.EVM,
               ),
               token: {

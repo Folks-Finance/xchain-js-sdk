@@ -239,6 +239,26 @@ export const CONTRACT_SLOT: Partial<
       },
     },
   },
+  [EVM_FOLKS_CHAIN_ID.SEI]: {
+    erc20: {
+      [MAINNET_FOLKS_TOKEN_ID.iSEI]: {
+        balanceOf: 0n, // placeholder
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT0_sei]: {
+        balanceOf: 51n,
+        allowance: 52n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wETH_sei]: {
+        balanceOf: 1n,
+        allowance: 2n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_sei]: {
+        balanceOf: 5n,
+        allowance: 6n,
+      },
+    },
+  },
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: {
     erc20: {
       [TESTNET_FOLKS_TOKEN_ID.USDC]: {
