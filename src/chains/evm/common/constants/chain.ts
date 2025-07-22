@@ -18,7 +18,7 @@ import {
 import type { EvmChainName, EvmFolksChainId } from "../types/chain.js";
 import type { Chain } from "viem";
 
-export const MAINNET_EVM_CHAIN_NAMES = ["AVALANCHE", "ETHEREUM", "BASE", "BSC", "ARBITRUM", "POLYGON"] as const;
+export const MAINNET_EVM_CHAIN_NAMES = ["AVALANCHE", "ETHEREUM", "BASE", "BSC", "ARBITRUM", "POLYGON", "SEI"] as const;
 export const TESTNET_EVM_CHAIN_NAMES = [
   "AVALANCHE_FUJI",
   "ETHEREUM_SEPOLIA",
@@ -37,7 +37,8 @@ export const MAINNET_EVM_CHAIN_ID = {
   BSC: bsc.id,
   ARBITRUM: arbitrum.id,
   POLYGON: polygon.id,
-} as const;
+  SEI: sei.id,
+} as const satisfies Record<keyof typeof MAINNET_EVM_FOLKS_CHAIN_ID, number>;
 
 export const TESTNET_EVM_CHAIN_ID = {
   AVALANCHE_FUJI: avalancheFuji.id,
@@ -47,7 +48,7 @@ export const TESTNET_EVM_CHAIN_ID = {
   ARBITRUM_SEPOLIA: arbitrumSepolia.id,
   MONAD_TESTNET: monadTestnet.id,
   SEI_TESTNET: seiTestnet.id,
-} as const;
+} as const satisfies Record<keyof typeof TESTNET_EVM_FOLKS_CHAIN_ID, number>;
 
 export const EVM_CHAIN_ID = {
   ...MAINNET_EVM_CHAIN_ID,

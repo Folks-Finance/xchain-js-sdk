@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.91
+
+### Patch Changes
+
+- [#308](https://github.com/Folks-Finance/xchain-js-sdk/pull/308) [`7dcc214`](https://github.com/Folks-Finance/xchain-js-sdk/commit/7dcc214631a916b00cec04fe6f7c09ff1c99b37b) Thanks [@palace22](https://github.com/palace22)! - Added Sei EVM chain id
+
 ## 0.0.90
 
 ### Patch Changes
