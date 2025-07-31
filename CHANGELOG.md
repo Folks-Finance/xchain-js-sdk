@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.92
+
+### Patch Changes
+
+- [#310](https://github.com/Folks-Finance/xchain-js-sdk/pull/310) [`cee9482`](https://github.com/Folks-Finance/xchain-js-sdk/commit/cee9482a408da3d6deff79227e106e4708c4dcdb) Thanks [@palace22](https://github.com/palace22)! - Added rUSDC mon testnet
+
 ## 0.0.91
 
 ### Patch Changes
