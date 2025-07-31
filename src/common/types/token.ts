@@ -71,6 +71,7 @@ export const TESTNET_FOLKS_TOKEN_ID = {
   gMON: "gMON",
   shMON: "shMON",
   SEI: "SEI",
+  rUSDC: "rUSDC",
 } as const;
 export type TestnetFolksTokenId = (typeof TESTNET_FOLKS_TOKEN_ID)[keyof typeof TESTNET_FOLKS_TOKEN_ID];
 
