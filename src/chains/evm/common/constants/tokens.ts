@@ -290,6 +290,9 @@ export const CONTRACT_SLOT: Partial<
       [TESTNET_FOLKS_TOKEN_ID.shMON]: {
         allowance: 4n,
       },
+      [TESTNET_FOLKS_TOKEN_ID.rUSDC]: {
+        allowance: 1n,
+      },
     },
   },
 } as const;

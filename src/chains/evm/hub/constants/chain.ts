@@ -1033,6 +1033,16 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         poolAddress: convertToGenericAddress("0xEd66322A34D7Cf868149e80Fa38ea585d6C5A11f" as EvmAddress, ChainType.EVM),
         supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
       },
+      [TESTNET_FOLKS_TOKEN_ID.rUSDC]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 6,
+        },
+        folksTokenId: TESTNET_FOLKS_TOKEN_ID.rUSDC,
+        poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.rUSDC],
+        poolAddress: convertToGenericAddress("0x0631a62F8D03650958540ed217A44Ecfa6AB3842" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([TESTNET_LOAN_TYPE_ID.DEPOSIT, TESTNET_LOAN_TYPE_ID.GENERAL]),
+      },
     } satisfies Record<TestnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(

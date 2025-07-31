@@ -1924,6 +1924,19 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [TESTNET_FOLKS_TOKEN_ID.rUSDC]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x400a417fedeef43fc5b8be0d8cd6df687847ee8d" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: TESTNET_FOLKS_TOKEN_ID.rUSDC,
+          poolId: TESTNET_POOLS[TESTNET_FOLKS_TOKEN_ID.rUSDC],
+          spokeAddress: convertToGenericAddress(
+            "0x16E6C203fc5627f12df7edee2C04e62cb5696Ea8" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -1949,7 +1962,6 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         },
       },
     },
-
     [FOLKS_CHAIN_ID.SEI_TESTNET]: {
       folksChainId: FOLKS_CHAIN_ID.SEI_TESTNET,
       spokeCommonAddress: convertToGenericAddress(
