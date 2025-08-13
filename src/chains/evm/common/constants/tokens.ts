@@ -52,6 +52,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.USDT_ava]: {
         allowance: 52n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        balanceOf: 251n,
+        allowance: 252n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -88,6 +92,10 @@ export const CONTRACT_SLOT: Partial<
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT_eth]: {
         allowance: 5n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        balanceOf: 251n,
+        allowance: 252n,
       },
     },
   },
@@ -186,6 +194,10 @@ export const CONTRACT_SLOT: Partial<
       },
       [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
         allowance: 52n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        balanceOf: 251n,
+        allowance: 252n,
       },
     },
   },

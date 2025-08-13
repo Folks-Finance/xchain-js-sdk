@@ -329,6 +329,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x2cd3CdB3bd68Eea0d3BE81DA707bC0c8743D7335" as EvmAddress, ChainType.EVM),
+            decimals: 8,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.YBTCB,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.YBTCB],
+          spokeAddress: convertToGenericAddress(
+            "0x24dB057615203c0f27F0968452A0f2327e6bC86F" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -548,6 +562,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDT_eth],
           spokeAddress: convertToGenericAddress(
             "0x12d4FeDD9cE1b4d7dB90b07366284ac1675a5a90" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x2cd3CdB3bd68Eea0d3BE81DA707bC0c8743D7335" as EvmAddress, ChainType.EVM),
+            decimals: 8,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.YBTCB,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.YBTCB],
+          spokeAddress: convertToGenericAddress(
+            "0x21c624a73ba4F4f23F8F5C6F3e67161a0bE7eCC2" as EvmAddress,
             ChainType.EVM,
           ),
         },
@@ -863,6 +891,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SHIB],
           spokeAddress: convertToGenericAddress(
             "0x0700B2cB26688C035bd5dBbdA070Be408c20779c" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x2cd3CdB3bd68Eea0d3BE81DA707bC0c8743D7335" as EvmAddress, ChainType.EVM),
+            decimals: 8,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.YBTCB,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.YBTCB],
+          spokeAddress: convertToGenericAddress(
+            "0xCD7eE494fa616FDbE38Aa0A9355E20b7215108Bf" as EvmAddress,
             ChainType.EVM,
           ),
         },
