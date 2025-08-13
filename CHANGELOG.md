@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.93
+
+### Patch Changes
+
+- [#312](https://github.com/Folks-Finance/xchain-js-sdk/pull/312) [`8c24698`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8c24698136e015a8226fa996e57464f8ccd0a272) Thanks [@palace22](https://github.com/palace22)! - Added YBTCB
+
 ## 0.0.92
 
 ### Patch Changes
