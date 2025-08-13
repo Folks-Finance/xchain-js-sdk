@@ -757,6 +757,22 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.BTC_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        token: {
+          type: TokenType.CROSS_CHAIN,
+          adapters: [AdapterType.HUB, AdapterType.CCIP_TOKEN],
+          address: convertToGenericAddress("0x2cd3CdB3bd68Eea0d3BE81DA707bC0c8743D7335" as EvmAddress, ChainType.EVM),
+          decimals: 8,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.YBTCB,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.YBTCB],
+        poolAddress: convertToGenericAddress("0x13A21bC65844CD530098Ab15431c57078ea90737" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.BTC_EFFICIENCY,
+        ]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
