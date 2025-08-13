@@ -9,6 +9,7 @@ import type { FolksTokenId } from "../types/token.js";
 export const CROSS_CHAIN_FOLKS_TOKEN_ID: Array<FolksTokenId> = [
   MAINNET_FOLKS_TOKEN_ID.USDC,
   MAINNET_FOLKS_TOKEN_ID.SolvBTC,
+  MAINNET_FOLKS_TOKEN_ID.YBTCB,
   TESTNET_FOLKS_TOKEN_ID.USDC,
   TESTNET_FOLKS_TOKEN_ID.CCIP_BnM,
 ];

@@ -53,6 +53,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   USDT0_sei: "USDT0_sei",
   wETH_sei: "wETH_sei",
   wBTC_sei: "wBTC_sei",
+  YBTCB: "YBTCB",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
