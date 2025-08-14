@@ -136,6 +136,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        balanceOf: 251n,
+        allowance: 252n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -174,10 +178,6 @@ export const CONTRACT_SLOT: Partial<
       },
       [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
         allowance: 52n,
-      },
-      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
-        balanceOf: 251n,
-        allowance: 252n,
       },
     },
   },
