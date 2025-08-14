@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.94
+
+### Patch Changes
+
+- [#314](https://github.com/Folks-Finance/xchain-js-sdk/pull/314) [`b452661`](https://github.com/Folks-Finance/xchain-js-sdk/commit/b4526612a0bdf891db7ce8bac55b1b19537d9a7f) Thanks [@gidonkatten](https://github.com/gidonkatten)! - fix contract slot for ybtcb
+
 ## 0.0.93
 
 ### Patch Changes
