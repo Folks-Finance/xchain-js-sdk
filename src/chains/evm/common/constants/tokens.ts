@@ -152,6 +152,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 0n,
         allowance: 1n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
+        balanceOf: 251n,
+        allowance: 252n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: {
@@ -194,10 +198,6 @@ export const CONTRACT_SLOT: Partial<
       },
       [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
         allowance: 52n,
-      },
-      [MAINNET_FOLKS_TOKEN_ID.YBTCB]: {
-        balanceOf: 251n,
-        allowance: 252n,
       },
     },
   },
