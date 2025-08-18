@@ -773,6 +773,16 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.BTC_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.SYRUP_eth]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.SYRUP_eth,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.SYRUP_eth],
+        poolAddress: convertToGenericAddress("0xD4F87eb6cc8795e727F7DbC1e2C6c3452ad0010c" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
