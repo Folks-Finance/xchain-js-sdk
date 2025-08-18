@@ -97,6 +97,9 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 251n,
         allowance: 252n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.SYRUP_eth]: {
+        allowance: 5n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.BASE]: {
