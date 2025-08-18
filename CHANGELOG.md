@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.95
+
+### Patch Changes
+
+- [#316](https://github.com/Folks-Finance/xchain-js-sdk/pull/316) [`95b29c6`](https://github.com/Folks-Finance/xchain-js-sdk/commit/95b29c6b20ac993a1c35051f64b1975e2c25d930) Thanks [@palace22](https://github.com/palace22)! - Added SYRUP
+
 ## 0.0.94
 
 ### Patch Changes
