@@ -19,6 +19,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   SolvBTC: "SolvBTC",
   JOE: "JOE",
   ggAVAX: "ggAVAX",
+  SHIB: "SHIB",
   POL: "POL",
   wBTC_pol: "wBTC_pol",
   wETH_pol: "wETH_pol",
