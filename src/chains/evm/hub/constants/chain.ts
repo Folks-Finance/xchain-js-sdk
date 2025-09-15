@@ -795,6 +795,34 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         poolAddress: convertToGenericAddress("0xD4F87eb6cc8795e727F7DbC1e2C6c3452ad0010c" as EvmAddress, ChainType.EVM),
         supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.USDe_ava]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.USDe_ava,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDe_ava],
+        poolAddress: convertToGenericAddress("0x5431e7f480C4985e9C3FaAcd3Bd1fc7143eAdEFa" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.sUSDe_ava]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.sUSDe_ava,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.sUSDe_ava],
+        poolAddress: convertToGenericAddress("0x94307E63eF02Cf9B39894553f14b21378Ef20adB" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
+        ]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(

@@ -56,6 +56,8 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   wBTC_sei: "wBTC_sei",
   YBTCB: "YBTCB",
   SYRUP_eth: "SYRUP_eth",
+  USDe_ava: "USDe_ava",
+  sUSDe_ava: "sUSDe_ava",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
