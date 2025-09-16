@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.97
+
+### Patch Changes
+
+- [#319](https://github.com/Folks-Finance/xchain-js-sdk/pull/319) [`1e8d1ac`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1e8d1ace171b4a5960819b77e80388ba64c3f25d) Thanks [@palace22](https://github.com/palace22)! - Added USDe and sUSDe
+
 ## 0.0.96
 
 ### Patch Changes
