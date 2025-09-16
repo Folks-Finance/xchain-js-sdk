@@ -56,6 +56,12 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 251n,
         allowance: 252n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.USDe_ava]: {
+        allowance: 6n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.sUSDe_ava]: {
+        allowance: 6n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
