@@ -11,7 +11,7 @@ type FeeData = {
   tokenFeeRecipient: GenericAddress;
 };
 
-type DepositData = {
+export type DepositData = {
   optimalUtilisationRatio: Dnum;
   totalAmount: bigint;
   interestRate: Dnum;

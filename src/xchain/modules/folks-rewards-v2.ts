@@ -37,14 +37,20 @@ import { buildMessageToSend, estimateAdapterReceiveGasLimit } from "../../common
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../core/folks-core.js";
 
+import { read as FolksOracleRead } from "./folks-oracle.js";
+import { read as FolksPoolRead } from "./folks-pool.js";
+
 import type { LoanTypeInfo, UserPoints } from "../../chains/evm/hub/types/loan.js";
 import type { NodeId, OracleNodePrices, OraclePrices } from "../../chains/evm/hub/types/oracle.js";
 import type { PoolInfo } from "../../chains/evm/hub/types/pool.js";
 import type {
+  ActiveEpochInfo,
   ActiveEpochReward,
   ActiveEpochs,
   ActiveEpochsInfo,
+  Epoch,
   Epochs,
+  HubRewardTokenData,
   LastUpdatedPointsForRewards,
   PendingRewards,
   PoolEpoch,
@@ -291,6 +297,58 @@ export const read = {
     return getActiveEpochs(FolksCore.getHubProvider(), FolksCore.getSelectedNetwork(), tokensData);
   },
 
+  async activeEpochInfo(folksTokenId: FolksTokenId): Promise<ActiveEpochInfo> {
+    const [activeEpoch, poolDepositInfo, tokenPrice] = await Promise.all([
+      this.activeEpochs([folksTokenId]).then((ae) => ae[folksTokenId]),
+      FolksPoolRead.poolDepositInfo(folksTokenId),
+      FolksOracleRead.oraclePrice(folksTokenId),
+    ]);
+
+    if (!activeEpoch) throw new Error(`No active epoch for folksTokenId ${folksTokenId}`);
+
+    const { remainingTime, fullEpochTime } = util.calculateEpochTimeInfo(activeEpoch);
+
+    const remainingRewardsInfo: Array<{
+      rewardTokenId: RewardsTokenId;
+      remainingRewards: bigint;
+      rewardTokenData: HubRewardTokenData;
+    }> = activeEpoch.rewards.map((reward) => ({
+      rewardTokenId: reward.rewardTokenId,
+      remainingRewards: (remainingTime * BigInt(reward.totalRewards)) / fullEpochTime,
+      rewardTokenData: getHubRewardsV2TokenData(reward.rewardTokenId, FolksCore.getSelectedNetwork()),
+    }));
+
+    const nodePrices = await FolksOracleRead.oracleNodePrices(
+      remainingRewardsInfo.map((r) => r.rewardTokenData).map((r) => ({ nodeId: r.nodeId, decimals: r.token.decimals })),
+    );
+
+    const activeEpochsInfo: ActiveEpochInfo = {
+      ...activeEpoch,
+      rewardsInfo: {},
+      totalRewardsApr: dn.from(0, 18),
+    };
+
+    for (const { rewardTokenId, remainingRewards, rewardTokenData } of remainingRewardsInfo) {
+      const nodePrice = nodePrices[rewardTokenData.nodeId];
+      if (!nodePrice) throw Error(`rewardTokenId ${rewardTokenId} price unavailable`);
+      const rewardsValue = calcAssetDollarValue(remainingRewards, nodePrice.price, nodePrice.decimals);
+      const totalDepositsValue = calcAssetDollarValue(
+        poolDepositInfo.totalAmount,
+        tokenPrice.price,
+        tokenPrice.decimals,
+      );
+
+      const rewardsApr = util.calculateRewardsApr(totalDepositsValue, rewardsValue, remainingTime);
+      activeEpochsInfo.totalRewardsApr = dn.add(activeEpochsInfo.totalRewardsApr, rewardsApr);
+      activeEpochsInfo.rewardsInfo = {
+        ...activeEpochsInfo.rewardsInfo,
+        [rewardTokenId]: { remainingRewards, rewardsApr },
+      };
+    }
+
+    return activeEpochsInfo;
+  },
+
   async unclaimedHistoricalEpochs(accountId: AccountId): Promise<Epochs> {
     return filterHistoricalEpochsForUnclaimed(
       FolksCore.getHubProvider(),
@@ -325,7 +383,6 @@ export const util = {
     oracleNodePrices: OracleNodePrices,
   ): ActiveEpochsInfo {
     const activeEpochsInfo: ActiveEpochsInfo = {};
-    const currTimestamp = BigInt(unixTime());
 
     const network = FolksCore.getSelectedNetwork();
     const rewardTokenToNodeId: Partial<Record<RewardsTokenId, NodeId>> = Object.fromEntries(
@@ -337,8 +394,7 @@ export const util = {
       let totalRewardsApr = dn.from(0, 18);
 
       // calculations assumes reward rate is constant and consistent
-      const remainingTime = activeEpoch.endTimestamp - BigInt(currTimestamp);
-      const fullEpochTime = activeEpoch.endTimestamp - activeEpoch.startTimestamp;
+      const { remainingTime, fullEpochTime } = this.calculateEpochTimeInfo(activeEpoch);
 
       // loop through rewards
       for (const { rewardTokenId, totalRewards } of activeEpoch.rewards) {
@@ -364,13 +420,8 @@ export const util = {
           tokenPrice.price,
           tokenPrice.decimals,
         );
-        const rewardsApr =
-          dn.gt(totalDepositsValue, dn.from(0)) && remainingTime > 0
-            ? dn.mul(
-                dn.div(rewardsValue, totalDepositsValue, { decimals: 18 }),
-                dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
-              )
-            : dn.from(0, 18);
+
+        const rewardsApr = this.calculateRewardsApr(totalDepositsValue, rewardsValue, remainingTime);
         totalRewardsApr = dn.add(totalRewardsApr, rewardsApr);
 
         rewardsInfo[rewardTokenId] = { remainingRewards, rewardsApr };
@@ -425,5 +476,20 @@ export const util = {
     }
 
     return pendingRewards;
+  },
+
+  calculateEpochTimeInfo(activeEpoch: Epoch) {
+    const remainingTime = activeEpoch.endTimestamp - BigInt(unixTime());
+    const fullEpochTime = activeEpoch.endTimestamp - activeEpoch.startTimestamp;
+    return { remainingTime, fullEpochTime };
+  },
+
+  calculateRewardsApr(totalDepositsValue: dn.Dnum, rewardsValue: dn.Dnum, remainingTime: bigint) {
+    return dn.gt(totalDepositsValue, dn.from(0)) && remainingTime > 0
+      ? dn.mul(
+          dn.div(rewardsValue, totalDepositsValue, { decimals: 18 }),
+          dn.div(SECONDS_IN_YEAR, remainingTime, { decimals: 18 }),
+        )
+      : dn.from(0, 18);
   },
 };

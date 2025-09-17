@@ -14,8 +14,53 @@ import { getHubPoolContract } from "../utils/contract.js";
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
 import type { NetworkType } from "../../../../common/types/chain.js";
 import type { FolksTokenId } from "../../../../common/types/token.js";
-import type { PoolInfo } from "../types/pool.js";
+import type { DepositData, PoolInfo } from "../types/pool.js";
 import type { Client } from "viem";
+
+export async function getPoolDepositData(
+  provider: Client,
+  network: NetworkType,
+  folksTokenId: FolksTokenId,
+  blockNumber?: bigint,
+): Promise<DepositData> {
+  const { poolAddress } = getHubTokenData(folksTokenId, network);
+  const hubPool = getHubPoolContract(provider, poolAddress);
+
+  const lastTimestamp = blockNumber ? await getBlockTimestamp(provider, blockNumber) : BigInt(unixTime());
+  const [lastUpdateTimestamp, { optimalUtilisationRatio, totalAmount, interestRate, interestIndex }] = await multicall(
+    provider,
+    {
+      contracts: [
+        {
+          address: hubPool.address,
+          abi: hubPool.abi,
+          functionName: "getLastUpdateTimestamp",
+        },
+
+        {
+          address: hubPool.address,
+          abi: hubPool.abi,
+          functionName: "getDepositData",
+        },
+      ],
+      allowFailure: false,
+      blockNumber,
+    },
+  );
+
+  return {
+    optimalUtilisationRatio: [BigInt(optimalUtilisationRatio), 4],
+    totalAmount,
+    interestRate: [interestRate, 18],
+    interestYield: compoundEveryHour([interestRate, 18]),
+    interestIndex: calcDepositInterestIndex(
+      [interestRate, 18],
+      [interestIndex, 18],
+      lastUpdateTimestamp,
+      lastTimestamp,
+    ),
+  };
+}
 
 export async function getPoolInfo(
   provider: Client,
