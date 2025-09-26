@@ -823,6 +823,46 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.EURC_ava]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 6,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.EURC_ava,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.EURC_ava],
+        poolAddress: convertToGenericAddress("0x3F87F3B301f031ba59C479EDF067621DcC72DDca" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.tETH]: {
+        token: {
+          type: TokenType.CROSS_CHAIN,
+          adapters: [AdapterType.HUB, AdapterType.CCIP_TOKEN],
+          address: convertToGenericAddress("0xd09ACb80C1E8f2291862c4978A008791c9167003" as EvmAddress, ChainType.EVM),
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.tETH,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.tETH],
+        poolAddress: convertToGenericAddress("0x5FE123B659FC5242f46884C37550F05Ef08C816a" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.ETH_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.tAVAX]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.tAVAX,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.tAVAX],
+        poolAddress: convertToGenericAddress("0x3F63A6401e6354a486e6a38127409fD16e222B59" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.AVAX_EFFICIENCY,
+        ]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(
