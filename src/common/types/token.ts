@@ -58,6 +58,9 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   SYRUP_eth: "SYRUP_eth",
   USDe_ava: "USDe_ava",
   sUSDe_ava: "sUSDe_ava",
+  EURC_ava: "EURC_ava",
+  tETH: "tETH",
+  tAVAX: "tAVAX",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
