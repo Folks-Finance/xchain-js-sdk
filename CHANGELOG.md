@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.98
+
+### Patch Changes
+
+- [#322](https://github.com/Folks-Finance/xchain-js-sdk/pull/322) [`1f6f513`](https://github.com/Folks-Finance/xchain-js-sdk/commit/1f6f513c1c97da2de754516dace482fe0827ab7e) Thanks [@palace22](https://github.com/palace22)! - Added EURC, tETH and tAVAX
+
 ## 0.0.97
 
 ### Patch Changes
