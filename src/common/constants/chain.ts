@@ -1414,10 +1414,11 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             "0x048E47EDdEF06C7f672d6b16D978ad38EC41A9Ec" as EvmAddress,
             ChainType.EVM,
           ),
-          [AdapterType.CCIP_DATA]: convertToGenericAddress(
-            "0xF14535dB61b2993264e16Daed208A7603E749cdC" as EvmAddress,
-            ChainType.EVM,
-          ),
+          // TODO https://github.com/Folks-Finance/xchain-js-sdk/issues/325
+          // [AdapterType.CCIP_DATA]: convertToGenericAddress(
+          //   "0xF14535dB61b2993264e16Daed208A7603E749cdC" as EvmAddress,
+          //   ChainType.EVM,
+          // ),
         },
         [REWARDS_TYPE.V2]: {
           spokeRewardsCommonAddress: convertToGenericAddress(
