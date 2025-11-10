@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.99
+
+### Patch Changes
+
+- [#326](https://github.com/Folks-Finance/xchain-js-sdk/pull/326) [`6015874`](https://github.com/Folks-Finance/xchain-js-sdk/commit/60158749e18566d1117ff3febfce219d73909ad5) Thanks [@gidonkatten](https://github.com/gidonkatten)! - disable ccip on polygon
+
 ## 0.0.98
 
 ### Patch Changes
