@@ -409,6 +409,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x601486C8Fdc3aD22745b01c920037d6c036A38B9" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+          spokeAddress: convertToGenericAddress(
+            "0x8C893de1f682813eaE6c6dBAA2BCaD7e795bc015" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -669,6 +683,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.tETH],
           spokeAddress: convertToGenericAddress(
             "0x5162ACbe83d50fae95fB6a9e878a7E6734Bf8cFa" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x911D86C72155c33993d594B0Ec7E6206B4C803da" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+          spokeAddress: convertToGenericAddress(
+            "0x61C80bA6f7e284C87D0E9A238b2859B4C33a69dd" as EvmAddress,
             ChainType.EVM,
           ),
         },
@@ -1200,6 +1228,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0x3106E2e148525b3DB36795b04691D444c24972fB" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+          spokeAddress: convertToGenericAddress(
+            "0x23a96D92C80E8b926dA40E574d615d9e806A87F6" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
@@ -1400,6 +1442,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDT_pol],
           spokeAddress: convertToGenericAddress(
             "0xf2ee689fd3f7A7358bEDA46f83E7968Ad894abF0" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0xc271A17DB5cE6F53745A3F466077Ec816bC20a9C" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+          spokeAddress: convertToGenericAddress(
+            "0x59A6e720f91a6709a088B2001dc71fC417Fb5361" as EvmAddress,
             ChainType.EVM,
           ),
         },

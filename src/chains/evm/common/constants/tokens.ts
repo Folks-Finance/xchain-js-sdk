@@ -72,6 +72,10 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.ETHEREUM]: {
@@ -119,6 +123,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.tETH]: {
         balanceOf: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222592"),
         allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        balanceOf: 0n,
+        allowance: 1n,
       },
     },
   },
@@ -222,6 +230,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
         allowance: 52n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.POLYGON]: {
@@ -249,6 +261,10 @@ export const CONTRACT_SLOT: Partial<
         allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT_pol]: {
+        allowance: 1n,
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        balanceOf: 0n,
         allowance: 1n,
       },
     },
