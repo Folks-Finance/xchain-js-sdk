@@ -475,7 +475,11 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         folksTokenId: MAINNET_FOLKS_TOKEN_ID.LINK_pol,
         poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.LINK_pol],
         poolAddress: convertToGenericAddress("0x84C420D5e077cF0ed8a20c44d803C380172eD5D5" as EvmAddress, ChainType.EVM),
-        supportedLoanTypes: new Set([MAINNET_LOAN_TYPE_ID.DEPOSIT, MAINNET_LOAN_TYPE_ID.GENERAL]),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.LINK_EFFICIENCY,
+        ]),
       },
       [MAINNET_FOLKS_TOKEN_ID.MaticX]: {
         token: {
@@ -861,6 +865,22 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.DEPOSIT,
           MAINNET_LOAN_TYPE_ID.GENERAL,
           MAINNET_LOAN_TYPE_ID.AVAX_EFFICIENCY,
+        ]),
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        token: {
+          type: TokenType.CROSS_CHAIN,
+          adapters: [AdapterType.HUB, AdapterType.CCIP_TOKEN],
+          address: convertToGenericAddress("0x601486C8Fdc3aD22745b01c920037d6c036A38B9" as EvmAddress, ChainType.EVM),
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+        poolAddress: convertToGenericAddress("0x42Bb92684e72707030F59C48FBe5A222A0d8b387" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.LINK_EFFICIENCY,
         ]),
       },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,

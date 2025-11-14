@@ -61,6 +61,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   EURC_ava: "EURC_ava",
   tETH: "tETH",
   tAVAX: "tAVAX",
+  wstLINK: "wstLINK",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
