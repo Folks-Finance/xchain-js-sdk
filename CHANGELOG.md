@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.100
+
+### Patch Changes
+
+- [#328](https://github.com/Folks-Finance/xchain-js-sdk/pull/328) [`8eb8730`](https://github.com/Folks-Finance/xchain-js-sdk/commit/8eb873056aa90dee7ac4af4e29ef8a6c8e14590d) Thanks [@palace22](https://github.com/palace22)! - Added wstLINK
+
 ## 0.0.99
 
 ### Patch Changes
