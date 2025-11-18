@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.101
+
+### Patch Changes
+
+- [#330](https://github.com/Folks-Finance/xchain-js-sdk/pull/330) [`3e66767`](https://github.com/Folks-Finance/xchain-js-sdk/commit/3e66767c18f87c20bfc545d13f90d0020f9cfa34) Thanks [@gidonkatten](https://github.com/gidonkatten)! - add support for polygon ccip token adapter
+
 ## 0.0.100
 
 ### Patch Changes
