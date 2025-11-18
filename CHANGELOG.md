@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.102
+
+### Patch Changes
+
+- [#332](https://github.com/Folks-Finance/xchain-js-sdk/pull/332) [`bd2fdb9`](https://github.com/Folks-Finance/xchain-js-sdk/commit/bd2fdb937709dbfb4c434cf441eb922c308b6650) Thanks [@palace22](https://github.com/palace22)! - Uncommented Polygon CCIP Data adapter
+
 ## 0.0.101
 
 ### Patch Changes
