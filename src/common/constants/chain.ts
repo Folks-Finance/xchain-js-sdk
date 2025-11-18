@@ -1322,10 +1322,10 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         //   "0x5C60f12838b8E3EEB525F299cD7C454c989dd04e" as EvmAddress,
         //   ChainType.EVM,
         // ),
-        // [AdapterType.CCIP_TOKEN]: convertToGenericAddress(
-        //   "0xc7bc4A43384f84B8FC937Ab58173Edab23a4c3cD" as EvmAddress,
-        //   ChainType.EVM,
-        // ),
+        [AdapterType.CCIP_TOKEN]: convertToGenericAddress(
+          "0xc7bc4A43384f84B8FC937Ab58173Edab23a4c3cD" as EvmAddress,
+          ChainType.EVM,
+        ),
       },
       tokens: {
         [MAINNET_FOLKS_TOKEN_ID.USDC]: {
