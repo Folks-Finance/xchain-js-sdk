@@ -8,6 +8,7 @@ import {
   bsc,
   bscTestnet,
   mainnet,
+  monad,
   monadTestnet,
   polygon,
   sei,
@@ -18,7 +19,16 @@ import {
 import type { EvmChainName, EvmFolksChainId } from "../types/chain.js";
 import type { Chain } from "viem";
 
-export const MAINNET_EVM_CHAIN_NAMES = ["AVALANCHE", "ETHEREUM", "BASE", "BSC", "ARBITRUM", "POLYGON", "SEI"] as const;
+export const MAINNET_EVM_CHAIN_NAMES = [
+  "AVALANCHE",
+  "ETHEREUM",
+  "BASE",
+  "BSC",
+  "ARBITRUM",
+  "POLYGON",
+  "SEI",
+  "MONAD",
+] as const;
 export const TESTNET_EVM_CHAIN_NAMES = [
   "AVALANCHE_FUJI",
   "ETHEREUM_SEPOLIA",
@@ -38,6 +48,7 @@ export const MAINNET_EVM_CHAIN_ID = {
   ARBITRUM: arbitrum.id,
   POLYGON: polygon.id,
   SEI: sei.id,
+  MONAD: monad.id,
 } as const satisfies Record<keyof typeof MAINNET_EVM_FOLKS_CHAIN_ID, number>;
 
 export const TESTNET_EVM_CHAIN_ID = {
@@ -63,6 +74,7 @@ export const MAINNET_EVM_FOLKS_CHAIN_ID = {
   ARBITRUM: 104,
   POLYGON: 106,
   SEI: 107,
+  MONAD: 108,
 } as const;
 
 export const TESTNET_EVM_FOLKS_CHAIN_ID = {
@@ -88,6 +100,7 @@ export const MAINNET_CHAIN_VIEM = {
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: arbitrum,
   [EVM_FOLKS_CHAIN_ID.POLYGON]: polygon,
   [EVM_FOLKS_CHAIN_ID.SEI]: sei,
+  [EVM_FOLKS_CHAIN_ID.MONAD]: monad,
 } as const;
 export const TESTNET_CHAIN_VIEM = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: avalancheFuji,
@@ -111,6 +124,7 @@ export const MAINNET_CHAIN_NODE = {
   [EVM_FOLKS_CHAIN_ID.ARBITRUM]: [...arbitrum.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.POLYGON]: [...polygon.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.SEI]: [...sei.rpcUrls.default.http],
+  [EVM_FOLKS_CHAIN_ID.MONAD]: [...monad.rpcUrls.default.http],
 };
 export const TESTNET_CHAIN_NODE = {
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: [...avalancheFuji.rpcUrls.default.http],

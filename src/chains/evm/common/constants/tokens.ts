@@ -285,6 +285,9 @@ export const CONTRACT_SLOT: Partial<
       },
     },
   },
+  [EVM_FOLKS_CHAIN_ID.MONAD]: {
+    erc20: {},
+  },
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: {
     erc20: {
       [TESTNET_FOLKS_TOKEN_ID.USDC]: {

@@ -961,6 +961,14 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
               decimals: 18,
             },
           },
+          [MAINNET_REWARDS_TOKEN_ID.FOLKS_mon]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.FOLKS_mon,
+            nodeId: "" as NodeId, //TODO
+            token: {
+              type: TokenType.ERC20,
+              decimals: 6,
+            },
+          },
         } satisfies Record<MainnetRewardsTokenId, HubRewardTokenData>,
       },
     },
