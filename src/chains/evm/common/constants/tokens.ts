@@ -286,7 +286,29 @@ export const CONTRACT_SLOT: Partial<
     },
   },
   [EVM_FOLKS_CHAIN_ID.MONAD]: {
-    erc20: {},
+    erc20: {
+      [MAINNET_FOLKS_TOKEN_ID.MON]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wBTC_mon]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.wETH_mon]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.sMON]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.shMON]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
+        allowance: 1n, // TODO
+      },
+      [MAINNET_FOLKS_TOKEN_ID.USDT0_mon]: {
+        allowance: 1n, // TODO
+      },
+    },
   },
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: {
     erc20: {

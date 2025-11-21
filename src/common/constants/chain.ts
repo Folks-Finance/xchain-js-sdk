@@ -1654,7 +1654,98 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
           ChainType.EVM,
         ),
       },
-      tokens: {},
+      tokens: {
+        [MAINNET_FOLKS_TOKEN_ID.MON]: {
+          token: {
+            type: TokenType.NATIVE,
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.MON,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.MON],
+          spokeAddress: convertToGenericAddress(
+            "0x531490B7674ef239C9FEC39d2Cf3Cc10645d14d4" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wBTC_mon]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x0555E30da8f98308EdB960aa94C0Db47230d2B9c" as EvmAddress, ChainType.EVM),
+            decimals: 8,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wBTC_mon,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wBTC_mon],
+          spokeAddress: convertToGenericAddress(
+            "0xF4c542518320F09943C35Db6773b2f9FeB2F847e" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.wETH_mon]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wETH_mon,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wETH_mon],
+          spokeAddress: convertToGenericAddress(
+            "0xe3B0e4Db870aA58A24f87d895c62D3dc5CD05883" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.sMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xA3227C5969757783154C60bF0bC1944180ed81B9" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.sMON,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.sMON],
+          spokeAddress: convertToGenericAddress(
+            "0xb39c03297E87032fF69f4D42A6698e4c4A934449" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.shMON]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x1ce060D47A0Fd08B0869748FD7eccF151F4eC5d1" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.shMON,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.shMON],
+          spokeAddress: convertToGenericAddress(
+            "0xc03094C4690F3844EA17ef5272Bf6376e0CF2AC6" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.aUSD_mon,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.aUSD_mon],
+          spokeAddress: convertToGenericAddress(
+            "0xC30107a8e782E98Fe890f0375afa4185aeEa3356" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+        [MAINNET_FOLKS_TOKEN_ID.USDT0_mon]: {
+          token: {
+            type: TokenType.ERC20,
+            address: convertToGenericAddress("0xe7cd86e13AC4309349F30B3435a9d337750fC82D" as EvmAddress, ChainType.EVM),
+            decimals: 6,
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.USDT0_mon,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.USDT0_mon],
+          spokeAddress: convertToGenericAddress(
+            "0xB1e2939b501B73F4cFEf6a9FB0aa89a75F1774EE" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
+      },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
           "0x5f2F4771B7dc7e2F7E9c1308B154E1e8957ecAB0" as EvmAddress,
