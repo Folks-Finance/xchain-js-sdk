@@ -15,6 +15,7 @@ export const MAINNET_LOAN_TYPE_ID = {
   BTC_EFFICIENCY: 7,
   SEI_EFFICIENCY: 8,
   LINK_EFFICIENCY: 9,
+  MON_EFFICIENCY: 10,
 } as const;
 export type MainnetLoanTypeId = (typeof MAINNET_LOAN_TYPE_ID)[keyof typeof MAINNET_LOAN_TYPE_ID];
 

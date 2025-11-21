@@ -5,6 +5,7 @@ export const MAINNET_REWARDS_TOKEN_ID = {
   POL: 4,
   USDT0_arb: 5,
   SEI: 6,
+  FOLKS_mon: 7,
 } as const;
 
 export const TESTNET_REWARDS_TOKEN_ID = {
