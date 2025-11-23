@@ -66,7 +66,6 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   wBTC_mon: "wBTC_mon",
   wETH_mon: "wETH_mon",
   sMON: "sMON",
-  shMON: "shMON",
   aUSD_mon: "aUSD_mon",
   USDT0_mon: "USDT0_mon",
 } as const;

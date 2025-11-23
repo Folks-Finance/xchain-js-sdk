@@ -1706,19 +1706,6 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
-        [MAINNET_FOLKS_TOKEN_ID.shMON]: {
-          token: {
-            type: TokenType.ERC20,
-            address: convertToGenericAddress("0x1ce060D47A0Fd08B0869748FD7eccF151F4eC5d1" as EvmAddress, ChainType.EVM),
-            decimals: 18,
-          },
-          folksTokenId: MAINNET_FOLKS_TOKEN_ID.shMON,
-          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.shMON],
-          spokeAddress: convertToGenericAddress(
-            "0xc03094C4690F3844EA17ef5272Bf6376e0CF2AC6" as EvmAddress,
-            ChainType.EVM,
-          ),
-        },
         [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
           token: {
             type: TokenType.ERC20,

@@ -299,9 +299,6 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.sMON]: {
         allowance: 1n, // TODO
       },
-      [MAINNET_FOLKS_TOKEN_ID.shMON]: {
-        allowance: 1n, // TODO
-      },
       [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
         allowance: 1n, // TODO
       },

@@ -939,20 +939,6 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.MON_EFFICIENCY,
         ]),
       },
-      [MAINNET_FOLKS_TOKEN_ID.shMON]: {
-        token: {
-          type: TokenType.ERC20,
-          decimals: 18,
-        },
-        folksTokenId: MAINNET_FOLKS_TOKEN_ID.shMON,
-        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.shMON],
-        poolAddress: convertToGenericAddress("0x7902dB65AD8c43c6e41D3b358b84A048DEbE55b1" as EvmAddress, ChainType.EVM),
-        supportedLoanTypes: new Set([
-          MAINNET_LOAN_TYPE_ID.DEPOSIT,
-          MAINNET_LOAN_TYPE_ID.GENERAL,
-          MAINNET_LOAN_TYPE_ID.MON_EFFICIENCY,
-        ]),
-      },
       [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
         token: {
           type: TokenType.ERC20,
