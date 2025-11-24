@@ -1642,7 +1642,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
       ),
       adapters: {
         [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
-          "0x0700B2cB26688C035bd5dBbdA070Be408c20779c" as EvmAddress,
+          "0x37d761883a01e9F0B0d7fe59EEC8c21D94393CDD" as EvmAddress,
           ChainType.EVM,
         ),
         [AdapterType.CCIP_DATA]: convertToGenericAddress(
@@ -1740,7 +1740,7 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
         ),
         adapters: {
           [AdapterType.WORMHOLE_DATA]: convertToGenericAddress(
-            "0x57D77FD37670e22188d1c92D7cEc931bccf074A4" as EvmAddress,
+            "0x1b2a8d56967d00700DD5C94E27B1a116a1deF8Df" as EvmAddress,
             ChainType.EVM,
           ),
           [AdapterType.CCIP_DATA]: convertToGenericAddress(
