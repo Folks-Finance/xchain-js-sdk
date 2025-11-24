@@ -287,23 +287,20 @@ export const CONTRACT_SLOT: Partial<
   },
   [EVM_FOLKS_CHAIN_ID.MONAD]: {
     erc20: {
-      [MAINNET_FOLKS_TOKEN_ID.MON]: {
-        allowance: 1n, // TODO
-      },
       [MAINNET_FOLKS_TOKEN_ID.wBTC_mon]: {
-        allowance: 1n, // TODO
+        allowance: 6n,
       },
       [MAINNET_FOLKS_TOKEN_ID.wETH_mon]: {
-        allowance: 1n, // TODO
+        allowance: 52n,
       },
       [MAINNET_FOLKS_TOKEN_ID.sMON]: {
-        allowance: 1n, // TODO
+        allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
       },
       [MAINNET_FOLKS_TOKEN_ID.aUSD_mon]: {
-        allowance: 1n, // TODO
+        allowance: BigInt("31363640401025590090454088818897734140993165621067851506404760590626227402497"),
       },
       [MAINNET_FOLKS_TOKEN_ID.USDT0_mon]: {
-        allowance: 1n, // TODO
+        allowance: 52n,
       },
     },
   },
