@@ -1047,7 +1047,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           },
           [MAINNET_REWARDS_TOKEN_ID.FOLKS_mon]: {
             rewardTokenId: MAINNET_REWARDS_TOKEN_ID.FOLKS_mon,
-            nodeId: "" as NodeId, // TODO
+            nodeId: "0xb77145a1eae5f8d773004322fc3a6e8e650d7a55a6e030a578e993979f2c0f90" as NodeId,
             token: {
               type: TokenType.ERC20,
               decimals: 6,
