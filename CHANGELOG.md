@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.103
+
+### Patch Changes
+
+- [#334](https://github.com/Folks-Finance/xchain-js-sdk/pull/334) [`f64a51f`](https://github.com/Folks-Finance/xchain-js-sdk/commit/f64a51f1a954df80accac04f0dc161a109e8e871) Thanks [@palace22](https://github.com/palace22)! - Added Monad
+
 ## 0.0.102
 
 ### Patch Changes
