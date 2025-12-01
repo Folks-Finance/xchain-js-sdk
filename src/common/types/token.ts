@@ -68,6 +68,7 @@ export const MAINNET_FOLKS_TOKEN_ID = {
   sMON: "sMON",
   aUSD_mon: "aUSD_mon",
   USDT0_mon: "USDT0_mon",
+  gMON: "gMON",
 } as const;
 export type MainnetFolksTokenId = (typeof MAINNET_FOLKS_TOKEN_ID)[keyof typeof MAINNET_FOLKS_TOKEN_ID];
 
