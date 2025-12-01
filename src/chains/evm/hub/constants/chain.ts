@@ -967,6 +967,20 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           MAINNET_LOAN_TYPE_ID.STABLECOIN_EFFICIENCY,
         ]),
       },
+      [MAINNET_FOLKS_TOKEN_ID.gMON]: {
+        token: {
+          type: TokenType.ERC20,
+          decimals: 18,
+        },
+        folksTokenId: MAINNET_FOLKS_TOKEN_ID.gMON,
+        poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.gMON],
+        poolAddress: convertToGenericAddress("0x0b4e69C4890a88acA90E7e71dB76619C3AaCD79D" as EvmAddress, ChainType.EVM),
+        supportedLoanTypes: new Set([
+          MAINNET_LOAN_TYPE_ID.DEPOSIT,
+          MAINNET_LOAN_TYPE_ID.GENERAL,
+          MAINNET_LOAN_TYPE_ID.MON_EFFICIENCY,
+        ]),
+      },
     } satisfies Record<MainnetFolksTokenId, HubTokenData>,
     rewards: {
       bridgeRouterAddress: convertToGenericAddress(

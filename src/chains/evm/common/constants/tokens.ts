@@ -302,6 +302,9 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.USDT0_mon]: {
         allowance: 52n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.gMON]: {
+        allowance: BigInt("37439836327923360225337895871394760624280537466773280374265222508165906222593"),
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.AVALANCHE_FUJI]: {
