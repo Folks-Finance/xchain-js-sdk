@@ -9,7 +9,6 @@ import {
   bscTestnet,
   mainnet,
   monad,
-  monadTestnet,
   polygon,
   sei,
   seiTestnet,
@@ -35,7 +34,6 @@ export const TESTNET_EVM_CHAIN_NAMES = [
   "BASE_SEPOLIA",
   "BSC_TESTNET",
   "ARBITRUM_SEPOLIA",
-  "MONAD_TESTNET",
   "SEI_TESTNET",
 ] as const;
 export const EVM_CHAIN_NAMES = [...MAINNET_EVM_CHAIN_NAMES, ...TESTNET_EVM_CHAIN_NAMES] as const;
@@ -57,7 +55,6 @@ export const TESTNET_EVM_CHAIN_ID = {
   BASE_SEPOLIA: baseSepolia.id,
   BSC_TESTNET: bscTestnet.id,
   ARBITRUM_SEPOLIA: arbitrumSepolia.id,
-  MONAD_TESTNET: monadTestnet.id,
   SEI_TESTNET: seiTestnet.id,
 } as const satisfies Record<keyof typeof TESTNET_EVM_FOLKS_CHAIN_ID, number>;
 
@@ -83,7 +80,6 @@ export const TESTNET_EVM_FOLKS_CHAIN_ID = {
   BASE_SEPOLIA: 7,
   BSC_TESTNET: 3,
   ARBITRUM_SEPOLIA: 8,
-  MONAD_TESTNET: 10,
   SEI_TESTNET: 12,
 } as const;
 
@@ -108,7 +104,6 @@ export const TESTNET_CHAIN_VIEM = {
   [EVM_FOLKS_CHAIN_ID.BASE_SEPOLIA]: baseSepolia,
   [EVM_FOLKS_CHAIN_ID.BSC_TESTNET]: bscTestnet,
   [EVM_FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: arbitrumSepolia,
-  [EVM_FOLKS_CHAIN_ID.MONAD_TESTNET]: monadTestnet,
   [EVM_FOLKS_CHAIN_ID.SEI_TESTNET]: seiTestnet,
 } as const;
 export const CHAIN_VIEM = {
@@ -132,7 +127,6 @@ export const TESTNET_CHAIN_NODE = {
   [EVM_FOLKS_CHAIN_ID.BASE_SEPOLIA]: [...baseSepolia.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.BSC_TESTNET]: [...bscTestnet.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: [...arbitrumSepolia.rpcUrls.default.http],
-  [EVM_FOLKS_CHAIN_ID.MONAD_TESTNET]: [...monadTestnet.rpcUrls.default.http],
   [EVM_FOLKS_CHAIN_ID.SEI_TESTNET]: [...seiTestnet.rpcUrls.default.http],
 };
 export const CHAIN_NODE = {
