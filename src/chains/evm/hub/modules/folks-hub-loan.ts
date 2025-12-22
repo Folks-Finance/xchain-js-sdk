@@ -20,7 +20,7 @@ import {
   toFAmount,
   toUnderlyingAmount,
 } from "../../../../common/utils/formulae.js";
-import { bigIntMin, compoundEverySecond, increaseByPercent } from "../../../../common/utils/math-lib.js";
+import { bigIntMax, bigIntMin, compoundEverySecond, increaseByPercent } from "../../../../common/utils/math-lib.js";
 import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
 import {
   defaultEventParams,
@@ -833,10 +833,12 @@ export function maxReduceCollateralForBorrowUtilisationRatio(
     loan.totalEffectiveCollateralBalanceValue,
     targetEffectiveCollateralBalanceValue,
   );
-  const deltaBalanceValue = dn.div(deltaEffectiveBalanceValue, collateral.collateralFactor);
+  const deltaBalanceValue = dn.gt(collateral.collateralFactor, dn.from(0))
+    ? dn.div(deltaEffectiveBalanceValue, collateral.collateralFactor)
+    : dn.from(0, 8);
   const deltaAssetBalance = dn.div(deltaBalanceValue, tokenPrice, { decimals: tokenPriceDecimals });
   const deltafAssetBalance = toFAmount(deltaAssetBalance[0], depositInterestIndex);
-  return bigIntMin(deltafAssetBalance, collateral.fTokenBalance);
+  return bigIntMax(0n, bigIntMin(deltafAssetBalance, collateral.fTokenBalance));
 }
 
 export function maxBorrowForBorrowUtilisationRatio(
