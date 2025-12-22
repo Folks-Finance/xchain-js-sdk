@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.106
+
+### Patch Changes
+
+- [#341](https://github.com/Folks-Finance/xchain-js-sdk/pull/341) [`009b8c6`](https://github.com/Folks-Finance/xchain-js-sdk/commit/009b8c66e8e6e0c0d552c526842a0d52e27e71f1) Thanks [@gidonkatten](https://github.com/gidonkatten)! - fix div by zero when reducing collateral with 0 cf
+
 ## 0.0.105
 
 ### Patch Changes
