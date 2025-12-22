@@ -835,7 +835,7 @@ export function maxReduceCollateralForBorrowUtilisationRatio(
   );
   const deltaBalanceValue = dn.gt(collateral.collateralFactor, dn.from(0))
     ? dn.div(deltaEffectiveBalanceValue, collateral.collateralFactor)
-    : deltaEffectiveBalanceValue;
+    : dn.from(0, 8);
   const deltaAssetBalance = dn.div(deltaBalanceValue, tokenPrice, { decimals: tokenPriceDecimals });
   const deltafAssetBalance = toFAmount(deltaAssetBalance[0], depositInterestIndex);
   return bigIntMax(0n, bigIntMin(deltafAssetBalance, collateral.fTokenBalance));
