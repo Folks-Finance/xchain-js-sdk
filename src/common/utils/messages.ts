@@ -1,8 +1,8 @@
 import {
   bytesToBigInt,
-  bytesToBool,
   bytesToHex,
   bytesToNumber,
+  hexToBool,
   hexToBytes,
   hexToNumber,
   parseEventLogs,
@@ -344,6 +344,8 @@ export function decodeMessagePayloadData<A extends Action>(action: A, data: Hex)
       } as MessageDataMap[A];
     }
     case Action.Withdraw: {
+      const bytes = hexToBytes(data.slice(0, -1) as Hex);
+      const isFAmount = hexToBool(data.slice(-1) as Hex);
       return {
         loanId: bytesToHex(bytes.slice(0, BYTES32_LENGTH)) as LoanId,
         poolId: bytesToNumber(bytes.slice(BYTES32_LENGTH, BYTES32_LENGTH + UINT8_LENGTH)),
@@ -351,7 +353,7 @@ export function decodeMessagePayloadData<A extends Action>(action: A, data: Hex)
           bytes.slice(BYTES32_LENGTH + UINT8_LENGTH, BYTES32_LENGTH + UINT8_LENGTH + UINT16_LENGTH),
         ) as FolksChainId,
         amount: bytesToBigInt(bytes.slice(BYTES32_LENGTH + UINT8_LENGTH + UINT16_LENGTH, -1)),
-        isFAmount: bytesToBool(bytes.slice(-1)),
+        isFAmount,
       } as MessageDataMap[A];
     }
     case Action.Borrow: {
