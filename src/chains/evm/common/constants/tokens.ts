@@ -165,6 +165,10 @@ export const CONTRACT_SLOT: Partial<
       [MAINNET_FOLKS_TOKEN_ID.KAITO_base]: {
         allowance: 1n,
       },
+      [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+        balanceOf: 0n,
+        allowance: 1n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.BSC]: {
