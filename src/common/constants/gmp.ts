@@ -60,10 +60,6 @@ export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
     wormholeChainId: 10003,
     wormholeRelayer: convertToGenericAddress("0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470" as EvmAddress, ChainType.EVM),
   },
-  [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
-    wormholeChainId: 48,
-    wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
-  },
   [FOLKS_CHAIN_ID.SEI_TESTNET]: {
     wormholeChainId: 40,
     wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
@@ -122,10 +118,6 @@ export const CCIP_DATA: Record<FolksChainId, CCIPData> = {
   [FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: {
     ccipChainId: BigInt("3478487238524512106"),
     ccipRouter: convertToGenericAddress("0x2a9C5afB0d0e4BAb2BCdaE109EC4b0c4Be15a165" as EvmAddress, ChainType.EVM),
-  },
-  [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
-    ccipChainId: BigInt("2183018362218727504"),
-    ccipRouter: convertToGenericAddress("0x5f16e51e3Dcb255480F090157DD01bA962a53E54" as EvmAddress, ChainType.EVM),
   },
   [FOLKS_CHAIN_ID.SEI_TESTNET]: {
     ccipChainId: BigInt("1216300075444106652"),
