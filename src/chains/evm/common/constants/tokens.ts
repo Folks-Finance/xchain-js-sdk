@@ -271,6 +271,9 @@ export const CONTRACT_SLOT: Partial<
         balanceOf: 0n,
         allowance: 1n,
       },
+      [MAINNET_REWARDS_TOKEN_ID.USDC_pol]: {
+        allowance: 10n,
+      },
     },
   },
   [EVM_FOLKS_CHAIN_ID.SEI]: {

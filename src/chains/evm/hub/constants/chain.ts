@@ -1081,6 +1081,14 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
               decimals: 6,
             },
           },
+          [MAINNET_REWARDS_TOKEN_ID.USDC_pol]: {
+            rewardTokenId: MAINNET_REWARDS_TOKEN_ID.USDC_pol,
+            nodeId: "0x3c7d21242f7b2ec7812a5f91cade699bd06e358fd38a5462aff240cba10a6cbe" as NodeId,
+            token: {
+              type: TokenType.ERC20,
+              decimals: 6,
+            },
+          },
         } satisfies Record<MainnetRewardsTokenId, HubRewardTokenData>,
       },
     },
