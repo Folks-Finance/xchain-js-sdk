@@ -1500,6 +1500,21 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
                 decimals: 18,
               },
             },
+            [MAINNET_REWARDS_TOKEN_ID.USDC_pol]: {
+              rewardTokenId: MAINNET_REWARDS_TOKEN_ID.USDC_pol,
+              spokeAddress: convertToGenericAddress(
+                "0x1A8feD07c8B8E7A8050d75dB392dBA0af20EB9C1" as EvmAddress,
+                ChainType.EVM,
+              ),
+              token: {
+                type: TokenType.ERC20,
+                address: convertToGenericAddress(
+                  "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359" as EvmAddress,
+                  ChainType.EVM,
+                ),
+                decimals: 6,
+              },
+            },
           },
         },
       },
