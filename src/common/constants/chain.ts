@@ -907,6 +907,20 @@ export const SPOKE_CHAIN: Record<NetworkType, Partial<Record<FolksChainId, Spoke
             ChainType.EVM,
           ),
         },
+        [MAINNET_FOLKS_TOKEN_ID.wstLINK]: {
+          token: {
+            type: TokenType.CROSS_CHAIN,
+            address: convertToGenericAddress("0xF2f7901B7bbA5799493B617B06EAd1862F771297" as EvmAddress, ChainType.EVM),
+            decimals: 18,
+            adapters: [AdapterType.CCIP_TOKEN],
+          },
+          folksTokenId: MAINNET_FOLKS_TOKEN_ID.wstLINK,
+          poolId: MAINNET_POOLS[MAINNET_FOLKS_TOKEN_ID.wstLINK],
+          spokeAddress: convertToGenericAddress(
+            "0xBf142DB792f60A64c4cFa6beCD88a038b33c62DF" as EvmAddress,
+            ChainType.EVM,
+          ),
+        },
       },
       rewards: {
         bridgeRouterAddress: convertToGenericAddress(
