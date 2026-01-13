@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.107
+
+### Patch Changes
+
+- [#345](https://github.com/Folks-Finance/xchain-js-sdk/pull/345) [`88bae07`](https://github.com/Folks-Finance/xchain-js-sdk/commit/88bae0741494327f12ef9841029f48322ffdbbf2) Thanks [@palace22](https://github.com/palace22)! - Added wstLINK on Base
+
+- [#344](https://github.com/Folks-Finance/xchain-js-sdk/pull/344) [`874067d`](https://github.com/Folks-Finance/xchain-js-sdk/commit/874067da1071563e9a88f50ee77577c9d78735c1) Thanks [@palace22](https://github.com/palace22)! - Added USDC pol reward token
+
 ## 0.0.106
 
 ### Patch Changes
