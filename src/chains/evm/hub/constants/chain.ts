@@ -1123,7 +1123,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ChainType.EVM,
       ),
       [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
-        "0xf0ef9998379273e72fb2e7810dcDcd7628BF1436" as EvmAddress,
+        "0x69840c6DD3f2FB99001960fb5e2D0d34CECeD1A8" as EvmAddress,
         ChainType.EVM,
       ),
     },
@@ -1322,7 +1322,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           ChainType.EVM,
         ),
         [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
-          "0xe6a348E244955C52D0A99FDF1E450fdFcb05f175" as EvmAddress,
+          "0x387fd2AfBE40b806f0BF975a596768bbeA582992" as EvmAddress,
           ChainType.EVM,
         ),
       },

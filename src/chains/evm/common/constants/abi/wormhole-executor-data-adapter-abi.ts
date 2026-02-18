@@ -118,6 +118,22 @@ export const WormholeExecutorDataAdapterAbi = [
   {
     inputs: [
       {
+        internalType: "uint128",
+        name: "expectedValue",
+        type: "uint128",
+      },
+      {
+        internalType: "uint256",
+        name: "receivedValue",
+        type: "uint256",
+      },
+    ],
+    name: "InsufficientReceiverValue",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "router",
         type: "address",
@@ -184,6 +200,17 @@ export const WormholeExecutorDataAdapterAbi = [
       },
     ],
     name: "InvalidTokenAddress",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "MessageParamsOverflow",
     type: "error",
   },
   {

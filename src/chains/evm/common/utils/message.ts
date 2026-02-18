@@ -568,6 +568,7 @@ export async function estimateEvmWormholeExecutorDataGasLimit(
     FINALITY.IMMEDIATE,
     encodeEvmPayloadWithWormholeExecutorMetadata(
       destWormholeChainId,
+      receiverValue,
       messageBuilderParams.adapters.returnAdapterId,
       returnGasLimit,
       messageBuilderParams.sender,

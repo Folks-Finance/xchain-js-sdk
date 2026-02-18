@@ -1,7 +1,7 @@
 import { concat, encodeAbiParameters, keccak256, numberToHex, parseSignature } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
-import { UINT16_LENGTH, UINT256_LENGTH } from "../../../../common/constants/bytes.js";
+import { UINT128_LENGTH, UINT16_LENGTH, UINT256_LENGTH } from "../../../../common/constants/bytes.js";
 import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
 import { WORMHOLE_SIGNATURE_RECOVERY_MAGIC } from "../constants/gmp.js";
 
@@ -34,7 +34,8 @@ export function encodeEvmPayloadWithMetadata(
 }
 
 export function encodeEvmPayloadWithWormholeExecutorMetadata(
-  wormholeTargetChainId: number | bigint,
+  wormholeTargetChainId: number,
+  receiverValue: bigint,
   returnAdapterId: AdapterType,
   returnGasLimit: bigint,
   sender: GenericAddress,
@@ -43,6 +44,7 @@ export function encodeEvmPayloadWithWormholeExecutorMetadata(
 ): Hex {
   return concat([
     convertNumberToBytes(wormholeTargetChainId, UINT16_LENGTH),
+    convertNumberToBytes(receiverValue, UINT128_LENGTH),
     encodeEvmPayloadWithMetadata(returnAdapterId, returnGasLimit, sender, handler, payload),
   ]);
 }
