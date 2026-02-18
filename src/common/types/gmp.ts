@@ -1,4 +1,4 @@
-import type { GenericAddress } from "./address.js";
+import type { EvmAddress, GenericAddress } from "./address.js";
 import type { Branded } from "./brand.js";
 
 export enum MessageDirection {
@@ -6,9 +6,19 @@ export enum MessageDirection {
   HubToSpoke,
 }
 
+export type WormholeGuardiansData = {
+  mocks: {
+    guardianSetIndex: number;
+    guardiansSetLength: number;
+    mnemonic: string;
+    address: EvmAddress;
+  };
+};
+
 export type WormholeData = {
   wormholeChainId: number;
   wormholeRelayer: GenericAddress;
+  wormholeCore: EvmAddress;
 };
 
 export type CCIPData = {

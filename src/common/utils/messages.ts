@@ -16,7 +16,9 @@ import {
   buildEvmMessageToSend,
   estimateEvmCcipDataGasLimit,
   estimateEvmWormholeDataGasLimit,
+  estimateEvmWormholeExecutorDataGasLimit,
   getSendTokenStateOverride,
+  getWormholeGuardiansStateOverride,
 } from "../../chains/evm/common/utils/message.js";
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
@@ -28,7 +30,7 @@ import { Action, AdapterType } from "../types/message.js";
 
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
-import { getCcipData, getWormholeData } from "./gmp.js";
+import { getCcipData, getWormholeData, getWormholeGuardiansData } from "./gmp.js";
 import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
@@ -216,6 +218,27 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
           );
           return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
+        }
+        case AdapterType.WORMHOLE_EXECUTOR_DATA: {
+          const sourceWormholeChainId = getWormholeData(sourceFolksChainId).wormholeChainId;
+          const destWormholeChainId = getWormholeData(destFolksChainId).wormholeChainId;
+          const wormholeGuardiansData = getWormholeGuardiansData(network);
+
+          const wormholeGuardiansOverride = getWormholeGuardiansStateOverride(destFolksChainId, wormholeGuardiansData);
+          const gasLimitEstimation = await estimateEvmWormholeExecutorDataGasLimit(
+            // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+            destFolksChainProvider as EVMProvider,
+            messageBuilderParams,
+            receiverValue,
+            returnGasLimit,
+            sourceWormholeChainId,
+            destWormholeChainId,
+            wormholeGuardiansData,
+            destAdapterAddress,
+            sourceAdapterAddress,
+            [...stateOverride, ...wormholeGuardiansOverride],
+          );
+          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
         }
         default:
           return exhaustiveCheck(adapterId);

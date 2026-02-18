@@ -1,4 +1,5 @@
 import { concat, encodeFunctionData, getContract, isHex } from "viem";
+import { mnemonicToAccount } from "viem/accounts";
 
 import { BYTES32_LENGTH, UINT16_LENGTH, UINT256_LENGTH, UINT8_LENGTH } from "../../../../common/constants/bytes.js";
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
@@ -8,20 +9,29 @@ import { Action } from "../../../../common/types/message.js";
 import { TokenType } from "../../../../common/types/token.js";
 import { convertFromGenericAddress, isGenericAddress } from "../../../../common/utils/address.js";
 import { convertBooleanToByte, convertNumberToBytes, getRandomBytes } from "../../../../common/utils/bytes.js";
+import { getWormholeData } from "../../../../common/utils/gmp.js";
 import { isAccountId } from "../../../../common/utils/lending.js";
 import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
 import { ArbitrumNodeInterfaceAbi } from "../constants/abi/arbitrum-node-interface-abi.js";
 import { ARBITRUM_NODE_INTERFACE } from "../constants/address.js";
+import { ONE_ETH } from "../constants/contract.js";
 
 import {
   getCCIPDataAdapterContract as getCcipDataAdapterContract,
   getWormholeDataAdapterContract,
+  getWormholeExecutorDataAdapterContract,
 } from "./contract.js";
-import { encodeEvmPayloadWithMetadata } from "./gmp.js";
+import {
+  encodeEvmPayloadWithMetadata,
+  encodeEvmPayloadWithWormholeExecutorMetadata,
+  encodeWormholeVAA,
+  getGuardianSetStateOverride,
+} from "./gmp.js";
 import { getBalanceOfStateOverride } from "./tokens.js";
 
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
 import type { FolksChainId } from "../../../../common/types/chain.js";
+import type { WormholeGuardiansData } from "../../../../common/types/gmp.js";
 import type { AccountId } from "../../../../common/types/lending.js";
 import type {
   MessageAdapters,
@@ -34,7 +44,7 @@ import type {
 } from "../../../../common/types/message.js";
 import type { FolksHubTokenType, FolksSpokeTokenType } from "../../../../common/types/token.js";
 import type { CCIPAny2EvmMessage } from "../types/gmp.js";
-import type { Client, Hex, ContractFunctionArgs, StateOverride } from "viem";
+import type { Client, ContractFunctionArgs, Hex, StateOverride } from "viem";
 
 export const buildMessageParams = ({
   adapters,
@@ -535,6 +545,64 @@ export async function estimateEvmCcipDataGasLimit(
   return gasLimit - gasToSubtract;
 }
 
+export async function estimateEvmWormholeExecutorDataGasLimit(
+  provider: Client,
+  messageBuilderParams: MessageBuilderParams,
+  receiverValue: bigint,
+  returnGasLimit: bigint,
+  sourceWormholeChainId: number,
+  destWormholeChainId: number,
+  wormholeGuardiansData: WormholeGuardiansData,
+  wormholeExecutorDataAdapterAddress: GenericAddress,
+  sourceWormholeExecutorDataAdapterAddress: GenericAddress,
+  stateOverride: StateOverride,
+) {
+  const wormholeExecutorDataAdapter = getWormholeExecutorDataAdapterContract(
+    provider,
+    wormholeExecutorDataAdapterAddress,
+  );
+  const { vaa } = await encodeWormholeVAA(
+    wormholeGuardiansData,
+    sourceWormholeChainId,
+    sourceWormholeExecutorDataAdapterAddress,
+    FINALITY.IMMEDIATE,
+    encodeEvmPayloadWithWormholeExecutorMetadata(
+      destWormholeChainId,
+      messageBuilderParams.adapters.returnAdapterId,
+      returnGasLimit,
+      messageBuilderParams.sender,
+      messageBuilderParams.handler,
+      buildMessagePayload(
+        messageBuilderParams.action,
+        messageBuilderParams.accountId,
+        messageBuilderParams.userAddress,
+        buildEvmMessageData(messageBuilderParams),
+      ),
+    ),
+  );
+  const args: ContractFunctionArgs<typeof wormholeExecutorDataAdapter.abi, "payable", "executeVAAv1"> = [vaa] as const;
+
+  const account = mnemonicToAccount(wormholeGuardiansData.mocks.mnemonic); // random account just for estimation
+  const gasLimit = await wormholeExecutorDataAdapter.estimateGas.executeVAAv1(args, {
+    value: receiverValue,
+    account,
+    stateOverride: [{ address: account.address, balance: ONE_ETH }, ...stateOverride],
+  });
+
+  const gasToSubtract = await getGasToSubtract(
+    provider,
+    messageBuilderParams.destinationChainId,
+    convertFromGenericAddress(wormholeExecutorDataAdapterAddress, ChainType.EVM),
+    encodeFunctionData({
+      abi: wormholeExecutorDataAdapter.abi,
+      functionName: "executeVAAv1",
+      args,
+    }),
+  );
+
+  return gasLimit - gasToSubtract;
+}
+
 export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs: OverrideTokenData) {
   const { folksTokenId, amount, address, token } = extraArgs;
   if (token.type === TokenType.CROSS_CHAIN) {
@@ -555,6 +623,14 @@ export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs:
     ]);
   }
   return [];
+}
+
+export function getWormholeGuardiansStateOverride(
+  folksChainId: FolksChainId,
+  wormholeGuardiansData: WormholeGuardiansData,
+) {
+  const { wormholeCore } = getWormholeData(folksChainId);
+  return getGuardianSetStateOverride(wormholeCore, wormholeGuardiansData);
 }
 
 async function getGasToSubtract(
