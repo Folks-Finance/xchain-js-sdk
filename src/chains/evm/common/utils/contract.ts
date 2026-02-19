@@ -9,6 +9,7 @@ import {
   toHex,
 } from "viem";
 
+import { BYTES32_LENGTH } from "../../../../common/constants/bytes.js";
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { ChainType, NetworkType } from "../../../../common/types/chain.js";
 import { MAINNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
@@ -147,7 +148,7 @@ export function getAllowanceSlotHash(owner: EvmAddress, spender: EvmAddress, slo
 }
 
 export function getWormholeGuardianSetIndexSlotHash(slot = 3n) {
-  return toHex(slot, { size: 32 });
+  return toHex(slot, { size: BYTES32_LENGTH });
 }
 
 export function getWormholeGuardianSetSlotHash(guardiansSetIndex: bigint, slot = 2n) {
@@ -161,5 +162,5 @@ export function getWormholeGuardiansLenSlotHash(guardiansSetIndex: bigint, slot 
 export function getWormholeGuardianAddressSlotHash(guardianIndex: bigint, guardiansSetIndex: bigint, slot = 2n) {
   const structSlot = getWormholeGuardiansLenSlotHash(guardiansSetIndex, slot);
   const dataSlot = keccak256(encodeAbiParameters([{ type: "uint256" }], [BigInt(structSlot)]));
-  return pad(toHex(BigInt(dataSlot) + guardianIndex), { size: 32 });
+  return pad(toHex(BigInt(dataSlot) + guardianIndex), { size: BYTES32_LENGTH });
 }

@@ -1,7 +1,14 @@
 import { concat, encodeAbiParameters, keccak256, numberToHex, parseSignature } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
-import { UINT128_LENGTH, UINT16_LENGTH, UINT256_LENGTH } from "../../../../common/constants/bytes.js";
+import {
+  UINT128_LENGTH,
+  UINT16_LENGTH,
+  UINT256_LENGTH,
+  UINT32_LENGTH,
+  UINT64_LENGTH,
+  UINT8_LENGTH,
+} from "../../../../common/constants/bytes.js";
 import { convertNumberToBytes } from "../../../../common/utils/bytes.js";
 import { WORMHOLE_SIGNATURE_RECOVERY_MAGIC } from "../constants/gmp.js";
 
@@ -78,12 +85,12 @@ export async function encodeWormholeVAA(
 ): Promise<{ digest: Hex; vaa: Hex }> {
   const sequence = 0;
   const body = concat([
-    numberToHex(0, { size: 4 }), // timestamp
-    numberToHex(0, { size: 4 }), // nonce
-    numberToHex(sourceWormholeChainId, { size: 2 }),
+    numberToHex(0, { size: UINT32_LENGTH }), // timestamp
+    numberToHex(0, { size: UINT32_LENGTH }), // nonce
+    numberToHex(sourceWormholeChainId, { size: UINT16_LENGTH }),
     sourceWormholeExecutorDataAdapterAddress,
-    numberToHex(sequence, { size: 8 }),
-    numberToHex(consistencyLevel, { size: 1 }),
+    numberToHex(sequence, { size: UINT64_LENGTH }),
+    numberToHex(consistencyLevel, { size: UINT8_LENGTH }),
     payload,
   ]);
   const { mnemonic, guardianSetIndex, guardiansSetLength } = mockWormholeGuardiansData;
@@ -92,22 +99,14 @@ export async function encodeWormholeVAA(
   const sig = await mnemonicToAccount(mnemonic).sign({ hash: digest });
   const parsedSig = parseSignature(sig);
 
-  const signatureBytes = concat([
+  const header = concat([
+    numberToHex(vaaVersion, { size: UINT8_LENGTH }),
+    numberToHex(guardianSetIndex, { size: UINT32_LENGTH }),
+    numberToHex(guardiansSetLength, { size: UINT8_LENGTH }),
+    numberToHex(0, { size: UINT8_LENGTH }), // 0 is the index of the guardian that signed
     parsedSig.r,
     parsedSig.s,
-    numberToHex(Number(parsedSig.v) - WORMHOLE_SIGNATURE_RECOVERY_MAGIC, { size: 1 }),
-  ]);
-
-  const signaturesBytes = concat([
-    numberToHex(guardiansSetLength, { size: 1 }),
-    numberToHex(0, { size: 1 }), // 0 is the index of the guardian that signed
-    signatureBytes,
-  ]);
-
-  const header = concat([
-    numberToHex(vaaVersion, { size: 1 }),
-    numberToHex(guardianSetIndex, { size: 4 }),
-    signaturesBytes,
+    numberToHex(Number(parsedSig.v) - WORMHOLE_SIGNATURE_RECOVERY_MAGIC, { size: UINT8_LENGTH }),
   ]);
 
   const vaa = concat([header, body]);
