@@ -5,24 +5,20 @@ import { FOLKS_CHAIN_ID } from "./chain.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type { FolksChainId } from "../types/chain.js";
-import type { CCIPData, WormholeData, WormholeGuardiansData } from "../types/gmp.js";
+import type { CCIPData, WormholeData, MockWormholeGuardiansData } from "../types/gmp.js";
 
-export const WORMHOLE_GUARDIANS_DATA: Record<NetworkType, WormholeGuardiansData> = {
+export const MOCK_WORMHOLE_GUARDIANS_DATA: Record<NetworkType, MockWormholeGuardiansData> = {
   [NetworkType.MAINNET]: {
-    mocks: {
-      guardianSetIndex: 0,
-      guardiansSetLength: 1,
-      mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
-      address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
-    },
+    guardianSetIndex: 0,
+    guardiansSetLength: 1,
+    mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
+    address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
   },
   [NetworkType.TESTNET]: {
-    mocks: {
-      guardianSetIndex: 0,
-      guardiansSetLength: 1,
-      mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
-      address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
-    },
+    guardianSetIndex: 0,
+    guardiansSetLength: 1,
+    mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
+    address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
   },
 };
 

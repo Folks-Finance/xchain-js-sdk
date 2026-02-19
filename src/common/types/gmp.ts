@@ -6,13 +6,11 @@ export enum MessageDirection {
   HubToSpoke,
 }
 
-export type WormholeGuardiansData = {
-  mocks: {
-    guardianSetIndex: number;
-    guardiansSetLength: number;
-    mnemonic: string;
-    address: EvmAddress;
-  };
+export type MockWormholeGuardiansData = {
+  guardianSetIndex: number;
+  guardiansSetLength: number;
+  mnemonic: string;
+  address: EvmAddress;
 };
 
 export type WormholeData = {

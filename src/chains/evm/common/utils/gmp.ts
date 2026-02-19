@@ -12,7 +12,7 @@ import {
 } from "./contract.js";
 
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { WormholeGuardiansData } from "../../../../common/types/gmp.js";
+import type { MockWormholeGuardiansData } from "../../../../common/types/gmp.js";
 import type { AdapterType, Finality } from "../../../../common/types/message.js";
 import type { RetryMessageExtraArgs, ReverseMessageExtraArgs } from "../types/gmp.js";
 import type { Hex, StateOverride } from "viem";
@@ -69,7 +69,7 @@ export function encodeReverseMessageExtraArgs(extraArgs?: ReverseMessageExtraArg
 }
 
 export async function encodeWormholeVAA(
-  wormholeGuardiansData: WormholeGuardiansData,
+  mockWormholeGuardiansData: MockWormholeGuardiansData,
   sourceWormholeChainId: number,
   sourceWormholeExecutorDataAdapterAddress: GenericAddress,
   consistencyLevel: Finality,
@@ -86,9 +86,7 @@ export async function encodeWormholeVAA(
     numberToHex(consistencyLevel, { size: 1 }),
     payload,
   ]);
-  const {
-    mocks: { mnemonic, guardianSetIndex, guardiansSetLength },
-  } = wormholeGuardiansData;
+  const { mnemonic, guardianSetIndex, guardiansSetLength } = mockWormholeGuardiansData;
   const digest = keccak256(keccak256(body));
 
   const sig = await mnemonicToAccount(mnemonic).sign({ hash: digest });
@@ -118,11 +116,9 @@ export async function encodeWormholeVAA(
 
 export function getGuardianSetStateOverride(
   wormholeCore: EvmAddress,
-  wormholeGuardiansData: WormholeGuardiansData,
+  mockWormholeGuardiansData: MockWormholeGuardiansData,
 ): StateOverride {
-  const {
-    mocks: { address, guardianSetIndex, guardiansSetLength },
-  } = wormholeGuardiansData;
+  const { address, guardianSetIndex, guardiansSetLength } = mockWormholeGuardiansData;
   return [
     {
       address: wormholeCore,

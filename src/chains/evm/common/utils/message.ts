@@ -31,7 +31,7 @@ import { getBalanceOfStateOverride } from "./tokens.js";
 
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
 import type { FolksChainId } from "../../../../common/types/chain.js";
-import type { WormholeGuardiansData } from "../../../../common/types/gmp.js";
+import type { MockWormholeGuardiansData } from "../../../../common/types/gmp.js";
 import type { AccountId } from "../../../../common/types/lending.js";
 import type {
   MessageAdapters,
@@ -552,7 +552,7 @@ export async function estimateEvmWormholeExecutorDataGasLimit(
   returnGasLimit: bigint,
   sourceWormholeChainId: number,
   destWormholeChainId: number,
-  wormholeGuardiansData: WormholeGuardiansData,
+  mockWormholeGuardiansData: MockWormholeGuardiansData,
   wormholeExecutorDataAdapterAddress: GenericAddress,
   sourceWormholeExecutorDataAdapterAddress: GenericAddress,
   stateOverride: StateOverride,
@@ -562,7 +562,7 @@ export async function estimateEvmWormholeExecutorDataGasLimit(
     wormholeExecutorDataAdapterAddress,
   );
   const { vaa } = await encodeWormholeVAA(
-    wormholeGuardiansData,
+    mockWormholeGuardiansData,
     sourceWormholeChainId,
     sourceWormholeExecutorDataAdapterAddress,
     FINALITY.IMMEDIATE,
@@ -583,7 +583,7 @@ export async function estimateEvmWormholeExecutorDataGasLimit(
   );
   const args: ContractFunctionArgs<typeof wormholeExecutorDataAdapter.abi, "payable", "executeVAAv1"> = [vaa] as const;
 
-  const account = mnemonicToAccount(wormholeGuardiansData.mocks.mnemonic); // random account just for estimation
+  const account = mnemonicToAccount(mockWormholeGuardiansData.mnemonic); // random account just for estimation
   const gasLimit = await wormholeExecutorDataAdapter.estimateGas.executeVAAv1(args, {
     value: receiverValue,
     account,
@@ -628,10 +628,10 @@ export function getSendTokenStateOverride(folksChainId: FolksChainId, extraArgs:
 
 export function getWormholeGuardiansStateOverride(
   folksChainId: FolksChainId,
-  wormholeGuardiansData: WormholeGuardiansData,
+  mockWormholeGuardiansData: MockWormholeGuardiansData,
 ) {
   const { wormholeCore } = getWormholeData(folksChainId);
-  return getGuardianSetStateOverride(wormholeCore, wormholeGuardiansData);
+  return getGuardianSetStateOverride(wormholeCore, mockWormholeGuardiansData);
 }
 
 async function getGasToSubtract(

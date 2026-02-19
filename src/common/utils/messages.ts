@@ -30,7 +30,7 @@ import { Action, AdapterType } from "../types/message.js";
 
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
-import { getCcipData, getWormholeData, getWormholeGuardiansData } from "./gmp.js";
+import { getCcipData, getWormholeData, getMockWormholeGuardiansData } from "./gmp.js";
 import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
@@ -222,9 +222,12 @@ export async function estimateAdapterReceiveGasLimit(
         case AdapterType.WORMHOLE_EXECUTOR_DATA: {
           const sourceWormholeChainId = getWormholeData(sourceFolksChainId).wormholeChainId;
           const destWormholeChainId = getWormholeData(destFolksChainId).wormholeChainId;
-          const wormholeGuardiansData = getWormholeGuardiansData(network);
+          const mockWormholeGuardiansData = getMockWormholeGuardiansData(network);
 
-          const wormholeGuardiansOverride = getWormholeGuardiansStateOverride(destFolksChainId, wormholeGuardiansData);
+          const wormholeGuardiansOverride = getWormholeGuardiansStateOverride(
+            destFolksChainId,
+            mockWormholeGuardiansData,
+          );
           const gasLimitEstimation = await estimateEvmWormholeExecutorDataGasLimit(
             // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
             destFolksChainProvider as EVMProvider,
@@ -233,7 +236,7 @@ export async function estimateAdapterReceiveGasLimit(
             returnGasLimit,
             sourceWormholeChainId,
             destWormholeChainId,
-            wormholeGuardiansData,
+            mockWormholeGuardiansData,
             destAdapterAddress,
             sourceAdapterAddress,
             [...stateOverride, ...wormholeGuardiansOverride],
