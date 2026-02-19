@@ -14,7 +14,6 @@ import { isAccountId } from "../../../../common/utils/lending.js";
 import { exhaustiveCheck } from "../../../../utils/exhaustive-check.js";
 import { ArbitrumNodeInterfaceAbi } from "../constants/abi/arbitrum-node-interface-abi.js";
 import { ARBITRUM_NODE_INTERFACE } from "../constants/address.js";
-import { ONE_ETH } from "../constants/contract.js";
 
 import {
   getCCIPDataAdapterContract as getCcipDataAdapterContract,
@@ -586,8 +585,8 @@ export async function estimateEvmWormholeExecutorDataGasLimit(
   const account = mnemonicToAccount(mockWormholeGuardiansData.mnemonic); // random account just for estimation
   const gasLimit = await wormholeExecutorDataAdapter.estimateGas.executeVAAv1(args, {
     value: receiverValue,
-    account,
-    stateOverride: [{ address: account.address, balance: ONE_ETH }, ...stateOverride],
+    account: account.address,
+    stateOverride: [{ address: account.address, balance: receiverValue }, ...stateOverride],
   });
 
   const gasToSubtract = await getGasToSubtract(
