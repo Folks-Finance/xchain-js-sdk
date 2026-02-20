@@ -13,6 +13,12 @@ export type MockWormholeGuardiansData = {
   address: EvmAddress;
 };
 
+export type WormholeExecutorCapability = {
+  requestPrefixes: Array<string>;
+  maxGasLimit: string;
+  maxMsgValue: string;
+};
+
 export type WormholeData = {
   wormholeChainId: number;
   wormholeRelayer: GenericAddress;

@@ -22,6 +22,15 @@ export const MOCK_WORMHOLE_GUARDIANS_DATA: Record<NetworkType, MockWormholeGuard
   },
 };
 
+export const WORMHOLE_EXECUTOR_CAPABILITIES_URL: Record<NetworkType, string> = {
+  MAINNET: "https://executor.labsapis.com/v0/capabilities",
+  TESTNET: "https://executor-testnet.labsapis.com/v0/capabilities",
+};
+
+export const REQUEST_PREFIX = {
+  VAA_V1: "ERV1",
+};
+
 export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
   [FOLKS_CHAIN_ID.AVALANCHE]: {
     wormholeChainId: 6,

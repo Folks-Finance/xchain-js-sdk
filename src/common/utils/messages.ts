@@ -30,7 +30,7 @@ import { Action, AdapterType } from "../types/message.js";
 
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
-import { getCcipData, getWormholeData, getMockWormholeGuardiansData } from "./gmp.js";
+import { getCcipData, getWormholeData, getMockWormholeGuardiansData, checkWormholeExecutorCapability } from "./gmp.js";
 import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
@@ -241,7 +241,10 @@ export async function estimateAdapterReceiveGasLimit(
             sourceAdapterAddress,
             [...stateOverride, ...wormholeGuardiansOverride],
           );
-          return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
+          const gasLimit = getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
+          await checkWormholeExecutorCapability(network, destWormholeChainId, receiverValue, gasLimit);
+
+          return gasLimit;
         }
         default:
           return exhaustiveCheck(adapterId);
