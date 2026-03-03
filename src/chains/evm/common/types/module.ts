@@ -112,6 +112,11 @@ export type PrepareResendWormholeMessageCall = {
   wormholeRelayerAddress: GenericAddress;
 } & Omit<PrepareCall, "messageParams">;
 
+export type PrepareWormholeExecuteVaaCall = {
+  vaaRaw: Hex;
+  adapterAddress: GenericAddress;
+} & Omit<PrepareCall, "messageParams">;
+
 export type PrepareUpdateAccountsPointsForRewardsV1Call = {
   poolEpochs: Array<PoolEpochV1>;
   rewardsV1Address: GenericAddress;

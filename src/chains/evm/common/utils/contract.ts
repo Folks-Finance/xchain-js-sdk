@@ -111,11 +111,23 @@ export function getCCIPDataAdapterContract(
 export function getWormholeExecutorDataAdapterContract(
   provider: Client,
   address: GenericAddress,
-): GetReadContractReturnType<typeof WormholeExecutorDataAdapterAbi> {
+): GetReadContractReturnType<typeof WormholeExecutorDataAdapterAbi>;
+export function getWormholeExecutorDataAdapterContract(
+  provider: Client,
+  address: GenericAddress,
+  signer: WalletClient,
+): GetContractReturnType<typeof WormholeExecutorDataAdapterAbi, Client>;
+export function getWormholeExecutorDataAdapterContract(
+  provider: Client,
+  address: GenericAddress,
+  signer?: WalletClient,
+):
+  | GetReadContractReturnType<typeof WormholeExecutorDataAdapterAbi>
+  | GetContractReturnType<typeof WormholeExecutorDataAdapterAbi, Client> {
   return getContract({
     abi: WormholeExecutorDataAdapterAbi,
     address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
-    client: { public: provider },
+    client: { wallet: signer, public: provider },
   });
 }
 
