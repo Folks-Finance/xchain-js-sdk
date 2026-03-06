@@ -1,3 +1,5 @@
+import { FIVE_ETH } from "../../chains/evm/common/constants/contract.js";
+import { getHubChain } from "../../chains/evm/hub/utils/chain.js";
 import {
   CCIP_DATA,
   WORMHOLE_DATA,
@@ -5,12 +7,18 @@ import {
   WORMHOLE_EXECUTOR_CAPABILITIES_URL,
   REQUEST_PREFIX,
 } from "../constants/gmp.js";
+import { NetworkType } from "../types/chain.js";
 
-import type { FolksChainId, NetworkType } from "../types/chain.js";
+import type { FolksChainId } from "../types/chain.js";
 import type { CCIPData, WormholeData, MockWormholeGuardiansData, WormholeExecutorCapability } from "../types/gmp.js";
 
 export function getWormholeData(folksChainId: FolksChainId): WormholeData {
   return WORMHOLE_DATA[folksChainId];
+}
+
+function getMainnetHubWormholeChainId(): number {
+  const folksChainId = getHubChain(NetworkType.MAINNET).folksChainId;
+  return WORMHOLE_DATA[folksChainId].wormholeChainId;
 }
 
 export function getMockWormholeGuardiansData(network: NetworkType): MockWormholeGuardiansData {
@@ -46,7 +54,8 @@ export async function checkWormholeExecutorCapability(
     );
 
   const maxGasLimit = BigInt(capability.maxGasLimit);
-  const maxReceiverValue = BigInt(capability.maxMsgValue);
+  const maxReceiverValue =
+    wormholeChainId === getMainnetHubWormholeChainId() ? FIVE_ETH : BigInt(capability.maxMsgValue);
   if (gasLimit > maxGasLimit)
     throw new Error(
       `Estimated gas limit ${gasLimit.toString()} exceeds wormhole executor max gas limit ${maxGasLimit.toString()} for chain ${wormholeChainId}`,
