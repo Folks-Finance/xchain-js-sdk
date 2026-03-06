@@ -4,7 +4,6 @@ import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { FolksCore } from "../../xchain/core/folks-core.js";
 import { DATA_ADAPTERS } from "../constants/adapter.js";
 import { MessageAdapterParamsType } from "../types/adapter.js";
-import { NetworkType } from "../types/chain.js";
 import { AdapterType } from "../types/message.js";
 import { TokenType } from "../types/token.js";
 
@@ -12,7 +11,7 @@ import { getRewardTokenSpokeChain, getSpokeChain } from "./chain.js";
 
 import type { NonEmptyArray } from "../../types/generics.js";
 import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
-import type { FolksChainId } from "../types/chain.js";
+import type { NetworkType, FolksChainId } from "../types/chain.js";
 import type { SupportedMessageAdaptersMap } from "../types/message.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
@@ -101,10 +100,9 @@ export function assertAdapterSupportsReceiverValue(folksChainId: FolksChainId, a
 
 function getSendTokenAdapterIds(folksTokenId: FolksTokenId, network: NetworkType) {
   const hubTokenData = getHubTokenData(folksTokenId, network);
-  if (hubTokenData.token.type == TokenType.CROSS_CHAIN) return hubTokenData.token.adapters;
+  if (hubTokenData.token.type == TokenType.CROSS_CHAIN)
+    return hubTokenData.token.adapters.filter((adapterId) => adapterId !== AdapterType.WORMHOLE_CCTP);
 
-  if (network === NetworkType.MAINNET)
-    return DATA_ADAPTERS.filter((adapterId) => adapterId !== AdapterType.WORMHOLE_EXECUTOR_DATA); //TODO: remove after adding on mainnet
   return DATA_ADAPTERS;
 }
 
@@ -112,8 +110,6 @@ function getMessageAdapterIds(messageAdapterParams: MessageAdapterParams) {
   const { network, messageAdapterParamType } = messageAdapterParams;
   if (messageAdapterParamType === MessageAdapterParamsType.SendToken)
     return getSendTokenAdapterIds(messageAdapterParams.folksTokenId, network);
-  if (network === NetworkType.MAINNET)
-    return DATA_ADAPTERS.filter((adapterId) => adapterId !== AdapterType.WORMHOLE_EXECUTOR_DATA); //TODO: remove after adding on mainnet
   return DATA_ADAPTERS;
 }
 

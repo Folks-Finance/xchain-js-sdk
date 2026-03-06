@@ -48,7 +48,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         "0x5f2F4771B7dc7e2F7E9c1308B154E1e8957ecAB0" as EvmAddress,
         ChainType.EVM,
       ),
-      [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress("" as EvmAddress, ChainType.EVM), // TODO: update when wormhole executor adapter is deployed on mainnet
+      [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+        "0x27389a07d02C3Cd8C3d069FCb2Ee6AaA160788A2" as EvmAddress,
+        ChainType.EVM,
+      ),
     },
     nodeManagerAddress: convertToGenericAddress(
       "0x802063A23E78D0f5D158feaAc605028Ee490b03b" as EvmAddress,
@@ -1013,6 +1016,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ),
         [AdapterType.CCIP_DATA]: convertToGenericAddress(
           "0x97592Dc676D6051Bf813f663B717cfD6B177eEFF" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+          "0x45060a047b64423179E52a9B082E19444711A084" as EvmAddress,
           ChainType.EVM,
         ),
       },
