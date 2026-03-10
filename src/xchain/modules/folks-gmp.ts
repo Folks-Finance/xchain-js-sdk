@@ -248,7 +248,7 @@ export const write = {
       );
     } else {
       return await FolksEvmGmp.write.retryMessage(
-        FolksCore.getHubProvider(),
+        FolksCore.getProvider<ChainType.EVM>(folksChain.folksChainId),
         FolksCore.getSigner<ChainType.EVM>(),
         adapterId,
         messageId,
@@ -272,7 +272,7 @@ export const write = {
       );
     } else {
       return await FolksEvmGmp.write.reverseMessage(
-        FolksCore.getHubProvider(),
+        FolksCore.getProvider<ChainType.EVM>(folksChain.folksChainId),
         FolksCore.getSigner<ChainType.EVM>(),
         adapterId,
         messageId,
@@ -282,18 +282,20 @@ export const write = {
   },
 
   async resendWormholeMessage(prepareCall: PrepareResendWormholeMessageCall) {
+    const { folksChainId } = FolksCore.getSelectedFolksChain();
+
     return await FolksEvmGmp.write.resendMessage(
-      FolksCore.getHubProvider(),
+      FolksCore.getProvider<ChainType.EVM>(folksChainId),
       FolksCore.getSigner<ChainType.EVM>(),
       prepareCall,
     );
   },
 
   async executeWormholeVaa(prepareCall: PrepareWormholeExecuteVaaCall) {
-    assertFolksChainSelected(prepareCall.folksChainId, FolksCore.getSelectedFolksChain().folksChainId);
+    const { folksChainId } = FolksCore.getSelectedFolksChain();
 
     return await FolksEvmGmp.write.executeWormholeVaa(
-      FolksCore.getProvider<ChainType.EVM>(prepareCall.folksChainId),
+      FolksCore.getProvider<ChainType.EVM>(folksChainId),
       FolksCore.getSigner<ChainType.EVM>(),
       prepareCall,
     );
