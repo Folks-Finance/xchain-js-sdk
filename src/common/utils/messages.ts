@@ -11,7 +11,12 @@ import {
 import { getTransactionReceipt } from "viem/actions";
 
 import { WormholeDataAdapterAbi } from "../../chains/evm/common/constants/abi/wormhole-data-adapter-abi.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE, HUB_GAS_LIMIT_SLIPPAGE } from "../../chains/evm/common/constants/contract.js";
+import {
+  GAS_LIMIT_ESTIMATE_INCREASE,
+  GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE,
+  HUB_GAS_LIMIT_SLIPPAGE,
+  MONAD_GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE,
+} from "../../chains/evm/common/constants/contract.js";
 import {
   buildEvmMessageToSend,
   estimateEvmCcipDataGasLimit,
@@ -23,6 +28,7 @@ import {
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { BYTES32_LENGTH, BYTES4_LENGTH, UINT16_LENGTH, UINT256_LENGTH, UINT8_LENGTH } from "../constants/bytes.js";
+import { MAINNET_FOLKS_CHAIN_ID } from "../constants/chain.js";
 import { REVERSIBLE_HUB_ACTIONS, SEND_TOKEN_ACTIONS } from "../constants/message.js";
 import { ChainType } from "../types/chain.js";
 import { MessageDirection } from "../types/gmp.js";
@@ -244,7 +250,7 @@ export async function estimateAdapterReceiveGasLimit(
           const gasLimit = getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
           await checkWormholeExecutorCapability(network, destWormholeChainId, gasLimit, receiverValue);
 
-          return gasLimit;
+          return gasLimit + getWormholeExecutorExtraGasLimit(destFolksChainId); // Adding extra buffer for the execution
         }
         default:
           return exhaustiveCheck(adapterId);
@@ -491,4 +497,9 @@ export function getGasLimitAfterIncrease(
 ): bigint {
   if (isHubChain(folksChainId, network)) return increaseByPercent(gasLimit, HUB_GAS_LIMIT_SLIPPAGE);
   return gasLimit + GAS_LIMIT_ESTIMATE_INCREASE;
+}
+
+export function getWormholeExecutorExtraGasLimit(folksChainId: FolksChainId) {
+  if (folksChainId === MAINNET_FOLKS_CHAIN_ID.MONAD) return MONAD_GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE;
+  return GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE;
 }

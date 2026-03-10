@@ -7,6 +7,8 @@ export const defaultEventParams: EventParams = {
 };
 
 export const GAS_LIMIT_ESTIMATE_INCREASE = 10_000n;
+export const GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE = 50_000n;
+export const MONAD_GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE = 300_000n;
 export const SEND_TOKEN_ACTION_RETURN_GAS_LIMIT = 500_000n;
 export const RECEIVER_VALUE_SLIPPAGE = 0.01;
 export const HUB_GAS_LIMIT_SLIPPAGE = 0.1;
