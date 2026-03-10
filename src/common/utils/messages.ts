@@ -242,7 +242,7 @@ export async function estimateAdapterReceiveGasLimit(
             [...stateOverride, ...wormholeGuardiansOverride],
           );
           const gasLimit = getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
-          await checkWormholeExecutorCapability(network, destWormholeChainId, receiverValue, gasLimit);
+          await checkWormholeExecutorCapability(network, destWormholeChainId, gasLimit, receiverValue);
 
           return gasLimit;
         }
