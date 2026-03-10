@@ -37,6 +37,7 @@ import { Action, AdapterType } from "../types/message.js";
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
 import { getCcipData, getWormholeData, getMockWormholeGuardiansData, checkWormholeExecutorCapability } from "./gmp.js";
+import { safeSliceHex } from "./hex.js";
 import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
@@ -325,7 +326,7 @@ export function decodeMessagePayload(payload: Hex): Payload {
       UINT16_LENGTH + BYTES32_LENGTH,
       UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH,
     ) as GenericAddress,
-    data: sliceHex(payload, UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH),
+    data: safeSliceHex(payload, UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH),
   };
 }
 
