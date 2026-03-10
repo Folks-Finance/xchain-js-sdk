@@ -153,3 +153,8 @@ export function getSignerGenericAddress(folksChainSigner: FolksChainSigner): Gen
 export function assertHubChainSelected(folksChainId: FolksChainId, network: NetworkType) {
   if (!isHubChain(folksChainId, network)) throw new Error(`Wrong chain selected: ${folksChainId}. Expected Hub chain`);
 }
+
+export function assertFolksChainSelected(targetFolksChainId: FolksChainId, currentFolksChainId: FolksChainId) {
+  if (targetFolksChainId !== currentFolksChainId)
+    throw new Error(`Wrong chain selected: ${targetFolksChainId}. Expected chain: ${currentFolksChainId}`);
+}

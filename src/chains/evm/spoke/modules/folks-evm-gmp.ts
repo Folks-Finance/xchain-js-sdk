@@ -176,6 +176,7 @@ export const prepare = {
       msgValue,
       vaaRaw,
       adapterAddress,
+      folksChainId,
     };
   },
 };

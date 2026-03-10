@@ -19,6 +19,7 @@ import {
 } from "../../common/utils/adapter.js";
 import { convertFromGenericAddress } from "../../common/utils/address.js";
 import {
+  assertFolksChainSelected,
   assertHubChainSelected,
   getFolksChain,
   getSignerGenericAddress,
@@ -36,6 +37,7 @@ import type {
   RetryMessageExtraArgsParams,
   ReverseMessageExtraArgsParams,
 } from "../../chains/evm/common/types/gmp.js";
+import type { PrepareWormholeExecuteVaaCall } from "../../chains/evm/common/types/module.js";
 import type { HubTokenData } from "../../chains/evm/hub/types/token.js";
 import type { GenericAddress } from "../../common/types/address.js";
 import type { FolksChainId } from "../../common/types/chain.js";
@@ -48,6 +50,7 @@ import type {
   PrepareReverseMessageCall,
 } from "../../common/types/module.js";
 import type { CrossChainTokenType, FolksTokenId } from "../../common/types/token.js";
+import type { Hex } from "viem";
 
 export const prepare = {
   async retryMessage(
@@ -213,6 +216,20 @@ export const prepare = {
       receiverGasLimit,
     );
   },
+
+  async executeWormholeVaa(folksChainId: FolksChainId, vaaRaw: Hex, msgValue: bigint, isReward = false) {
+    assertFolksChainSelected(folksChainId, FolksCore.getSelectedFolksChain().folksChainId);
+
+    return await FolksEvmGmp.prepare.executeWormholeVaa(
+      FolksCore.getProvider<ChainType.EVM>(folksChainId),
+      getEvmSignerAddress(FolksCore.getSigner()),
+      FolksCore.getSelectedNetwork(),
+      vaaRaw,
+      msgValue,
+      folksChainId,
+      isReward,
+    );
+  },
 };
 
 export const write = {
@@ -267,6 +284,16 @@ export const write = {
   async resendWormholeMessage(prepareCall: PrepareResendWormholeMessageCall) {
     return await FolksEvmGmp.write.resendMessage(
       FolksCore.getHubProvider(),
+      FolksCore.getSigner<ChainType.EVM>(),
+      prepareCall,
+    );
+  },
+
+  async executeWormholeVaa(prepareCall: PrepareWormholeExecuteVaaCall) {
+    assertFolksChainSelected(prepareCall.folksChainId, FolksCore.getSelectedFolksChain().folksChainId);
+
+    return await FolksEvmGmp.write.executeWormholeVaa(
+      FolksCore.getProvider<ChainType.EVM>(prepareCall.folksChainId),
       FolksCore.getSigner<ChainType.EVM>(),
       prepareCall,
     );
