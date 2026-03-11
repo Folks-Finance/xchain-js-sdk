@@ -18,6 +18,7 @@ import type {
   PrepareRetryMessageCall as PrepareRetryMessageEVMCall,
   PrepareReverseMessageCall as PrepareReverseMessageEVMCall,
   PrepareResendWormholeMessageCall as PrepareResendWormholeMessageEVMCall,
+  PrepareWormholeExecuteVaaCall as PrepareWormholeExecuteVaaEVMCall,
   PrepareUpdateAccountsPointsForRewardsV1Call as PrepareUpdateAccountsPointsForRewardsV1EVMCall,
   PrepareUpdateAccountsPointsForRewardsV2Call as PrepareUpdateAccountsPointsForRewardsV2EVMCall,
   PrepareClaimRewardsV1Call as PrepareClaimRewardsV1EVMCall,
@@ -45,6 +46,7 @@ export type PrepareUpdateUserPointsInLoansCall = PrepareUpdateUserPointsInLoansE
 export type PrepareRetryMessageCall = PrepareRetryMessageEVMCall;
 export type PrepareReverseMessageCall = PrepareReverseMessageEVMCall;
 export type PrepareResendWormholeMessageCall = PrepareResendWormholeMessageEVMCall;
+export type PrepareWormholeExecuteVaaCall = PrepareWormholeExecuteVaaEVMCall;
 export type PrepareUpdateAccountsPointsForRewardsV1Call = PrepareUpdateAccountsPointsForRewardsV1EVMCall;
 export type PrepareUpdateAccountsPointsForRewardsV2Call = PrepareUpdateAccountsPointsForRewardsV2EVMCall;
 export type PrepareClaimRewardsV1Call = PrepareClaimRewardsV1EVMCall;
