@@ -11,16 +11,24 @@ import {
 import { getTransactionReceipt } from "viem/actions";
 
 import { WormholeDataAdapterAbi } from "../../chains/evm/common/constants/abi/wormhole-data-adapter-abi.js";
-import { GAS_LIMIT_ESTIMATE_INCREASE, HUB_GAS_LIMIT_SLIPPAGE } from "../../chains/evm/common/constants/contract.js";
+import {
+  GAS_LIMIT_ESTIMATE_INCREASE,
+  GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE,
+  HUB_GAS_LIMIT_SLIPPAGE,
+  MONAD_GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE,
+} from "../../chains/evm/common/constants/contract.js";
 import {
   buildEvmMessageToSend,
   estimateEvmCcipDataGasLimit,
   estimateEvmWormholeDataGasLimit,
+  estimateEvmWormholeExecutorDataGasLimit,
   getSendTokenStateOverride,
+  getWormholeGuardiansStateOverride,
 } from "../../chains/evm/common/utils/message.js";
 import { getHubChainAdapterAddress, isHubChain } from "../../chains/evm/hub/utils/chain.js";
 import { exhaustiveCheck } from "../../utils/exhaustive-check.js";
 import { BYTES32_LENGTH, BYTES4_LENGTH, UINT16_LENGTH, UINT256_LENGTH, UINT8_LENGTH } from "../constants/bytes.js";
+import { MAINNET_FOLKS_CHAIN_ID } from "../constants/chain.js";
 import { REVERSIBLE_HUB_ACTIONS, SEND_TOKEN_ACTIONS } from "../constants/message.js";
 import { ChainType } from "../types/chain.js";
 import { MessageDirection } from "../types/gmp.js";
@@ -28,7 +36,8 @@ import { Action, AdapterType } from "../types/message.js";
 
 import { convertFromGenericAddress } from "./address.js";
 import { getFolksChain, getNetworkFromFolksChainId, getSpokeChainAdapterAddress } from "./chain.js";
-import { getCcipData, getWormholeData } from "./gmp.js";
+import { getCcipData, getWormholeData, getMockWormholeGuardiansData, checkWormholeExecutorCapability } from "./gmp.js";
+import { safeSliceHex } from "./hex.js";
 import { increaseByPercent } from "./math-lib.js";
 import { waitTransaction } from "./transaction.js";
 
@@ -217,6 +226,33 @@ export async function estimateAdapterReceiveGasLimit(
           );
           return getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation) + ADAPTER_EXTRA_GAS_LIMIT;
         }
+        case AdapterType.WORMHOLE_EXECUTOR_DATA: {
+          const sourceWormholeChainId = getWormholeData(sourceFolksChainId).wormholeChainId;
+          const destWormholeChainId = getWormholeData(destFolksChainId).wormholeChainId;
+          const mockWormholeGuardiansData = getMockWormholeGuardiansData(network);
+
+          const wormholeGuardiansOverride = getWormholeGuardiansStateOverride(
+            destFolksChainId,
+            mockWormholeGuardiansData,
+          );
+          const gasLimitEstimation = await estimateEvmWormholeExecutorDataGasLimit(
+            // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+            destFolksChainProvider as EVMProvider,
+            messageBuilderParams,
+            receiverValue,
+            returnGasLimit,
+            sourceWormholeChainId,
+            destWormholeChainId,
+            mockWormholeGuardiansData,
+            destAdapterAddress,
+            sourceAdapterAddress,
+            [...stateOverride, ...wormholeGuardiansOverride],
+          );
+          const gasLimit = getGasLimitAfterIncrease(destFolksChainId, gasLimitEstimation);
+          await checkWormholeExecutorCapability(network, destWormholeChainId, gasLimit, receiverValue);
+
+          return gasLimit + getWormholeExecutorExtraGasLimit(destFolksChainId); // Adding extra buffer for the execution
+        }
         default:
           return exhaustiveCheck(adapterId);
       }
@@ -290,7 +326,7 @@ export function decodeMessagePayload(payload: Hex): Payload {
       UINT16_LENGTH + BYTES32_LENGTH,
       UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH,
     ) as GenericAddress,
-    data: sliceHex(payload, UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH),
+    data: safeSliceHex(payload, UINT16_LENGTH + BYTES32_LENGTH + BYTES32_LENGTH),
   };
 }
 
@@ -462,4 +498,9 @@ export function getGasLimitAfterIncrease(
 ): bigint {
   if (isHubChain(folksChainId, network)) return increaseByPercent(gasLimit, HUB_GAS_LIMIT_SLIPPAGE);
   return gasLimit + GAS_LIMIT_ESTIMATE_INCREASE;
+}
+
+export function getWormholeExecutorExtraGasLimit(folksChainId: FolksChainId) {
+  if (folksChainId === MAINNET_FOLKS_CHAIN_ID.MONAD) return MONAD_GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE;
+  return GAS_LIMIT_WH_EXECUTOR_ESTIMATE_INCREASE;
 }

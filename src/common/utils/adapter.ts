@@ -11,7 +11,7 @@ import { getRewardTokenSpokeChain, getSpokeChain } from "./chain.js";
 
 import type { NonEmptyArray } from "../../types/generics.js";
 import type { MessageAdapterParams, ReceiveTokenMessageAdapterParams } from "../types/adapter.js";
-import type { FolksChainId, NetworkType } from "../types/chain.js";
+import type { NetworkType, FolksChainId } from "../types/chain.js";
 import type { SupportedMessageAdaptersMap } from "../types/message.js";
 import type { CrossChainTokenType, FolksTokenId } from "../types/token.js";
 
@@ -30,7 +30,10 @@ export function doesAdapterSupportDataMessage(folksChainId: FolksChainId, adapte
   const isHub = isHubChain(folksChainId, FolksCore.getSelectedNetwork());
   return (
     (isHub && adapterId === AdapterType.HUB) ||
-    (!isHub && (adapterId === AdapterType.WORMHOLE_DATA || adapterId === AdapterType.CCIP_DATA))
+    (!isHub &&
+      (adapterId === AdapterType.WORMHOLE_DATA ||
+        adapterId === AdapterType.CCIP_DATA ||
+        adapterId === AdapterType.WORMHOLE_EXECUTOR_DATA))
   );
 }
 
@@ -83,7 +86,10 @@ export function doesAdapterSupportReceiverValue(folksChainId: FolksChainId, adap
   const isHub = isHubChain(folksChainId, FolksCore.getSelectedNetwork());
   return (
     (isHub && adapterId === AdapterType.HUB) ||
-    (!isHub && (adapterId === AdapterType.WORMHOLE_DATA || adapterId === AdapterType.WORMHOLE_CCTP))
+    (!isHub &&
+      (adapterId === AdapterType.WORMHOLE_DATA ||
+        adapterId === AdapterType.WORMHOLE_CCTP ||
+        adapterId === AdapterType.WORMHOLE_EXECUTOR_DATA))
   );
 }
 
@@ -94,7 +100,9 @@ export function assertAdapterSupportsReceiverValue(folksChainId: FolksChainId, a
 
 function getSendTokenAdapterIds(folksTokenId: FolksTokenId, network: NetworkType) {
   const hubTokenData = getHubTokenData(folksTokenId, network);
-  if (hubTokenData.token.type == TokenType.CROSS_CHAIN) return hubTokenData.token.adapters;
+  if (hubTokenData.token.type == TokenType.CROSS_CHAIN)
+    return hubTokenData.token.adapters.filter((adapterId) => adapterId !== AdapterType.WORMHOLE_CCTP);
+
   return DATA_ADAPTERS;
 }
 

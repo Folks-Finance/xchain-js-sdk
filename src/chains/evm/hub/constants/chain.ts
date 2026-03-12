@@ -48,6 +48,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         "0x5f2F4771B7dc7e2F7E9c1308B154E1e8957ecAB0" as EvmAddress,
         ChainType.EVM,
       ),
+      [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+        "0x27389a07d02C3Cd8C3d069FCb2Ee6AaA160788A2" as EvmAddress,
+        ChainType.EVM,
+      ),
     },
     nodeManagerAddress: convertToGenericAddress(
       "0x802063A23E78D0f5D158feaAc605028Ee490b03b" as EvmAddress,
@@ -1014,6 +1018,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           "0x97592Dc676D6051Bf813f663B717cfD6B177eEFF" as EvmAddress,
           ChainType.EVM,
         ),
+        [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+          "0x45060a047b64423179E52a9B082E19444711A084" as EvmAddress,
+          ChainType.EVM,
+        ),
       },
       [REWARDS_TYPE.V1]: {
         hubAddress: convertToGenericAddress("0x7c532A6209350cF27EfC3D06E82E35ACFd362C7C" as EvmAddress, ChainType.EVM),
@@ -1119,6 +1127,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
       ),
       [AdapterType.CCIP_TOKEN]: convertToGenericAddress(
         "0xf897C0f5b502EA259b2b3418eAFF0AfA32f80CFF" as EvmAddress,
+        ChainType.EVM,
+      ),
+      [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+        "0x69840c6DD3f2FB99001960fb5e2D0d34CECeD1A8" as EvmAddress,
         ChainType.EVM,
       ),
     },
@@ -1314,6 +1326,10 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
         ),
         [AdapterType.CCIP_DATA]: convertToGenericAddress(
           "0x5c9d6C2202F214f3f8B879eaE3e16C6675338D4E" as EvmAddress,
+          ChainType.EVM,
+        ),
+        [AdapterType.WORMHOLE_EXECUTOR_DATA]: convertToGenericAddress(
+          "0x387fd2AfBE40b806f0BF975a596768bbeA582992" as EvmAddress,
           ChainType.EVM,
         ),
       },

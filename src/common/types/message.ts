@@ -21,6 +21,7 @@ export enum AdapterType {
   WORMHOLE_CCTP = 3,
   CCIP_DATA = 4,
   CCIP_TOKEN = 5,
+  WORMHOLE_EXECUTOR_DATA = 6,
 }
 
 export enum Action {

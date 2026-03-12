@@ -1,26 +1,28 @@
 import { FINALITY } from "../../../../common/constants/message.js";
 import { ChainType } from "../../../../common/types/chain.js";
+import { AdapterType } from "../../../../common/types/message.js";
 import {
   convertFromGenericAddress,
   convertToGenericAddress,
   getRandomGenericAddress,
 } from "../../../../common/utils/address.js";
 import { getRandomBytes } from "../../../../common/utils/bytes.js";
-import { getSpokeChainBridgeRouterAddress } from "../../../../common/utils/chain.js";
+import { getAdapterAddress, getSpokeChainBridgeRouterAddress } from "../../../../common/utils/chain.js";
 import { getWormholeData } from "../../../../common/utils/gmp.js";
 import { GAS_LIMIT_ESTIMATE_INCREASE } from "../../common/constants/contract.js";
 import { getEvmSignerAccount } from "../../common/utils/chain.js";
-import { getWormholeRelayerContract } from "../../common/utils/contract.js";
+import { getWormholeExecutorDataAdapterContract, getWormholeRelayerContract } from "../../common/utils/contract.js";
 import { buildMessageParams, buildSendTokenExtraArgsWhenAdding } from "../../common/utils/message.js";
 import { getBridgeRouterSpokeContract } from "../utils/contract.js";
 
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
-import type { FolksChainId, SpokeChain } from "../../../../common/types/chain.js";
+import type { FolksChainId, NetworkType, SpokeChain } from "../../../../common/types/chain.js";
 import type { MessageId } from "../../../../common/types/gmp.js";
-import type { AdapterType, MessageToSend } from "../../../../common/types/message.js";
+import type { MessageToSend } from "../../../../common/types/message.js";
 import type { SpokeTokenData } from "../../../../common/types/token.js";
 import type { MessageReceived } from "../../common/types/gmp.js";
 import type {
+  PrepareWormholeExecuteVaaCall,
   PrepareResendWormholeMessageCall,
   PrepareRetryMessageCall,
   PrepareReverseMessageCall,
@@ -148,6 +150,35 @@ export const prepare = {
       wormholeRelayerAddress,
     };
   },
+
+  async executeWormholeVaa(
+    provider: Client,
+    sender: EvmAddress,
+    network: NetworkType,
+    vaaRaw: Hex,
+    msgValue: bigint,
+    folksChainId: FolksChainId,
+    isRewards = false,
+    transactionOptions: EstimateGasParameters = {
+      account: sender,
+    },
+  ): Promise<PrepareWormholeExecuteVaaCall> {
+    const adapterAddress = getAdapterAddress(folksChainId, network, AdapterType.WORMHOLE_EXECUTOR_DATA, isRewards);
+    const wormholeExecutorDataAdapter = getWormholeExecutorDataAdapterContract(provider, adapterAddress);
+
+    const gasLimit = await wormholeExecutorDataAdapter.estimateGas.executeVAAv1([vaaRaw], {
+      ...transactionOptions,
+      value: msgValue,
+    });
+
+    return {
+      gasLimit: gasLimit + GAS_LIMIT_ESTIMATE_INCREASE,
+      msgValue,
+      vaaRaw,
+      adapterAddress,
+      folksChainId,
+    };
+  },
 };
 
 export const write = {
@@ -223,6 +254,21 @@ export const write = {
         value: msgValue,
       },
     );
+  },
+
+  async executeWormholeVaa(provider: Client, signer: WalletClient, prepareCall: PrepareWormholeExecuteVaaCall) {
+    const { adapterAddress, gasLimit, maxFeePerGas, maxPriorityFeePerGas, msgValue, vaaRaw } = prepareCall;
+
+    const wormholeExecutorDataAdapter = getWormholeExecutorDataAdapterContract(provider, adapterAddress, signer);
+
+    return await wormholeExecutorDataAdapter.write.executeVAAv1([vaaRaw], {
+      account: getEvmSignerAccount(signer),
+      chain: signer.chain,
+      gas: gasLimit,
+      value: msgValue,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
+    });
   },
 };
 

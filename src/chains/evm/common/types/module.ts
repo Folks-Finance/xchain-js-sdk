@@ -1,5 +1,6 @@
 import type { MessageReceived } from "./gmp.js";
 import type { EvmAddress, GenericAddress } from "../../../../common/types/address.js";
+import type { FolksChainId } from "../../../../common/types/chain.js";
 import type { AccountId } from "../../../../common/types/lending.js";
 import type { MessageParams } from "../../../../common/types/message.js";
 import type { SpokeTokenData } from "../../../../common/types/token.js";
@@ -110,6 +111,12 @@ export type PrepareResendWormholeMessageCall = {
   receiverGasLimit: bigint;
   deliveryProviderAddress: GenericAddress;
   wormholeRelayerAddress: GenericAddress;
+} & Omit<PrepareCall, "messageParams">;
+
+export type PrepareWormholeExecuteVaaCall = {
+  folksChainId: FolksChainId;
+  vaaRaw: Hex;
+  adapterAddress: GenericAddress;
 } & Omit<PrepareCall, "messageParams">;
 
 export type PrepareUpdateAccountsPointsForRewardsV1Call = {

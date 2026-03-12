@@ -4,10 +4,12 @@ import {
   encodeAbiParameters,
   getContract,
   keccak256,
+  pad,
   padHex,
   toHex,
 } from "viem";
 
+import { BYTES32_LENGTH } from "../../../../common/constants/bytes.js";
 import { FOLKS_CHAIN_ID } from "../../../../common/constants/chain.js";
 import { ChainType, NetworkType } from "../../../../common/types/chain.js";
 import { MAINNET_FOLKS_TOKEN_ID } from "../../../../common/types/token.js";
@@ -17,6 +19,7 @@ import { CCIPDataAdapterAbi } from "../constants/abi/ccip-data-adapter-abi.js";
 import { ERC20Abi } from "../constants/abi/erc-20-abi.js";
 import { USDtEthereumAbi } from "../constants/abi/usdt-eth-abi.js";
 import { WormholeDataAdapterAbi } from "../constants/abi/wormhole-data-adapter-abi.js";
+import { WormholeExecutorDataAdapterAbi } from "../constants/abi/wormhole-executor-data-adapter-abi.js";
 import { IWormholeRelayerAbi } from "../constants/abi/wormhole-relayer-abi.js";
 
 import { getEvmSignerAccount, getEvmSignerAddress } from "./chain.js";
@@ -105,6 +108,29 @@ export function getCCIPDataAdapterContract(
   });
 }
 
+export function getWormholeExecutorDataAdapterContract(
+  provider: Client,
+  address: GenericAddress,
+): GetReadContractReturnType<typeof WormholeExecutorDataAdapterAbi>;
+export function getWormholeExecutorDataAdapterContract(
+  provider: Client,
+  address: GenericAddress,
+  signer: WalletClient,
+): GetContractReturnType<typeof WormholeExecutorDataAdapterAbi, Client>;
+export function getWormholeExecutorDataAdapterContract(
+  provider: Client,
+  address: GenericAddress,
+  signer?: WalletClient,
+):
+  | GetReadContractReturnType<typeof WormholeExecutorDataAdapterAbi>
+  | GetContractReturnType<typeof WormholeExecutorDataAdapterAbi, Client> {
+  return getContract({
+    abi: WormholeExecutorDataAdapterAbi,
+    address: convertFromGenericAddress<ChainType.EVM>(address, ChainType.EVM),
+    client: { wallet: signer, public: provider },
+  });
+}
+
 export function extractRevertErrorName(err: unknown): string | undefined {
   if (err instanceof BaseError) {
     const revertError = err.walk((err) => err instanceof ContractFunctionRevertedError);
@@ -131,4 +157,22 @@ export function getAllowanceSlotHash(owner: EvmAddress, spender: EvmAddress, slo
       [spender, keccak256(encodeAbiParameters([{ type: "address" }, { type: "uint256" }], [owner, slot]))],
     ),
   );
+}
+
+export function getWormholeGuardianSetIndexSlotHash(slot = 3n) {
+  return toHex(slot, { size: BYTES32_LENGTH });
+}
+
+export function getWormholeGuardianSetSlotHash(guardiansSetIndex: bigint, slot = 2n) {
+  return keccak256(encodeAbiParameters([{ type: "uint256" }, { type: "uint256" }], [guardiansSetIndex, slot]));
+}
+
+export function getWormholeGuardiansLenSlotHash(guardiansSetIndex: bigint, slot = 2n) {
+  return keccak256(encodeAbiParameters([{ type: "uint256" }, { type: "uint256" }], [guardiansSetIndex, slot]));
+}
+
+export function getWormholeGuardianAddressSlotHash(guardianIndex: bigint, guardiansSetIndex: bigint, slot = 2n) {
+  const structSlot = getWormholeGuardiansLenSlotHash(guardiansSetIndex, slot);
+  const dataSlot = keccak256(encodeAbiParameters([{ type: "uint256" }], [BigInt(structSlot)]));
+  return pad(toHex(BigInt(dataSlot) + guardianIndex), { size: BYTES32_LENGTH });
 }

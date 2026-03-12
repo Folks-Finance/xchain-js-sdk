@@ -1,72 +1,111 @@
-import { ChainType } from "../types/chain.js";
+import { ChainType, NetworkType } from "../types/chain.js";
 import { convertToGenericAddress } from "../utils/address.js";
 
 import { FOLKS_CHAIN_ID } from "./chain.js";
 
 import type { EvmAddress } from "../types/address.js";
 import type { FolksChainId } from "../types/chain.js";
-import type { CCIPData, WormholeData } from "../types/gmp.js";
+import type { CCIPData, WormholeData, MockWormholeGuardiansData } from "../types/gmp.js";
+
+export const MOCK_WORMHOLE_GUARDIANS_DATA: Record<NetworkType, MockWormholeGuardiansData> = {
+  [NetworkType.MAINNET]: {
+    guardianSetIndex: 0,
+    guardiansSetLength: 1,
+    mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
+    address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
+  },
+  [NetworkType.TESTNET]: {
+    guardianSetIndex: 0,
+    guardiansSetLength: 1,
+    mnemonic: "future orbit lunar kingdom solar fossil invest noble arena network crystal energy",
+    address: "0x1D1846C5abcd6D6E798Aae33c2E3A6fa50F52098" as EvmAddress,
+  },
+};
+
+export const WORMHOLE_EXECUTOR_CAPABILITIES_URL: Record<NetworkType, string> = {
+  MAINNET: "https://executor.labsapis.com/v0/capabilities",
+  TESTNET: "https://executor-testnet.labsapis.com/v0/capabilities",
+};
+
+export const REQUEST_PREFIX = {
+  VAA_V1: "ERV1",
+};
 
 export const WORMHOLE_DATA: Record<FolksChainId, WormholeData> = {
   [FOLKS_CHAIN_ID.AVALANCHE]: {
     wormholeChainId: 6,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x54a8e5f9c4CbA08F9943965859F6c34eAF03E26c" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.ETHEREUM]: {
     wormholeChainId: 2,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.BASE]: {
     wormholeChainId: 30,
     wormholeRelayer: convertToGenericAddress("0x706f82e9bb5b0813501714ab5974216704980e31" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.BSC]: {
     wormholeChainId: 4,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.ARBITRUM]: {
     wormholeChainId: 23,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0xa5f208e072434bC67592E4C49C1B991BA79BCA46" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.POLYGON]: {
     wormholeChainId: 5,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x7A4B5a56256163F07b2C80A7cA55aBE66c4ec4d7" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.SEI]: {
     wormholeChainId: 40,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0xCa1D5a146B03f6303baF59e5AD5615ae0b9d146D" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.MONAD]: {
     wormholeChainId: 48,
     wormholeRelayer: convertToGenericAddress("0x27428DD2d3DD32A4D7f7C497eAaa23130d894911" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x194B123c5E96B9b2E49763619985790Dc241CAC0" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.AVALANCHE_FUJI]: {
     wormholeChainId: 6,
     wormholeRelayer: convertToGenericAddress("0xA3cF45939bD6260bcFe3D66bc73d60f19e49a8BB" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x7bbcE28e64B3F8b84d876Ab298393c38ad7aac4C" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.ETHEREUM_SEPOLIA]: {
     wormholeChainId: 10002,
     wormholeRelayer: convertToGenericAddress("0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x4a8bc80Ed5a4067f1CCf107057b8270E0cC11A78" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.BASE_SEPOLIA]: {
     wormholeChainId: 10004,
     wormholeRelayer: convertToGenericAddress("0x93BAD53DDfB6132b0aC8E37f6029163E63372cEE" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x79A1027a6A159502049F10906D333EC57E95F083" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.BSC_TESTNET]: {
     wormholeChainId: 4,
     wormholeRelayer: convertToGenericAddress("0x80aC94316391752A193C1c47E27D382b507c93F3" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x68605AD7b15c732a30b1BbC62BE8F2A509D74b4D" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA]: {
     wormholeChainId: 10003,
     wormholeRelayer: convertToGenericAddress("0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0x6b9C8671cdDC8dEab9c719bB87cBd3e782bA6a35" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.MONAD_TESTNET]: {
     wormholeChainId: 48,
     wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd" as EvmAddress,
   },
   [FOLKS_CHAIN_ID.SEI_TESTNET]: {
     wormholeChainId: 40,
     wormholeRelayer: convertToGenericAddress("0x362fca37E45fe1096b42021b543f462D49a5C8df" as EvmAddress, ChainType.EVM),
+    wormholeCore: "0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd" as EvmAddress,
   },
 };
 
