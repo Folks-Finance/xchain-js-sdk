@@ -19,7 +19,6 @@ import {
 } from "../../common/utils/adapter.js";
 import { convertFromGenericAddress } from "../../common/utils/address.js";
 import {
-  assertFolksChainSelected,
   assertHubChainSelected,
   getFolksChain,
   getSignerGenericAddress,
@@ -218,8 +217,6 @@ export const prepare = {
   },
 
   async executeWormholeVaa(folksChainId: FolksChainId, vaaRaw: Hex, msgValue: bigint, isReward = false) {
-    assertFolksChainSelected(folksChainId, FolksCore.getSelectedFolksChain().folksChainId);
-
     return await FolksEvmGmp.prepare.executeWormholeVaa(
       FolksCore.getProvider<ChainType.EVM>(folksChainId),
       getEvmSignerAddress(FolksCore.getSigner()),
