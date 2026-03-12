@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.108
+
+### Patch Changes
+
+- [#347](https://github.com/Folks-Finance/xchain-js-sdk/pull/347) [`da08646`](https://github.com/Folks-Finance/xchain-js-sdk/commit/da0864621f26f3af6a9348ac088896a1fdc234bb) Thanks [@gidonkatten](https://github.com/gidonkatten)! - add support for new wormhole executor adapter
+
+- [#347](https://github.com/Folks-Finance/xchain-js-sdk/pull/347) [`da08646`](https://github.com/Folks-Finance/xchain-js-sdk/commit/da0864621f26f3af6a9348ac088896a1fdc234bb) Thanks [@gidonkatten](https://github.com/gidonkatten)! - Fixed selected folks chain and provider in folks gmp
+
 ## 0.0.107
 
 ### Patch Changes
