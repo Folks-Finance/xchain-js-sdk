@@ -337,7 +337,7 @@ export const util = {
       let totalRewardsApr = dn.from(0, 18);
 
       // calculations assumes reward rate is constant and consistent
-      const remainingTime = activeEpoch.endTimestamp - BigInt(currTimestamp);
+      const remainingTime = activeEpoch.endTimestamp - currTimestamp;
       const fullEpochTime = activeEpoch.endTimestamp - activeEpoch.startTimestamp;
 
       // loop through rewards

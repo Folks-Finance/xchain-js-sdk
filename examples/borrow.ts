@@ -58,7 +58,6 @@ async function main() {
   const isStableRate = false;
 
   let maxStableRate;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (isStableRate) {
     const poolInfo = await FolksPool.read.poolInfo(tokenId);
     const interestRate = poolInfo.stableBorrowData.interestRate[0];

@@ -49,19 +49,20 @@
     "@commitlint/cz-commitlint": "^19.8.1",
     "@eslint/js": "^9.39.4",
     "@types/node": "^20.19.37",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
     "commitizen": "^4.3.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^9.1.2",
     "eslint-import-resolver-typescript": "^3.10.1",
     "eslint-plugin-import-x": "^0.5.3",
-    "eslint-plugin-unicorn": "^53.0.0",
+    "eslint-plugin-unicorn": "^63.0.0",
     "globals": "^15.15.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^7.18.0"
+    "typescript-eslint": "^8.57.1"
   },
   "config": {
     "commitizen": {

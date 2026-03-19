@@ -733,7 +733,7 @@ export const read = {
     return {
       periodLength: BigInt(periodLength),
       periodOffset: BigInt(periodOffset),
-      periodLimit: BigInt(periodLimit),
+      periodLimit,
       currentCapacity,
       nextPeriodReset,
     };
