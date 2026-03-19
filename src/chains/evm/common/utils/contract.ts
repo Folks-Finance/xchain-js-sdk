@@ -58,7 +58,7 @@ export async function sendERC20Approve(
 
   // approve if not enough
   if (allowance < amount)
-    return await erc20.write.approve([spender, BigInt(amount)], {
+    return await erc20.write.approve([spender, amount], {
       account: getEvmSignerAccount(signer),
       chain: signer.chain,
     });

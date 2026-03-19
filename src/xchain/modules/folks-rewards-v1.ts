@@ -147,7 +147,7 @@ export const util = {
 
     for (const [folksTokenId, activeEpoch] of Object.entries(activeEpochs)) {
       // calculations assumes reward rate is constant and consistent
-      const remainingTime = activeEpoch.endTimestamp - BigInt(currTimestamp);
+      const remainingTime = activeEpoch.endTimestamp - currTimestamp;
       const fullEpochTime = activeEpoch.endTimestamp - activeEpoch.startTimestamp;
 
       // remaining rewards is proportional to remaining time in epoch

@@ -199,9 +199,9 @@ export async function getPoolInfo(
       averageInterestYield: compoundEverySecond([stableBorrowAverageInterestRate, 18]),
     },
     capsData: {
-      deposit: BigInt(depositCap),
-      borrow: BigInt(borrowCap),
-      stableBorrowPercentage: [BigInt(stableBorrowPercentageCap), 18],
+      deposit: depositCap,
+      borrow: borrowCap,
+      stableBorrowPercentage: [stableBorrowPercentageCap, 18],
     },
     configData: {
       deprecated,

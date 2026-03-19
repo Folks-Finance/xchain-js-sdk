@@ -296,20 +296,20 @@ export async function getLoanTypeInfo(
       isDeprecated,
       reward: {
         minimumAmount,
-        collateralSpeed: [BigInt(collateralSpeed), 18],
-        borrowSpeed: [BigInt(borrowSpeed), 18],
+        collateralSpeed: [collateralSpeed, 18],
+        borrowSpeed: [borrowSpeed, 18],
         collateralRewardIndex: calcRewardIndex(
           collateralUsed,
           minimumAmount,
-          [BigInt(oldCollateralRewardIndex), 18],
-          [BigInt(collateralSpeed), 18],
+          [oldCollateralRewardIndex, 18],
+          [collateralSpeed, 18],
           lastUpdateTimestamp,
         ),
         borrowRewardIndex: calcRewardIndex(
           borrowUsed,
           minimumAmount,
-          [BigInt(oldBorrowRewardIndex), 18],
-          [BigInt(borrowSpeed), 18],
+          [oldBorrowRewardIndex, 18],
+          [borrowSpeed, 18],
           lastUpdateTimestamp,
         ),
       },
@@ -319,7 +319,7 @@ export async function getLoanTypeInfo(
   return {
     loanTypeId,
     deprecated,
-    loanTargetHealth: [BigInt(loanTargetHealth), 4],
+    loanTargetHealth: [loanTargetHealth, 4],
     pools,
   };
 }

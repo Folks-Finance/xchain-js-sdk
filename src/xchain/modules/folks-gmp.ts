@@ -343,9 +343,11 @@ export const util = {
 
     // check adapter id is supported
     const spokeTokenData = sendFolksTokenId ? getSpokeTokenData(spokeChain, sendFolksTokenId) : undefined;
-    spokeTokenData && sendFolksTokenId && isCrossChainToken(sendFolksTokenId)
-      ? assertAdapterSupportsCrossChainToken(fromFolksChainId, spokeTokenData.token as CrossChainTokenType, adapterId)
-      : assertAdapterSupportsDataMessage(fromFolksChainId, adapterId);
+    if (spokeTokenData && sendFolksTokenId && isCrossChainToken(sendFolksTokenId)) {
+      assertAdapterSupportsCrossChainToken(fromFolksChainId, spokeTokenData.token as CrossChainTokenType, adapterId);
+    } else {
+      assertAdapterSupportsDataMessage(fromFolksChainId, adapterId);
+    }
 
     return FolksEvmGmp.getSendMessageFee(
       FolksCore.getProvider<ChainType.EVM>(fromFolksChainId),
@@ -375,9 +377,11 @@ export const util = {
     if (!isRewards) {
       if (receiveFolksTokenId === undefined) throw Error("Unspecified receiveFolksTokenId");
       hubTokenData = getHubTokenData(receiveFolksTokenId, network);
-      isCrossChainToken(receiveFolksTokenId)
-        ? assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId)
-        : assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+      if (isCrossChainToken(receiveFolksTokenId)) {
+        assertAdapterSupportsCrossChainToken(toFolksChainId, hubTokenData.token as CrossChainTokenType, adapterId);
+      } else {
+        assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
+      }
     } else {
       assertAdapterSupportsDataMessage(toFolksChainId, adapterId);
     }

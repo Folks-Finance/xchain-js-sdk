@@ -23,7 +23,7 @@ export async function getAccountInfo(
   const accountManager = getAccountManagerContract(provider, hubChain.accountManagerAddress);
 
   // get chain ids to check
-  folksChainIds = folksChainIds ? folksChainIds : getFolksChainIdsByNetwork(network);
+  folksChainIds = folksChainIds ?? getFolksChainIdsByNetwork(network);
 
   // define return variable
   const accountInfo: AccountInfo = {
@@ -74,7 +74,7 @@ export async function getAccountIdByAddress(
   const accountManager = getAccountManagerContract(provider, hubChain.accountManagerAddress);
 
   // get chain ids to check
-  folksChainIds = folksChainIds ? folksChainIds : getFolksChainIdsByNetwork(network);
+  folksChainIds = folksChainIds ?? getFolksChainIdsByNetwork(network);
 
   const accountIds = await multicall(provider, {
     contracts: folksChainIds.map((folksChainId) => ({
