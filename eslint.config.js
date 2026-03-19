@@ -47,6 +47,7 @@ export default tseslint.config(
       "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
       "@typescript-eslint/no-unnecessary-condition": "off",
       "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
+      "@typescript-eslint/switch-exhaustiveness-check": "error",
       "unicorn/better-regex": "error",
       "unicorn/consistent-function-scoping": "error",
       "unicorn/expiring-todo-comments": "error",

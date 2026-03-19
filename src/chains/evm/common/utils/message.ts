@@ -87,8 +87,10 @@ export function buildSendTokenExtraArgsWhenRemoving(
     case TokenType.NATIVE:
     case TokenType.ERC20:
       return "0x";
-    default:
+    case TokenType.CROSS_CHAIN:
       return extraArgsToBytes(folksTokenType.address, spokeAddress, amount);
+    default:
+      return exhaustiveCheck(type);
   }
 }
 
@@ -102,8 +104,10 @@ export function buildSendTokenExtraArgsWhenAdding(
     case TokenType.NATIVE:
     case TokenType.ERC20:
       return "0x";
-    default:
+    case TokenType.CROSS_CHAIN:
       return extraArgsToBytes(folksTokenType.address, hubPoolAddress, amount);
+    default:
+      return exhaustiveCheck(type);
   }
 }
 
@@ -639,13 +643,9 @@ async function getGasToSubtract(
   to: EvmAddress,
   data: Hex,
 ): Promise<bigint> {
-  switch (destinationChainId) {
-    case FOLKS_CHAIN_ID.ARBITRUM:
-    case FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA:
-      return getArbitrumL1Estimation(provider, to, data);
-    default:
-      return 0n;
-  }
+  if (destinationChainId === FOLKS_CHAIN_ID.ARBITRUM || destinationChainId === FOLKS_CHAIN_ID.ARBITRUM_SEPOLIA)
+    return getArbitrumL1Estimation(provider, to, data);
+  return 0n;
 }
 
 async function getArbitrumL1Estimation(provider: Client, to: EvmAddress, data: Hex): Promise<bigint> {
