@@ -160,10 +160,14 @@ export function getSupportedMessageAdapters<T extends MessageAdapterParams>(
         returnAdapterIds: Object.fromEntries(
           rewardTokenIds.map((rewardTokenIds) => [
             rewardTokenIds,
-            getSpokeAdapterIds(
-              getRewardTokenSpokeChain(rewardTokenIds, network, rewardType).folksChainId,
-              network,
-              isRewards,
+            getMessageAdapterIds(params).filter(
+              intersect(
+                getSpokeAdapterIds(
+                  getRewardTokenSpokeChain(rewardTokenIds, network, rewardType).folksChainId,
+                  network,
+                  isRewards,
+                ),
+              ),
             ),
           ]),
         ),
