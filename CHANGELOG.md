@@ -1,5 +1,11 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.110
+
+### Patch Changes
+
+- [#352](https://github.com/Folks-Finance/xchain-js-sdk/pull/352) [`64ec343`](https://github.com/Folks-Finance/xchain-js-sdk/commit/64ec343bc11b8e2fbb384b87a4a37460bc577c07) Thanks [@palace22](https://github.com/palace22)! - Fixed claim reward return adapter id
+
 ## 0.0.109
 
 ### Patch Changes
