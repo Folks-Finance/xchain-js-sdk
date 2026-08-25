@@ -1067,7 +1067,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           },
           [MAINNET_REWARDS_TOKEN_ID.USDT0_arb]: {
             rewardTokenId: MAINNET_REWARDS_TOKEN_ID.USDT0_arb,
-            nodeId: "0x54670d5dc11a4e436bebf3eda9ac73345d9f2d2049ea23434fb187f392cd0a5a" as NodeId,
+            nodeId: "0x2745a2c6c97445f55f5b73737f10f7b835c5846ac71e70cd7d60ee47c0245ef0" as NodeId,
             token: {
               type: TokenType.ERC20,
               decimals: 6,
@@ -1075,7 +1075,7 @@ export const HUB_CHAIN: Record<NetworkType, HubChain> = {
           },
           [MAINNET_REWARDS_TOKEN_ID.SEI]: {
             rewardTokenId: MAINNET_REWARDS_TOKEN_ID.SEI,
-            nodeId: "0xf7ed066f440ac578f2cf837e716771774372adc372b9c59e461cb92a13f6db38" as NodeId,
+            nodeId: "0xb55b96f7ab89922aab1f1333274017bc25fc4f70f595280c45442ea4ec296412" as NodeId,
             token: {
               type: TokenType.NATIVE,
               decimals: 18,
