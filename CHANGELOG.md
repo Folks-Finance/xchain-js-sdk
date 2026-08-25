@@ -1,5 +1,13 @@
 # @folks-finance/xchain-sdk
 
+## 0.0.111
+
+### Patch Changes
+
+- [#354](https://github.com/Folks-Finance/xchain-js-sdk/pull/354) [`f032777`](https://github.com/Folks-Finance/xchain-js-sdk/commit/f032777a56d6ed30b30e0f298245b5784cf9a907) Thanks [@palace22](https://github.com/palace22)! - Updated reward node ids
+
+- [#355](https://github.com/Folks-Finance/xchain-js-sdk/pull/355) [`d049405`](https://github.com/Folks-Finance/xchain-js-sdk/commit/d0494059807ee9fde80d22d45825dcd8cd6120e8) Thanks [@palace22](https://github.com/palace22)! - Pinned npm version in release workflow
+
 ## 0.0.110
 
 ### Patch Changes
